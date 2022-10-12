@@ -1,3 +1,3 @@
-# jetAxtuatorFoam
+# jetActuatorFoam
 Solver for PSj actuators
 
