@@ -165,7 +165,8 @@ int main(int argc, char *argv[])
             {
                 #include "rhoEqn.H"
             }
-
+            
+            #include "fiEqn.H"
             #include "UEqn.H"
             #include "EEqn.H"
 

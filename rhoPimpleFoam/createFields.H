@@ -1,5 +1,31 @@
 #include "createRDeltaT.H"
 
+Info<< "Reading electro-magnetic properties\n" << endl;
+
+volScalarField sigma
+(
+    IOobject
+    (
+        "sigma",
+        runTime.timeName(),
+        mesh,
+        IOobject::READ_IF_PRESENT,
+        IOobject::AUTO_WRITE
+    ),
+);
+
+volScalarField fi
+(
+    IOobject
+    (
+        "fi",
+        runTime.timeName(),
+        mesh,
+        IOobject::READ_IF_PRESENT,
+        IOobject::AUTO_WRITE
+    ),
+);
+
 Info<< "Reading thermophysical properties\n" << endl;
 
 autoPtr<fluidThermo> pThermo
