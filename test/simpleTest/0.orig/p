@@ -33,18 +33,22 @@ boundaryField
         value           uniform $pOut;
     }
 
-    freestream
-    {
-        type            freestreamPressure;
-        freestreamValue uniform $pOut;
-    }
-
-    wall
+    "electrod.*"
     {
         type            zeroGradient;
     }
 
-    #includeEtc "caseDicts/setConstraintTypes"
+    "(front|back)"
+    {
+        type            wedge;
+    }
+
+    axis
+    {
+        type empty;
+    }
+
+    //#includeEtc "caseDicts/setConstraintTypes"
 }
 
 // ************************************************************************* //

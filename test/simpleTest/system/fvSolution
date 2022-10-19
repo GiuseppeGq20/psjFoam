@@ -62,7 +62,7 @@ SIMPLE
 PIMPLE
 {
     consistent      yes;
-    transonic       yes;
+    transonic       no;
     nCorrectors              2;
     nNonOrthogonalCorrectors 1;
     nOuterCorrectors         1;

@@ -22,19 +22,29 @@ internalField   uniform $Tinlet;
 
 boundaryField
 {
-    freestream
+    outlet
     {
         type            inletOutlet;
         inletValue      uniform $Tinlet;
         value           $inletValue;
     }
 
-    wall
+    "electrod.*"
     {
         type            zeroGradient;
     }
 
-    #includeEtc "caseDicts/setConstraintTypes"
+    "(front|back)"
+    {
+        type            wedge;
+    }
+
+    axis
+    {
+        type empty;
+    }
+    
+    //#includeEtc "caseDicts/setConstraintTypes"
 }
 
 // ************************************************************************* //

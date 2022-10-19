@@ -14,7 +14,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-Uinlet          (207 0	3.61);
+Uinlet          (0 0 0);
 
 dimensions      [0 1 -1 0 0 0 0];
 
@@ -22,18 +22,28 @@ internalField   uniform $Uinlet;
 
 boundaryField
 {
-    freestream
+    outlet
     {
         type            freestreamVelocity;
         freestreamValue uniform $Uinlet;
     }
 
-    wall
+    "electrod.*"
     {
         type            noSlip;
     }
 
-    #includeEtc "caseDicts/setConstraintTypes"
+    "(front|back)"
+    {
+        type            wedge;
+    }
+
+    axis
+    {
+        type empty;
+    }
+    
+    //#includeEtc "caseDicts/setConstraintTypes"
 }
 
 // ************************************************************************* //

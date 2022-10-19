@@ -34,7 +34,7 @@ exposedPatchName back;
 
 // Flip surface normals before usage. Valid only for extrude from surface or
 // patch.
-flipNormals false;
+flipNormals true;
 
 //- Wedge extrusion of a single layer
 //  with wedge patches on front and back
@@ -46,8 +46,8 @@ nLayers             1;
 
 sectorCoeffs    //<- Also used for wedge
 {
-    point       (0 0 0);
-    //axisPt       (0 0 -2);
+    //point       (0 0 0);
+    axisPt       (0 0 0);
     axis        (0 0 1);
     angle       5;  // For nLayers=1 assume symmetry so angle/2 on each side
 }
@@ -57,7 +57,7 @@ sectorCoeffs    //<- Also used for wedge
 mergeFaces false;
 
 // Merge small edges. Fraction of bounding box.
-mergeTol 0;
+mergeTol 1e-13;
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
