@@ -1,5 +1,13 @@
-linux64GccDPInt32Opt
 *.log
 .DS_Store
-polyMesh/
-postProcessing*/
+
+
+#openfoam
+test/*
+!0.orig/*
+!constant/*
+!system/*
+:qpolyMesh/
+
+#compiled apps
+linux64GccDPInt32Opt
