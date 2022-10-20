@@ -4,10 +4,10 @@
 
 #openfoam
 test/*
-!0.orig/*
-!constant/*
-!system/*
-:qpolyMesh/
+!0.orig/
+!constant/
+!system/
+polyMesh/
 
 #compiled apps
 linux64GccDPInt32Opt
