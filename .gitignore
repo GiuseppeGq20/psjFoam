@@ -1,13 +1,8 @@
-*.log
+#vscode
+.vscode
+#mac
 .DS_Store
 
-
-#openfoam
-test/*
-!0.orig/
-!constant/
-!system/
-polyMesh/
-
+#global openfoam
 #compiled apps
-linux64GccDPInt32Opt
+linux*64GccDPInt32Opt/
