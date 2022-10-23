@@ -1,6 +1,11 @@
 {
     volScalarField& he = thermo.he();
-
+    
+    volScalarField JouleHeating= sigma*Foam::magSqr(fvc::grad(V));
+    
+    //damping function
+    //dimensionedScalar omega = 1/Foam::sqrt(Foam::max(JouleHeating/rho/he));
+    
     fvScalarMatrix EEqn
     (
         fvm::ddt(rho, he) + fvm::div(phi, he)
@@ -16,7 +21,8 @@
           : -dpdt
         )
       - fvm::laplacian(turbulence->alphaEff(), he)
-     ==
+      - JouleHeating
+    ==
         fvOptions(rho, he)
     );
 

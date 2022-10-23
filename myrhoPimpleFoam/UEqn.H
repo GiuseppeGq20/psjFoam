@@ -7,8 +7,8 @@ tmp<fvVectorMatrix> tUEqn
     fvm::ddt(rho, U) + fvm::div(phi, U)
   + MRF.DDt(rho, U)
   + turbulence->divDevRhoReff(U)
-  - sigma * fvc::grad(fi)
- ==
+  + (J ^ B) //lorentz force
+==
     fvOptions(rho, U)
 );
 fvVectorMatrix& UEqn = tUEqn.ref();

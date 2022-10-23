@@ -165,8 +165,12 @@ int main(int argc, char *argv[])
             {
                 #include "rhoEqn.H"
             }
-            
-            #include "fiEqn.H"
+           
+            // Maxwell eqns
+            #include "VEqn.H"
+            #include "AEqn.H"
+            // 
+
             #include "UEqn.H"
             #include "EEqn.H"
 

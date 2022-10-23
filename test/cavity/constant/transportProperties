@@ -1,3 +1,4 @@
+
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
@@ -9,35 +10,13 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       volScalarField;
-    object      sigma;
+    class       dictionary;
+    object      transportProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-value 1;
-dimensions      [0 0 0 0 0 0 0];
-
-internalField   uniform $value;
-
-boundaryField
-{
-    movingWall
-    {
-        type            fixedValue;
-        value           uniform   $value;
-    }
-
-    fixedWalls
-    {
-        type            fixedValue;
-        value           uniform   $value;    
-    }
-
-    frontAndBack
-    {
-        type            empty;   
-    }
-}
-
+//electromagnetic properties
+sigma       1;
+mu          1;
 
 // ************************************************************************* //

@@ -2,27 +2,55 @@
 
 Info<< "Reading electro-magnetic properties\n" << endl;
 
-volScalarField sigma
+IOdictionary transportProperties
 (
     IOobject
     (
-        "sigma",
+        "transportProperties",
+        runTime.constant(),
+        mesh,
+        IOobject::MUST_READ_IF_MODIFIED,
+        IOobject::NO_WRITE
+    )
+);
+
+dimensionedScalar mu
+(
+    "mu",
+    dimensionSet(1, 1, -2, 0, 0, -2, 0),
+    transportProperties
+);
+
+dimensionedScalar sigma
+(
+    "sigma",
+    dimensionSet(-1, -3, 3, 0, 0, 2, 0),
+    transportProperties
+);
+
+//electric potential
+volScalarField V
+(
+    IOobject
+    (
+        "V",
         runTime.timeName(),
         mesh,
-        IOobject::READ_IF_PRESENT,
+        IOobject::MUST_READ,
         IOobject::AUTO_WRITE
     ),
     mesh
 );
 
-volScalarField fi
+//vector potential
+volVectorField A
 (
     IOobject
     (
-        "fi",
+        "A",
         runTime.timeName(),
         mesh,
-        IOobject::READ_IF_PRESENT,
+        IOobject::MUST_READ,
         IOobject::AUTO_WRITE
     ),
     mesh
