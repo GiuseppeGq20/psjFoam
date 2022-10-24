@@ -7,7 +7,7 @@ tmp<fvVectorMatrix> tUEqn
     fvm::ddt(rho, U) + fvm::div(phi, U)
   + MRF.DDt(rho, U)
   + turbulence->divDevRhoReff(U)
-  + (J ^ B) //lorentz force
+  - (J ^ B) //lorentz force
 ==
     fvOptions(rho, U)
 );
