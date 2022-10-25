@@ -29,8 +29,7 @@ boundaryField
 
     "electrod.*"
     {
-        type            fixedValue;
-        value   uniform (0 0 0);
+        type            zeroGradient;
     }
 
     "(front|back)"

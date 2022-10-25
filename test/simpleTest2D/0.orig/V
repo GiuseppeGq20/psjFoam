@@ -26,10 +26,16 @@ boundaryField
         value   uniform 0;
     }
 
-    "electrod.*"
+    "(electrodSides|electrodFaceTop)"
     {
         type            fixedValue;
         value   uniform 0;
+    }
+    
+    electrodFaceBot
+    {
+        type            fixedValue;
+        value   uniform 1;
     }
 
     "(front|back)"

@@ -30,7 +30,7 @@ solvers
         relTol          0;
     }
 
-    "(rho|U|k|omega|e|nuTilda|V|A)"
+    "(rho|U|k|omega|e|nuTilda)"
     {
         solver          PBiCGStab;
         preconditioner  DILU;
@@ -38,9 +38,23 @@ solvers
         relTol          0.1;
     }
 
+    "(V|A)"
+    {
+        solver          PBiCGStab;
+        preconditioner  DIC;
+        tolerance       1e-6;
+        relTol          0.1;
+    }
+
     "(rho|U|k|omega|e|nuTilda|V|A)Final"
     {
         $U;
+        relTol          0;
+    }
+
+    "(V|A)Final"
+    {
+        $V;
         relTol          0;
     }
 }
