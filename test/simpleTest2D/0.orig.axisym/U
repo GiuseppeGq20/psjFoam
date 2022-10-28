@@ -9,53 +9,41 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    object      controlDict;
+    class       volVectorField;
+    object      U;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-//application     rhoPimpleFoam;
-application     myrhoPimpleFoam;
+Uinlet          (0 0 0);
 
-startFrom       startTime;
+dimensions      [0 1 -1 0 0 0 0];
 
-startTime       0;
+internalField   uniform $Uinlet;
 
-stopAt          endTime;
-
-endTime         0.1;
-
-deltaT          1e-5;
-
-writeControl    adjustable;
-
-writeInterval   0.01;
-
-purgeWrite      0;
-
-writeFormat     binary;
-
-writePrecision   8;
-
-writeCompression off;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable true;
-
-adjustTimeStep    yes;
-
-maxCo           0.6;
-
-functions
+boundaryField
 {
-    //#includeFunc MachNo
-    //#includeFunc solverInfo
-    #includeFunc calcB
-    //#includeFunc wallShearStress
-   
+    outlet
+    {
+        type            fixedValue;
+        value uniform $Uinlet;
+    }
+
+    "electrod.*"
+    {
+        type            noSlip;
+    }
+
+    "(front|back)"
+    {
+        type            wedge;
+    }
+
+    axis
+    {
+        type empty;
+    }
+    
+    //#includeEtc "caseDicts/setConstraintTypes"
 }
 
 // ************************************************************************* //
