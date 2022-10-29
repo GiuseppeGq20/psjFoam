@@ -1,1 +1,1 @@
-../equationOfState/adiabaticPerfectFluid/adiabaticPerfectFluidI.H
+../specie/equationOfState/adiabaticPerfectFluid/adiabaticPerfectFluidI.H

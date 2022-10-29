@@ -1,1 +1,1 @@
-../equationOfState/perfectFluid/perfectFluid.C
+../specie/equationOfState/perfectFluid/perfectFluid.C

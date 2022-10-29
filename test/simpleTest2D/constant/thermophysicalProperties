@@ -20,10 +20,10 @@ thermoType
     type            hePsiThermo;
     mixture         pureMixture;
     transport       const;
-    thermo          hConst;
+    thermo          myhConstSigma;
     equationOfState perfectGas;
     specie          specie;
-    energy          sensibleInternalEnergy;
+    energy          sensibleEnthalpy;
 }
 
 mixture // air at room temperature (293 K)

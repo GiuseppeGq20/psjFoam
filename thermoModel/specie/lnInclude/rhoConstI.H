@@ -1,1 +1,1 @@
-../equationOfState/rhoConst/rhoConstI.H
+../specie/equationOfState/rhoConst/rhoConstI.H

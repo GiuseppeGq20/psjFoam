@@ -1,1 +1,1 @@
-../equationOfState/PengRobinsonGas/PengRobinsonGas.H
+../specie/equationOfState/PengRobinsonGas/PengRobinsonGas.H

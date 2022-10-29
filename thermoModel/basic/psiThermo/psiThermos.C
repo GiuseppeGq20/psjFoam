@@ -49,6 +49,8 @@ License
 
 #include "thermoPhysicsTypes.H"
 
+#include "myhConstSigmaThermo.H"
+
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
@@ -64,6 +66,18 @@ makeThermos
     constTransport,
     sensibleEnthalpy,
     hConstThermo,
+    perfectGas,
+    specie
+);
+
+makeThermos
+(
+    psiThermo,
+    hePsiThermo,
+    pureMixture,
+    constTransport,
+    sensibleEnthalpy,
+    myhConstSigmaThermo,
     perfectGas,
     specie
 );

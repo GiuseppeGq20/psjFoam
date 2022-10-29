@@ -1,1 +1,1 @@
-../atomicWeights/atomicWeights.H
+../specie/atomicWeights/atomicWeights.H

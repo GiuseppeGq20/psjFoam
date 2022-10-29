@@ -1,1 +1,1 @@
-../equationOfState/incompressiblePerfectGas/incompressiblePerfectGas.H
+../specie/equationOfState/incompressiblePerfectGas/incompressiblePerfectGas.H

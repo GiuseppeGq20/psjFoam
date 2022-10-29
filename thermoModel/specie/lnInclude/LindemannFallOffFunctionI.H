@@ -1,1 +1,1 @@
-../reaction/reactionRate/fallOffFunctions/LindemannFallOffFunction/LindemannFallOffFunctionI.H
+../specie/reaction/reactionRate/fallOffFunctions/LindemannFallOffFunction/LindemannFallOffFunctionI.H

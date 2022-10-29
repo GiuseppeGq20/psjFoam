@@ -1,1 +1,1 @@
-../doc/specieDoc.H
+../specie/doc/specieDoc.H

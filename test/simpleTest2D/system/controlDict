@@ -58,4 +58,8 @@ functions
    
 }
 
+/*libs (
+"libfluidThermophysicalModels.so"
+"libspecie.so"
+);*/
 // ************************************************************************* //

@@ -1,1 +1,1 @@
-../include/thermoPhysicsTypes.H
+../specie/include/thermoPhysicsTypes.H

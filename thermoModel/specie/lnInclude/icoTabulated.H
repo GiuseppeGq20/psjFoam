@@ -1,1 +1,1 @@
-../equationOfState/icoTabulated/icoTabulated.H
+../specie/equationOfState/icoTabulated/icoTabulated.H

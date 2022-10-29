@@ -1,1 +1,1 @@
-../reaction/reactionRate/infiniteReactionRate/infiniteReactionRateI.H
+../specie/reaction/reactionRate/infiniteReactionRate/infiniteReactionRateI.H

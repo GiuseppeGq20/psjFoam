@@ -1,1 +1,1 @@
-../equationOfState/rPolynomial/rPolynomial.H
+../specie/equationOfState/rPolynomial/rPolynomial.H

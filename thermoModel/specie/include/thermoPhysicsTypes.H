@@ -60,6 +60,8 @@ Description
 #include "hTabulatedThermo.H"
 #include "icoTabulated.H"
 
+
+#include "myhConstSigmaThermo.H"
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
@@ -77,6 +79,20 @@ namespace Foam
             sensibleEnthalpy
         >
     > constGasHThermoPhysics;
+
+    typedef
+    constTransport
+    <
+        species::thermo
+        <
+            myhConstSigmaThermo
+            <
+                perfectGas<specie>
+            >,
+            sensibleEnthalpy
+        >
+    > myconstGasHThermoPhysics;
+
 
     typedef
     sutherlandTransport

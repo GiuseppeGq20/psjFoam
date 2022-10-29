@@ -1,1 +1,1 @@
-../reaction/reactionRate/powerSeries/powerSeriesReactionRateI.H
+../specie/reaction/reactionRate/powerSeries/powerSeriesReactionRateI.H

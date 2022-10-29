@@ -1,1 +1,1 @@
-../reaction/reactionRate/fallOffFunctions/TroeFallOffFunction/TroeFallOffFunctionI.H
+../specie/reaction/reactionRate/fallOffFunctions/TroeFallOffFunction/TroeFallOffFunctionI.H

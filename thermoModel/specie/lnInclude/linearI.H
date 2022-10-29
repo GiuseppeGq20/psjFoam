@@ -1,1 +1,1 @@
-../equationOfState/linear/linearI.H
+../specie/equationOfState/linear/linearI.H

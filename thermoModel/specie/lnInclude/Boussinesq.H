@@ -1,1 +1,1 @@
-../equationOfState/Boussinesq/Boussinesq.H
+../specie/equationOfState/Boussinesq/Boussinesq.H

@@ -1,1 +1,1 @@
-../equationOfState/perfectGas/perfectGasI.H
+../specie/equationOfState/perfectGas/perfectGasI.H
