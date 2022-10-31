@@ -1,1 +1,0 @@
-../thermo/myhConstSigma/myhConstSigmaThermo.C

@@ -1,1 +1,0 @@
-../specie/reaction/reactionRate/LandauTellerReactionRate/LandauTellerReactionRateI.H
