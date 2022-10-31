@@ -1,0 +1,5 @@
+
+psiThermo/psiThermo.C
+psiThermo/psiThermos.C
+
+LIB = $(FOAM_USER_LIBBIN)/mylibfluidThermophysicalModels
