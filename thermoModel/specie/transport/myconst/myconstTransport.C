@@ -25,45 +25,49 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "psiThermo.H"
-#include "makeThermo.H"
-
-#include "specie.H"
-#include "myperfectGas.H"
-#include "myhConstThermo.H"
-#include "sensibleEnthalpy.H"
-#include "thermo.H"
-
 #include "myconstTransport.H"
+#include "IOstreams.H"
+
+// * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
+template<class Thermo>
+Foam::myconstTransport<Thermo>::myconstTransport(const dictionary& dict)
+:
+    Thermo(dict),
+    mu_(dict.subDict("transport").get<scalar>("mu")),
+    rPr_(1.0/dict.subDict("transport").get<scalar>("Pr"))
+{}
 
 
-#include "hePsiThermo.H"
-#include "pureMixture.H"
+// * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-#include "thermoPhysicsTypes.H"
-
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-
-namespace Foam
+template<class Thermo>
+void Foam::myconstTransport<Thermo>::myconstTransport::write(Ostream& os) const
 {
+    os.beginBlock(this->name());
 
-/* * * * * * * * * * * * * * * * * Enthalpy-based * * * * * * * * * * * * * */
+    Thermo::write(os);
 
-makeThermos
-(
-    psiThermo,
-    hePsiThermo,
-    pureMixture,
-    myconstTransport,
-    sensibleEnthalpy,
-    myhConstThermo,
-    myperfectGas,
-    specie
-);
+    // Entries in dictionary format
+    {
+        os.beginBlock("transport");
+        os.writeEntry("mu", mu_);
+        os.writeEntry("Pr", scalar(1.0/rPr_));
+        os.endBlock();
+    }
+
+    os.endBlock();
+}
 
 
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// * * * * * * * * * * * * * * * IOstream Operators  * * * * * * * * * * * * //
 
-} // End namespace Foam
+template<class Thermo>
+Foam::Ostream& Foam::operator<<(Ostream& os, const myconstTransport<Thermo>& ct)
+{
+    ct.write(os);
+    return os;
+}
+
 
 // ************************************************************************* //

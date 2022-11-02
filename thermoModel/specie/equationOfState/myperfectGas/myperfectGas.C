@@ -25,45 +25,35 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "psiThermo.H"
-#include "makeThermo.H"
-
-#include "specie.H"
 #include "myperfectGas.H"
-#include "myhConstThermo.H"
-#include "sensibleEnthalpy.H"
-#include "thermo.H"
+#include "IOstreams.H"
 
-#include "myconstTransport.H"
+// * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
+template<class Specie>
+Foam::myperfectGas<Specie>::myperfectGas(const dictionary& dict)
+:
+    Specie(dict)
+{}
 
 
-#include "hePsiThermo.H"
-#include "pureMixture.H"
+// * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-#include "thermoPhysicsTypes.H"
-
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-
-namespace Foam
+template<class Specie>
+void Foam::myperfectGas<Specie>::write(Ostream& os) const
 {
-
-/* * * * * * * * * * * * * * * * * Enthalpy-based * * * * * * * * * * * * * */
-
-makeThermos
-(
-    psiThermo,
-    hePsiThermo,
-    pureMixture,
-    myconstTransport,
-    sensibleEnthalpy,
-    myhConstThermo,
-    myperfectGas,
-    specie
-);
+    Specie::write(os);
+}
 
 
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// * * * * * * * * * * * * * * * Ostream Operator  * * * * * * * * * * * * * //
 
-} // End namespace Foam
+template<class Specie>
+Foam::Ostream& Foam::operator<<(Ostream& os, const myperfectGas<Specie>& pg)
+{
+    pg.write(os);
+    return os;
+}
+
 
 // ************************************************************************* //

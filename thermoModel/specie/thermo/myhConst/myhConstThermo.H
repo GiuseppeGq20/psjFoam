@@ -146,8 +146,11 @@ public:
 
         // Fundamental properties
 
-            //- Heat capacity at constant pressure [J/(kg K)]
+            //- Heat capacity [J/(kg K)]
             inline scalar Cp(const scalar p, const scalar T) const;
+
+            //- electric conductivity [S/m]
+            inline scalar Sigma(const scalar p, const scalar T) const;
 
             //- Absolute Enthalpy [J/kg]
             inline scalar Ha(const scalar p, const scalar T) const;
@@ -171,7 +174,8 @@ public:
 
 
             //- Temperature derivative of heat capacity at constant pressure
-            inline scalar dCpdT(const scalar p, const scalar T) const;
+            
+            // inline scalar dCpdT(const scalar p, const scalar T) const;
 
 
 
