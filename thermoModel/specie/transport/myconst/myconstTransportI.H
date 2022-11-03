@@ -83,7 +83,7 @@ inline Foam::scalar Foam::myconstTransport<Thermo>::mu
 ) const
 {   
     #include "mu.H"
-    return mud;
+    return  static_cast<scalar>(mu);
 }
 
 
@@ -96,7 +96,7 @@ inline Foam::scalar Foam::myconstTransport<Thermo>::kappa
 {
     //return this->Cp(p, T)*mu(p, T)*rPr_;
     #include "kappa.H"
-    return kappa;
+    return static_cast<scalar>(kappa);
 }
 
 

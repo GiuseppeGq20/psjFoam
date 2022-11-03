@@ -6,3 +6,10 @@
 #global openfoam
 #compiled apps
 linux*64GccDPInt32Opt/
+
+#binaries
+*.out
+
+#data
+*.txt
+*.dat
