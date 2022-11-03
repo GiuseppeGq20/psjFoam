@@ -1,1 +1,1 @@
-../thermo/myhConst/sigma.H
+../customModel/sigma.H

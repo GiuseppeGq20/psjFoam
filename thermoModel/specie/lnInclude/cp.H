@@ -1,1 +1,1 @@
-../thermo/myhConst/cp.H
+../customModel/cp.H

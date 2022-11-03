@@ -1,9 +1,9 @@
-    double patm=p/101325;
+    double patm=p/101325.0;
     
 
 
 	
-	int n=5;  //numero elementi di x
+	const int n=5;  //numero elementi di x
 
 		
 	//Coef Tab 25
@@ -255,7 +255,7 @@
 	
 
 	
-	scalar Sigma=exp(log_sigma_elec);
+	double Sigma=exp(log_sigma_elec);
 	
 	
 

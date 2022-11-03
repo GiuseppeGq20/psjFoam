@@ -1,1 +1,1 @@
-../equationOfState/myperfectGas/MM.H
+../customModel/MM.H

@@ -1,1 +1,1 @@
-../transport/myconst/kappa.H
+../customModel/kappa.H

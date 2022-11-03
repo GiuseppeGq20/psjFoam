@@ -1,7 +1,7 @@
 //Dynamic Viscosity [kg/(ms)]
 // il codice vuole p in atm e T in K
     double patm=p/101325;
-	int n=6;  //numero elementi di x
+	const int n=6;  //numero elementi di x
 
 		
 	//Coef Tab 25
@@ -152,7 +152,7 @@
 	//a5,c5,delta5
 	double sigma5_log_a5v[n],sigma5_log_c5v[n],sigma5_log_delta5v[n];
 	double a_5=0, c_5=0, delta_5=0;	
-	for(int i=0; i<4; i++)
+	for(int i=0; i<n; i++)
 	{
 	    sigma5_log_a5v[i]=    sigma5_log_a5[i]*x[i];
 	    sigma5_log_c5v[i]=    sigma5_log_c5[i]*x[i];
@@ -170,7 +170,7 @@
 	//a6,c6,delta6
 	double sigma6_log_a6v[n],sigma6_log_c6v[n],sigma6_log_delta6v[n];
 	double a_6=0, c_6=0, delta_6=0;
-	for(int i=0; i<4; i++)
+	for(int i=0; i<n; i++)
 	{
 	    sigma6_log_a6v[i]=    sigma6_meno_a6[i]*x[i];
 	    sigma6_log_c6v[i]=    sigma6_log_c6[i]*x[i];
@@ -191,7 +191,7 @@
 	//a7,c7,delta7
 	double sigma7_log_a7v[n],sigma7_log_c7v[n],sigma7_log_delta7v[n];
 	double a_7=0, c_7=0, delta_7=0;
-	for(int i=0; i<4; i++)
+	for(int i=0; i<n; i++)
 	{
 	    sigma7_log_a7v[i]=    sigma7_meno_log_a7[i]*x[i];
 	    sigma7_log_c7v[i]=    sigma7_log_c7[i]*x[i];
@@ -211,7 +211,7 @@
 	//a8,c8,delta8
 	double sigma8_log_meno_a8v[n],sigma8_log_c8v[n],sigma8_log_delta8v[n];
 	double a_8=0, c_8=0, delta_8=0;
-	for(int i=0; i<4; i++)
+	for(int i=0; i<n; i++)
 	{
 	    sigma8_log_meno_a8v[i]=    sigma8_meno_log_a8[i]*x[i];
 	    sigma8_log_c8v[i]=    sigma8_log_c8[i]*x[i];
@@ -231,7 +231,7 @@
 	//a9,c9,delta9
 	double sigma9_log_a9v[n],sigma9_log_c9v[n],sigma9_log_delta9v[n];
 	double a_9=0, c_9=0, delta_9=0;
-	for(int i=0; i<4; i++)
+	for(int i=0; i<n; i++)
 	{
 	    sigma9_log_a9v[i]=    sigma9_meno_log_a9[i]*x[i];
 	    sigma9_log_c9v[i]=    sigma9_log_c9[i]*x[i];
@@ -252,7 +252,7 @@
 	//a10,c10,delta10
 	double sigma10_log_a10v[n],sigma10_log_c10v[n],sigma10_log_delta10v[n];
 	double a_10=0, c_10=0, delta_10=0;
-	for(int i=0; i<4; i++)
+	for(int i=0; i<n; i++)
 	{
 	    sigma10_log_a10v[i]=    sigma10_a10[i]*x[i];
 	    sigma10_log_c10v[i]=    sigma10_log_c10[i]*x[i];
@@ -304,7 +304,7 @@
 
 	
 	//Definizione a aa
-	double a[5]={a_1,a_2,a_3,a_4,a_5}, aa[5]={a_7,a_8,a_9,a_10};
+	double a[5]={a_1,a_2,a_3,a_4,a_5}, aa[5]={a_6,a_7,a_8,a_9,a_10};
 	
 	//CALCOLO Kappa
 	
@@ -322,8 +322,6 @@
 	
 	double log_mu=log( eps0+z)+h;	
 	
-
-	
-	scalar mud=exp(log_mu);
+    double mu=exp(log_mu);
 	
 	 

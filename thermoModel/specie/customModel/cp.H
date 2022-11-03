@@ -1,11 +1,7 @@
 // Specific Heat [cal/(gK)]
-	
-
-	
-
-	
+		
     double patm=p/101325;
-	int n=7;  //numero elementi di x
+	const int n=7;  //numero elementi di x
 
 
 
@@ -20,8 +16,8 @@
 	double sigma1_log_delta1[n]= {8.043134, 3.294414e-1, 4.681080e-2, -1.509745e-3, -4.534410e-4,0,0};
 	
 	double sigma2_log_a2[n]=		{-2.305816, 9.286290e-2, -1.095463e-2, -1.929857e-3, -2.358095e-4,0,0};	
-	double sigma2_log_c2[n]=		{7.803107, 6.576559e-2, 1.214098e-4, -2.773380e-4,0,0};	
-	double sigma2_log_delta2[n]= {6.212416, 1.085758e-1, -1.459860e-2, 4.297049e-4,0,0};
+	double sigma2_log_c2[n]=		{7.803107, 6.576559e-2, 1.214098e-4, -2.773380e-4,0,0,0};	
+	double sigma2_log_delta2[n]= {6.212416, 1.085758e-1, -1.459860e-2, 4.297049e-4,0,0,0};
 
 	double sigma3_log_a3[n]=		{1.885717e+1, 1.564732e+1, 3.946648, 2.094257e-1, -4.423704e-2,-5.854376e-3, -1.750164e-4};	
 	double sigma3_log_c3[n]=				{1.174382e+1, 1.351866e-1, -5.421755e-2, -1.623227e-2, 7.438041e-4,4.977237e-4, 3.456374e-5};	
@@ -55,9 +51,6 @@
 	double gamma8_log_delta8[n]= 		{7.915774, 9.011657e-2, -7.629395e-4, -1.579088e-4,0,0, 0};	
 
 	
-	
-	
-
 	
 	double gamma9_log_a9[n]=				{1.658985, -1.098660e-1, -7.382403e-3, -1.597338e-3, -1.259823e-4,0,0};	
 	double gamma9_log_c9[n]=				{1.030698e+1, 6.396773e-2, 1.387554e-3, 5.277379e-5,0,0,0};	
@@ -168,7 +161,7 @@
 	//a5,c5,delta5
 	double sigma5_log_a5v[n],sigma5_log_c5v[n],sigma5_log_delta5v[n];
 	double a_5=0, c_5=0, delta_5=0;	
-	for(int i=0; i<4; i++)
+	for(int i=0; i<n; i++)
 	{
 	    sigma5_log_a5v[i]=    sigma5_log_a5[i]*x[i];
 	    sigma5_log_c5v[i]=    sigma5_log_c5[i]*x[i];
@@ -186,7 +179,7 @@
 	//a6,c6,delta6
 	double gamma6_log_a6v[n],gamma6_log_c6v[n],gamma6_log_delta6v[n];
 	double a_6=0, c_6=0, delta_6=0;
-	for(int i=0; i<4; i++)
+	for(int i=0; i<n; i++)
 	{
 	    gamma6_log_a6v[i]=    gamma6_log_a6[i]*x[i];
 	    gamma6_log_c6v[i]=    gamma6_log_c6[i]*x[i];
@@ -207,7 +200,7 @@
 	//a7,c7,delta7
 	double gamma7_log_a7v[n],gamma7_log_c7v[n],gamma7_log_delta7v[n];
 	double a_7=0, c_7=0, delta_7=0;
-	for(int i=0; i<4; i++)
+	for(int i=0; i<n; i++)
 	{
 	    gamma7_log_a7v[i]=    gamma7_log_a7[i]*x[i];
 	    gamma7_log_c7v[i]=    gamma7_log_c7[i]*x[i];
@@ -227,7 +220,7 @@
 	//a8,c8,delta8
 	double gamma8_log_a8v[n],gamma8_log_c8v[n],gamma8_log_delta8v[n];
 	double a_8=0, c_8=0, delta_8=0;
-	for(int i=0; i<4; i++)
+	for(int i=0; i<n; i++)
 	{
 	    gamma8_log_a8v[i]=    gamma8_log_a8[i]*x[i];
 	    gamma8_log_c8v[i]=    gamma8_log_c8[i]*x[i];
@@ -247,7 +240,7 @@
 	//a9,c9,delta9
 	double gamma9_log_a9v[n],gamma9_log_c9v[n],gamma9_log_delta9v[n];
 	double a_9=0, c_9=0, delta_9=0;
-	for(int i=0; i<4; i++)
+	for(int i=0; i<n; i++)
 	{
 	    gamma9_log_a9v[i]=    gamma9_log_a9[i]*x[i];
 	    gamma9_log_c9v[i]=    gamma9_log_c9[i]*x[i];
@@ -268,7 +261,7 @@
 	//a10,c10,delta10
 	double gamma10_log_a10v[n],gamma10_log_c10v[n],gamma10_log_delta10v[n];
 	double a_10=0, c_10=0, delta_10=0;
-	for(int i=0; i<4; i++)
+	for(int i=0; i<n; i++)
 	{
 	    gamma10_log_a10v[i]=    gamma10_log_a10[i]*x[i];
 	    gamma10_log_c10v[i]=    gamma10_log_c10[i]*x[i];
@@ -289,7 +282,7 @@
 	//a11,c11,delta11
 	double gamma11_log_a11v[n],gamma11_log_c11v[n],gamma11_log_delta11v[n];
 	double a_11=0, c_11=0, delta_11=0;
-	for(int i=0; i<4; i++)
+	for(int i=0; i<n; i++)
 	{
 	    gamma11_log_a11v[i]=    gamma11_log_a11[i]*x[i];
 	    gamma11_log_c11v[i]=    gamma11_log_c11[i]*x[i];
@@ -352,12 +345,12 @@
 		z=z+a[i]*sigma[i];
 	}
 	
-	for (int i=0; i<5; i++)
+	for (int i=0; i<6; i++)
 	{
 		h=h+aa[i]*gamma[i];
 	}
 	
 	double cp=pc_0+pc_1*T+z+h;	
 			
-	scalar Cp=cp*4.1867999409*1000; // conversion from cal/g*K to J/Kg*K
+	double Cp=cp*4.1867999409*1000; // conversion from cal/g*K to J/Kg*K
 

@@ -1,7 +1,7 @@
 //Specific entropy [cal/(g K)]
 // il codice vuole p in atm e T in K
-    double patm=p/101325;
-	int n=4;  //numero elementi di x
+    double patm=p/101325.0;
+	const int n=4;  //numero elementi di x
 
 
 
@@ -152,7 +152,7 @@
 	//a5,c5,delta5
 	double sigma5_log_a5v[n],sigma5_log_c5v[n],sigma5_log_delta5v[n];
 	double a_5=0, c_5=0, delta_5=0;	
-	for(int i=0; i<4; i++)
+	for(int i=0; i<n; i++)
 	{
 	    sigma5_log_a5v[i]=    sigma5_log_a5[i]*x[i];
 	    sigma5_log_c5v[i]=    sigma5_log_c5[i]*x[i];
@@ -170,7 +170,7 @@
 	//a6,c6,delta6
 	double sigma6_a6v[n],sigma6_log_c6v[n],sigma6_log_delta6v[n];
 	double a_6=0, c_6=0, delta_6=0;
-	for(int i=0; i<4; i++)
+	for(int i=0; i<n; i++)
 	{
 	    sigma6_a6v[i]=    sigma6_a6[i]*x[i];
 	    sigma6_log_c6v[i]=    sigma6_log_c6[i]*x[i];
@@ -191,7 +191,7 @@
 	//a7,c7,delta7
 	double sigma7_log_a7v[n],sigma7_log_c7v[n],sigma7_log_delta7v[n];
 	double a_7=0, c_7=0, delta_7=0;
-	for(int i=0; i<4; i++)
+	for(int i=0; i<n; i++)
 	{
 	    sigma7_log_a7v[i]=    sigma7_log_a7[i]*x[i];
 	    sigma7_log_c7v[i]=    sigma7_log_c7[i]*x[i];
@@ -246,13 +246,13 @@
 	
 	double z=0; 
 	
-	for (int i=0; i<5; i++)
+	for (int i=0; i<7; i++)
 	{
 		z=z+a[i]*sigma[i];
 	}
 	
 	
 	
-	double S_OF=z+phi0;	
+	double S=z+phi0;	
 	
-	scalar S=S_OF*4.1867999409*1000; // conversion from cal/g*K to J/Kg*K
+	S=S*4.1867999409*1000; // conversion from cal/g*K to J/Kg*K

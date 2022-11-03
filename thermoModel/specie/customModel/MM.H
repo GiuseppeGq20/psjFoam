@@ -115,7 +115,7 @@
 	//a5,c5,delta5
 	double sigma5_log_a5v[n],sigma5_log_c5v[n],sigma5_log_delta5v[n];
 	double a_5=0, c_5=0, delta_5=0;	
-	for(int i=0; i<4; i++)
+	for(int i=0; i<n; i++)
 	{
 	    sigma5_log_a5v[i]=    sigma5_log_a5[i]*x[i];
 	    sigma5_log_c5v[i]=    sigma5_log_c5[i]*x[i];
@@ -133,7 +133,7 @@
 	//a6,c6,delta6
 	double sigma6_log_a6v[n],sigma6_log_c6v[n],sigma6_log_delta6v[n];
 	double a_6=0, c_6=0, delta_6=0;
-	for(int i=0; i<4; i++)
+	for(int i=0; i<n; i++)
 	{
 	    sigma6_log_a6v[i]=    sigma6_log_a6[i]*x[i];
 	    sigma6_log_c6v[i]=    sigma6_log_c6[i]*x[i];
@@ -183,12 +183,12 @@
 	
 	double z=0; 
 	
-	for (int i=0; i<5; i++)
+	for (int i=0; i<6; i++)
 	{
 		z=z+a[i]*sigma[i];
 	}
 	
 
 	
-	scalar MM=c0-z;	
+	double MM=(c0-z)*1000.0; //[Kg/Kmol]	
 	

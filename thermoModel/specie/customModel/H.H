@@ -1,9 +1,9 @@
 //Specific entalpy [cal/g]
 // il codice vuole p in atm e T in K
 
-	int n=10;  //numero elementi di x
+	const int n=10;  //numero elementi di x
 
-    double patm=p/101325;
+    double patm=p/101325.0;
 
 	double x[n]={pow(log(patm),0), pow(log(patm),1), pow(log(patm),2), pow(log(patm),3), pow(log(patm),4), pow(log(patm),5), pow(log(patm),6), pow(log(patm),7), pow(log(patm),8), pow(log(patm),9)};
 
@@ -40,9 +40,9 @@
 	double gamma6_log_delta6[n]= 		{8.942747, 8.687938e-2, 1.554323e-2, 3.584506e-5, -2.447405e-4,0,0,0,0,0};	
 	
 	
-	double sigma7_log_a7[n]=				{ -1.011841e+1, -2.295953e+1, -1.220667e+1, -3.504472, -4.373233e-1, 1.127311e-2,0,0,0,0};	
-	double sigma7_log_c7[n]=				{1.314544e+1, 2.079129, 9.992304e-1, 2.223931e-1, 1.963954e-2, -1.622592e-4,0,0,0,0};	
-	double sigma7_log_delta7[n]= 		{-1.743314, -1.807206e+1, -1.393980e+1, -5.232064, -7.607736e-1, 8.529592e-2,0,0,0,0};
+	double sigma7_log_a7[n]=				{ -1.011841e+1, -2.295953e+1, -1.220667e+1, -3.504472, -4.373233e-1, 1.127311e-2,6.598926e-3,-2.119755e-4,-1.369506e-4,-8.311253e-6};	
+	double sigma7_log_c7[n]=				{1.314544e+1, 2.079129, 9.992304e-1, 2.223931e-1, 1.963954e-2, -1.622592e-4,-1.094608e-5,2.304744e-5,1.817656e-6,0};	
+	double sigma7_log_delta7[n]= 		{-1.743314, -1.807206e+1, -1.393980e+1, -5.232064, -7.607736e-1, 8.529592e-2,4.967101e-2,7.733746e-3,5.507513e-4,1.527569e-5};
 
 
 
@@ -148,7 +148,7 @@
 	//a5,c5,delta5
 	double sigma5_log_a5v[n],sigma5_log_c5v[n],sigma5_log_delta5v[n];
 	double a_5=0, c_5=0, delta_5=0;	
-	for(int i=0; i<4; i++)
+	for(int i=0; i<n; i++)
 	{
 	    sigma5_log_a5v[i]=    sigma5_log_a5[i]*x[i];
 	    sigma5_log_c5v[i]=    sigma5_log_c5[i]*x[i];
@@ -165,8 +165,8 @@
 		
 	//a6,c6,delta6
 	double gamma6_log_a6v[n],gamma6_log_c6v[n],gamma6_log_delta6v[n];
-	double a_6=0, c_6=0, delta_6=0;
-	for(int i=0; i<4; i++)
+	double a_6=0.0, c_6=0.0, delta_6=0.0;
+	for(int i=0; i<n; i++)
 	{
 	    gamma6_log_a6v[i]=    gamma6_log_a6[i]*x[i];
 	    gamma6_log_c6v[i]=    gamma6_log_c6[i]*x[i];
@@ -186,8 +186,8 @@
 	
 	//a7,c7,delta7
 	double sigma7_log_a7v[n],sigma7_log_c7v[n],sigma7_log_delta7v[n];
-	double a_7=0, c_7=0, delta_7=0;
-	for(int i=0; i<4; i++)
+	double a_7=0.0, c_7=0.0, delta_7=0.0;
+	for(int i=0; i<n; i++)
 	{
 	    sigma7_log_a7v[i]=    sigma7_log_a7[i]*x[i];
 	    sigma7_log_c7v[i]=    sigma7_log_c7[i]*x[i];
@@ -220,9 +220,9 @@
 	double q[7]={q1,q2,q3,q4,q5,q6,q7};
     
 	//Definizione sigma
-	double sigma[5]; 
+	double sigma[7]; 
 	
-	for (int j=0; j<5; j++)
+	for (int j=0; j<7; j++)
 	{
 		sigma[j]=exp(q[j])/(exp(q[j])+exp(-q[j]));
 
@@ -237,9 +237,9 @@
 
 	//CALCOLO H
 	
-	double z=0; 
+	double z=0.0; 
 	
-	for (int i=0; i<5; i++)
+	for (int i=0; i<7; i++)
 	{
 		z=z+a[i]*sigma[i];
 	}
@@ -248,4 +248,4 @@
 	
 	double ent=pc_1*T+pc_2*pow(T,2)+z;
 	
-	scalar H=ent*4.1867999409*1000; // conversion from cal/g to J/Kg
+	double H=ent*4.1867999409*1000.0; // conversion from cal/g to J/Kg
