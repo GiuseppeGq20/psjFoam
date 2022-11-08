@@ -1,7 +1,8 @@
 #include <iostream>
 #include <fstream>
-#include <cmath>
+#include "scalar.H"
 
+using namespace Foam;
 
 const int N=100;
 const double R= 8314.0; //[J/Kmol/K]
@@ -59,7 +60,7 @@ int main(){
     }
 
     //set pressure [Pa]
-    const double p=1e5;    
+    const double p=101325.0;    
     // create file
     std::ofstream file;
 

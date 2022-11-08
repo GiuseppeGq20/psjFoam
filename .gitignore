@@ -4,12 +4,14 @@
 .DS_Store
 
 #global openfoam
+lnInclude/
 #compiled apps
 linux*64GccDPInt32Opt/
 
 #binaries
 *.out
+*.dSYM
 
 #data
-*.txt
+
 *.dat
