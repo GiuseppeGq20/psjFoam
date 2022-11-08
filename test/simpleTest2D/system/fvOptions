@@ -17,6 +17,7 @@ FoamFile
 limitT
 {
     type       limitTemperature;
+    active     yes;
     min        101;
     max        2000;
     selectionMode all;

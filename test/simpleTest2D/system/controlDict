@@ -53,7 +53,7 @@ functions
 {
     //#includeFunc MachNo
     //#includeFunc solverInfo
-    #includeFunc calcB
+    //#includeFunc calcB
     //#includeFunc wallShearStress
    
 }
