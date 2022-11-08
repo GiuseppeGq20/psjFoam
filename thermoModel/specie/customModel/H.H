@@ -2,7 +2,8 @@
 // il codice vuole p in atm e T in K
 
 	const int n=10;  //numero elementi di x
-
+    
+    
     double patm=p/101325.0;
 
 	double x[n]={pow(log(patm),0), pow(log(patm),1), pow(log(patm),2), pow(log(patm),3), pow(log(patm),4), pow(log(patm),5), pow(log(patm),6), pow(log(patm),7), pow(log(patm),8), pow(log(patm),9)};
@@ -22,50 +23,30 @@
 	double sigma3_log_c3[n]=				{9.593196, 7.089945e-2, 1.640521e-3, -1.055407e-4, -1.510653e-5,0,0,0,0,0};	
 	double sigma3_log_delta3[n]= 		{7.910995, 1.006930e-1, -1.608832e-3, -2.526731e-4,0,0,0,0,0,0};
 		
-		
 	double sigma4_log_a4[n]=				{1.082665e+1, -4.777223e-2, -4.682547e-3,0,0,0,0,0,0,0};	
 	double sigma4_log_c4[n]=				{1.030572e+1, 6.607308e-2, 1.512694e-3, -5.009486e-5, -5.192881e-6, 1.116840e-6,0,0,0,0};	
 	double sigma4_log_delta4[n]= 		{8.320951, 7.474585e-2, 1.789257e-3, 5.273341e-4, 3.755570e-5, 3.425485e-6,0,0,0,0};
-	
 		
 	double sigma5_log_a5[n]=				{1.145937e+1, 5.122940e-4, -8.805300e-3, -1.193042e-3,0,0,0,0,0,0};	
 	double sigma5_log_c5[n]=				{1.076031e+1, 6.404003e-2, 9.621465e-4, -1.883920e-5,0,0,0,0,0,0};	
 	double sigma5_log_delta5[n]= 		{8.846750, 1.307197e-1, -2.943134e-4, -6.425060e-4,0,0,0,0,0,0};	
 	
-	
-	
-	
 	double gamma6_log_a6[n]=				{1.172458e+1, -5.461477e-2, 3.413385e-3, 7.407737e-4, -1.644220e-4, -1.878043e-5,0,0,0,0};	
 	double gamma6_log_c6[n]=				{1.109244e+1, 6.026294e-2, 1.125935e-3, -2.170126e-5, -3.141895e-6,0,0,0,0,0};	
 	double gamma6_log_delta6[n]= 		{8.942747, 8.687938e-2, 1.554323e-2, 3.584506e-5, -2.447405e-4,0,0,0,0,0};	
 	
-	
 	double sigma7_log_a7[n]=				{ -1.011841e+1, -2.295953e+1, -1.220667e+1, -3.504472, -4.373233e-1, 1.127311e-2,6.598926e-3,-2.119755e-4,-1.369506e-4,-8.311253e-6};	
 	double sigma7_log_c7[n]=				{1.314544e+1, 2.079129, 9.992304e-1, 2.223931e-1, 1.963954e-2, -1.622592e-4,-1.094608e-5,2.304744e-5,1.817656e-6,0};	
 	double sigma7_log_delta7[n]= 		{-1.743314, -1.807206e+1, -1.393980e+1, -5.232064, -7.607736e-1, 8.529592e-2,4.967101e-2,7.733746e-3,5.507513e-4,1.527569e-5};
-
-
-
-
 	
-	
-	
-
-
-
 	//Calcolo coef
 
-    
-	double pc1v[n],pc2v[n];
 	double pc_1=0, pc_2=0;
 	
 	for(int i=0; i<n; i++)
 	{
-	    pc1v[i]=    pc1[i]*x[i];
-	    pc2v[i]=    pc2[i]*x[i];
-	     
-	    pc_1=pc_1+pc1v[i];
-	    pc_2=pc_2+pc2v[i];
+	    pc_1=pc_1+pc1[i]*x[i];
+	    pc_2=pc_2+pc2[i]*x[i];
 	    
 	}
 
@@ -77,7 +58,7 @@
 	{
 	    sigma1_a1v[i]=    sigma1_log_a1[i]*x[i];
 	    sigma1_c1v[i]=    sigma1_log_c1[i]*x[i];
-	    sigma1_delta1v[i]=sigma1_log_delta1[i]*x[i];
+	    sigma1_delta1v[i]= sigma1_log_delta1[i]*x[i];
 	    
 	    a_1=a_1+sigma1_a1v[i];
 	    c_1=c_1+sigma1_c1v[i];
@@ -225,7 +206,6 @@
 	for (int j=0; j<7; j++)
 	{
 		sigma[j]=exp(q[j])/(exp(q[j])+exp(-q[j]));
-
 	}
 	
 
@@ -247,5 +227,5 @@
 	
 	
 	double ent=pc_1*T+pc_2*pow(T,2)+z;
-	
-	double H=ent*4.1867999409*1000.0; // conversion from cal/g to J/Kg
+    double H=ent*4.1867999409*1000.0; // conversion from cal/g to J/Kg
+

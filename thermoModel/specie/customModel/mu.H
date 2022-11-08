@@ -1,6 +1,6 @@
 //Dynamic Viscosity [kg/(ms)]
 // il codice vuole p in atm e T in K
-    double patm=p/101325;
+    double patm=p/101325.0;
 	const int n=6;  //numero elementi di x
 
 		

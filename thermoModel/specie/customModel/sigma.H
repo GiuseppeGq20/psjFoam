@@ -40,7 +40,7 @@
 	double sigma6_log_delta6[n]= 		{1.130562e+1, -2.184155e-2, -1.865543e-4,0,0};	
 	
 	
-	double sigma7_log_a7[n]=				{};	
+	//a_7 is definied later because it depends on other a's coefficient
 	double sigma7_log_c7[n]=				{2.946755e+1, -4.289010, -3.224136e-1, 9.371814e-2,0};	
 	double sigma7_log_delta7[n]= 		{2.430324e+1, -2.653523, -3.309222e-1, 4.769061e-2,0};
 	

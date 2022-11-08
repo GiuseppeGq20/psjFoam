@@ -132,11 +132,14 @@ inline Foam::scalar Foam::myhConstThermo<EquationOfState>::Hs
     const scalar p, const scalar T
 ) const
 {
-    return Cp_*(T - Tref_) + Hsref_ + EquationOfState::H(p, T);
+    //return Cp_*(T - Tref_) + Hsref_ + EquationOfState::H(p, T);
     
     //custom model
-    //#include "H.H"
-    //return static_cast<scalar>(H);
+    #include "H.H"
+    return static_cast<scalar>(H) + Hsref_ + EquationOfState::H(p, T);
+    
+    //return Cp_*(T - Tref_) + Hsref_ + EquationOfState::H(p, T); 
+
 }
 
 
@@ -153,11 +156,11 @@ inline Foam::scalar Foam::myhConstThermo<EquationOfState>::S
     const scalar p, const scalar T
 ) const
 {
-    return Cp_*log(T/Tstd) + EquationOfState::S(p, T);
+    //return Cp_*log(T/Tstd) + EquationOfState::S(p, T);
     
     //custom model
-    //#include "S.H"
-    //return static_cast<scalar>(S);
+    #include "S.H"
+    return static_cast<scalar>(S);
 }
 
 
@@ -170,16 +173,16 @@ inline Foam::scalar Foam::myhConstThermo<EquationOfState>::Gstd
     return Cp_*(T - Tref_) + Hsref_ + Hc() - Cp_*T*log(T/Tstd);
 }
 
-/*
-template<class EquationOfState>
+
+/*template<class EquationOfState>
 inline Foam::scalar Foam::myhConstThermo<EquationOfState>::dCpdT
 (
     const scalar p, const scalar T
 ) const
 {
     return 0;
-}
-*/
+}*/
+
 
 // * * * * * * * * * * * * * * * Member Operators  * * * * * * * * * * * * * //
 

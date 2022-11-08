@@ -75,7 +75,7 @@ inline Foam::autoPtr<Foam::myperfectGas<Specie>> Foam::myperfectGas<Specie>::New
 template<class Specie>
 inline Foam::scalar Foam::myperfectGas<Specie>::rho(scalar p, scalar T) const
 {   
-    #include "MM.H"
+    #include "MM.H" // [Kg/Kmol]
     return (static_cast<scalar>(MM))*p/(RR*T);
 }
 
@@ -128,8 +128,8 @@ inline Foam::scalar Foam::myperfectGas<Specie>::psi(scalar p, scalar T) const
 template<class Specie>
 inline Foam::scalar Foam::myperfectGas<Specie>::Z(scalar p, scalar T) const
 {
-    // return 1;
-    return 0;
+    return 1;
+    //return 0;
 }
 
 
@@ -137,7 +137,8 @@ template<class Specie>
 inline Foam::scalar Foam::myperfectGas<Specie>::CpMCv(scalar p, scalar T) const
 {
     // return this->R();
-    return 0;
+    #include "MM.H" //[Kg/kmol]
+    return RR/(static_cast<scalar>(MM));
 }
 
 

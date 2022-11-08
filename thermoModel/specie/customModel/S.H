@@ -37,7 +37,6 @@
 	
 	
 	
-	
 	double sigma6_a6[n]=				{2.767445, -1.126949e-1, 2.483520e-3,0};	
 	double sigma6_log_c6[n]=				{1.108196e+1, 6.043375e-2, 1.256963e-3,0};	
 	double sigma6_log_delta6[n]= 		{9.251052, 1.085228e-1, 1.802991e-3,0};	
@@ -47,31 +46,17 @@
 	double sigma7_log_c7[n]=				{1.188475e+1, 8.409849e-2, 1.321048e-3,0};	
 	double sigma7_log_delta7[n]= 		{1.082135e+1, 1.048287e-1, -5.310563e-3,0};
 
-
-
-
-	
-	
-	
-
-
-
 	//Calcolo coef
 
     //c0 c1
-	double a0v[n],w0v[n];
 	double a_0=0, w_0=0;
 	
 	for(int i=0; i<n; i++)
-	{
-	    a0v[i]=    a0v[i]*x[i];
-	    w0v[i]=    w0v[i]*x[i];
-	     
-	    a_0=a_0+a0v[i];
-	    w_0=w_0+w0v[i];
+	{ 
+	    a_0=a_0+ phi_a0[i]*x[i];
+	    w_0=w_0+ phi_log_w0[i]*x[i];
 	    
 	}
-
     w_0=exp(w_0);
     
 	//a1,c1,delta1

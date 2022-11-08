@@ -1,7 +1,7 @@
 //Mean molar mass [kg/mol] 
 // il codice vuole p in atm e T in K
     double patm=p/101325;
-	int n= 5; //numero elementi di x
+	const int n= 5; //numero elementi di x
      
 	double x[n]={pow(log(patm),0), pow(log(patm),1), pow(log(patm),2), pow(log(patm),3), pow(log(patm),4)};
 
