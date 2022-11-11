@@ -47,9 +47,9 @@
 	const double sigma6_log_c6[n]=				{1.109244e+1, 6.026294e-2, 1.125935e-3, -2.170126e-5, -3.141895e-6,0,0,0,0,0};	
 	const double sigma6_log_delta6[n]= 		{8.942747, 8.687938e-2, 1.554323e-2, 3.584506e-5, -2.447405e-4,0,0,0,0,0};	
 	
-	const double sigma7_log_a7[n]=				{ -1.011841e+1, -2.295953e+1, -1.220667e+1, -3.504472, -4.373233e-1, 1.127311e-2,6.598926e-3,-2.119755e-4,-1.369506e-4,-8.311253e-6};
-	const double sigma7_log_c7[n]=				{1.314544e+1, 2.079129, 9.992304e-1, 2.223931e-1, 1.963954e-2, -1.622592e-4,-1.094608e-5,2.304744e-5,1.817656e-6,0};	
-	const double sigma7_log_delta7[n]= 		{-1.743314, -1.807206e+1, -1.393980e+1, -5.232064, -7.607736e-1, 8.529592e-2,4.967101e-2,7.733746e-3,5.507513e-4,1.527569e-5};
+	//const double sigma7_log_a7[n]=				{ -1.011841e+1, -2.295953e+1, -1.220667e+1, -3.504472, -4.373233e-1, 1.127311e-2,6.598926e-3,-2.119755e-4,-1.369506e-4,-8.311253e-6};
+	//const double sigma7_log_c7[n]=				{1.314544e+1, 2.079129, 9.992304e-1, 2.223931e-1, 1.963954e-2, -1.622592e-4,-1.094608e-5,2.304744e-5,1.817656e-6,0};	
+	//const double sigma7_log_delta7[n]= 		{-1.743314, -1.807206e+1, -1.393980e+1, -5.232064, -7.607736e-1, 8.529592e-2,4.967101e-2,7.733746e-3,5.507513e-4,1.527569e-5};
 	
 	//Calcolo coef
 
@@ -146,7 +146,8 @@
 	
 	
 	//a7,c7,delta7
-	double a_7=0.0, c_7=0.0, delta_7=0.0;
+	/*
+    double a_7=0.0, c_7=0.0, delta_7=0.0;
 	for(int i=0; i<n; i++)
 	{
 	    a_7+=    sigma7_log_a7[i]*x[i];
@@ -157,6 +158,7 @@
     a_7=exp(a_7);
     c_7=exp(c_7);
 	delta_7=exp(delta_7);
+    */
 
 	//Definizioni q
 	const double q1=(T-c_1)/delta_1;
@@ -173,7 +175,7 @@
     //Definizione sigma
     //vedi nota ad inizio file
     //const double sigma[7] {sigma1,sigma2,sigma3,sigma4,sigma5,sigma6,sigma7}; 
-    const double sigma[6]= {sigma1,sigma2,sigma3,sigma4,sigma5,sigma6}; 
+    double sigma[6]; 
     for (int j=0; j<6; j++)
 	{      
 		sigma[j]=exp(q[j])/(exp(q[j])+exp(-q[j]));
@@ -181,13 +183,13 @@
 	
 
 	//Definizione a 
-	const double a[7]={a_1,a_2,a_3,a_4,a_5,a_6,a_7};
-	
+    //const double a[7]={a_1,a_2,a_3,a_4,a_5,a_6,a_7};
+	const double a[6]={a_1,a_2,a_3,a_4,a_5,a_6};
 	//CALCOLO H
 	
 	double z=pc_1*T+pc_2*pow(T,2); 
 	
-	for (int i=0; i<7; i++)
+	for (int i=0; i<6; i++)
 	{
 		z+=a[i]*sigma[i];
 	}

@@ -110,7 +110,7 @@ DebugSwitches
     regIOobject 1;
     scalarField 1;
     stl         1;
-    surfaceScalarField 1;
+    surfaceScalarField 0;
     surfaceScalarField::Internal 1;
     surfaces    1;
     time        1;
