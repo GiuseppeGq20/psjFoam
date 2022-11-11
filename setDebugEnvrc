@@ -1,0 +1,4 @@
+export WM_COMPILE_OPTION=Debug
+
+#do not catch floating point exceptions
+#export FOAM_SIGFPE=false
