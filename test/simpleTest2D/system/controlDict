@@ -62,7 +62,7 @@ OptimisationSwitches
 {
     // Trap floating point exception.
     // Can override with FOAM_SIGFPE env variable (true|false)
-    trapFpe         0;
+    trapFpe         true;
 
     // Initialization malloced memory to NaN.
     // Can override with FOAM_SETNAN env variable (true|false)
@@ -98,7 +98,7 @@ DebugSwitches
     exponential 1;
     general     1;
     generic     1;
-    meshObject  0;
+    meshObject  1;
     none        1;
     obj         0;
     objectRegistry 0;
@@ -107,25 +107,25 @@ DebugSwitches
     powerLaw    1;
     pureMixture<myconstTransport<thermo<myhConstThermo<myperfectGas>>>> 0; //not working
     raw         1;
-    regIOobject 0;
+    regIOobject 1;
     scalarField 1;
     stl         1;
     surfaceScalarField 0;
-    surfaceScalarField::Internal 0;
-    surfaces    0;
-    time        0;
-    totalPressure 0;
-    totalTemperature 0;
+    surfaceScalarField::Internal 1;
+    surfaces    1;
+    time        1;
+    totalPressure 1;
+    totalTemperature 1;
     value       1;
     volScalarField 0;
-    volScalarField::Internal 0;
+    volScalarField::Internal 1;
     volumeExpr  1;
     waveTransmissive 1;
     zeroGradient 1;
-}*/
+}
 
 libs (
 "libmyfluidThermophysicalModels.so"
-//"libmyspecie.so"
+"libmyspecie.so"
 );
 // ************************************************************************* //
