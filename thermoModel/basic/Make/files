@@ -4,4 +4,4 @@ psiThermo/psiThermos.C
 /*rhoThermo/rhoThermo.C*/
 /*rhoThermo/rhoThermos.C*/
 
-LIB = $(FOAM_USER_LIBBIN)/mylibfluidThermophysicalModels
+LIB = $(FOAM_USER_LIBBIN)/libmyfluidThermophysicalModels
