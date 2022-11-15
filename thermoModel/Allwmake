@@ -1,0 +1,20 @@
+#!/bin/sh
+#cd "${0%/*}" || exit                                # Run from this directory
+#. ${WM_PROJECT_DIR:?}/wmake/scripts/AllwmakeParseArguments
+
+#------------------------------------------------------------------------------
+
+echo "clean build"
+wclean specie
+wclean basic
+
+echo "update specie lnInlcude"
+wmakeLnInclude -u specie
+
+echo"update basic lnInclude"
+wmakeLnInclude -u basic
+ls -l basic/lnInclude
+echo "build basic"
+wmake -j basic
+
+#------------------------------------------------------------------------------
