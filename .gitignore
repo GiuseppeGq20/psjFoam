@@ -15,3 +15,7 @@ linux*64GccDPInt32Opt/
 #data
 
 *.dat
+
+#log
+*.log
+logs/

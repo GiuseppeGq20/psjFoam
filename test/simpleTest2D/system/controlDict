@@ -79,7 +79,7 @@ OptimisationSwitches
 
 }
 
-DebugSwitches
+/*DebugSwitches
 {
     fluidThermo 1;
     psiThermo   1;
@@ -122,10 +122,9 @@ DebugSwitches
     volumeExpr  1;
     waveTransmissive 1;
     zeroGradient 1;
-}
+}*/
 
 libs (
 "libmyfluidThermophysicalModels.so"
-"libmyspecie.so"
 );
 // ************************************************************************* //
