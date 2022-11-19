@@ -18,8 +18,10 @@ solvers
 {
     p
     {
-        solver          GAMG;
-        smoother        GaussSeidel;
+        //solver          GAMG;
+        //smoother        GaussSeidel;
+        solver          PBiCGStab;
+        preconditioner  DIC;
         tolerance       1e-6;
         relTol          0.01;
     }

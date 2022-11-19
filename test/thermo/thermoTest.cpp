@@ -185,7 +185,8 @@ int main(){
     
     // create Sigma file
     file.open("Sigma.dat",std::ios::out | std::ios::trunc);
-
+    std::cout<<"sigma [S/m] at T=300 K, p=1 atm\n"
+             <<getSigma(300.0,p)<<std::endl;
     if (file.is_open()) {
 
         // calc sigma [S/m]
