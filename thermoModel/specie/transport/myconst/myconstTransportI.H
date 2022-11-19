@@ -83,7 +83,7 @@ inline Foam::scalar Foam::myconstTransport<Thermo>::mu
 ) const
 {   
     #include "mu.H"
-    return  static_cast<scalar>(mu);
+    return  mu;
 }
 
 

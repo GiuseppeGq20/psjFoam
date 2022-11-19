@@ -11,7 +11,7 @@ wclean basic
 echo "update specie lnInlcude"
 wmakeLnInclude -u specie
 
-echo"update basic lnInclude"
+echo "update basic lnInclude"
 wmakeLnInclude -u basic
 ls -l basic/lnInclude
 echo "build basic"
