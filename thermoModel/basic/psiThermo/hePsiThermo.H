@@ -64,6 +64,7 @@ class hePsiThermo
             volScalarField& T,
             volScalarField& he,
             volScalarField& psi,
+            volScalarField& sigma,
             volScalarField& mu,
             volScalarField& alpha,
             const bool doOldTimes

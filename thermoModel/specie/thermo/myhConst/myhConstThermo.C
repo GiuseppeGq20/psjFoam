@@ -36,6 +36,7 @@ Foam::myhConstThermo<EquationOfState>::myhConstThermo(const dictionary& dict)
 :
     EquationOfState(dict),
     Cp_(dict.subDict("thermodynamics").get<scalar>("Cp")),
+    sigma_(dict.subDict("thermodynamics").get<scalar>("Cp")),
     Hf_(dict.subDict("thermodynamics").get<scalar>("Hf")),
     Tref_(dict.subDict("thermodynamics").getOrDefault<scalar>("Tref", Tstd)),
     Hsref_(dict.subDict("thermodynamics").getOrDefault<scalar>("Href", 0))
@@ -53,6 +54,7 @@ void Foam::myhConstThermo<EquationOfState>::write(Ostream& os) const
     {
         os.beginBlock("thermodynamics");
         os.writeEntry("Cp", Cp_);
+        os.writeEntry("Cp", sigma_);
         os.writeEntry("Hf", Hf_);
         os.writeEntryIfDifferent<scalar>("Tref", Tstd, Tref_);
         os.writeEntryIfDifferent<scalar>("Href", 0, Hsref_);

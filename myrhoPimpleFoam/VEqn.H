@@ -16,6 +16,6 @@ fvScalarMatrix VEqn
 
 VEqn.solve();
 //Info<<"Max/Min value of V"<<nl<<Foam::max(V)<<Foam::min(V)<<endl;
-
+Info<<"Max/Min value of sigma"<<nl<<Foam::max(sigma)<<Foam::min(sigma)<<endl;
 // calc current
 volVectorField J = sigma*fvc::grad(V);

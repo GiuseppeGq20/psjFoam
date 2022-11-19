@@ -57,6 +57,21 @@ Foam::psiThermo::psiThermo(const fvMesh& mesh, const word& phaseName)
         mesh,
         dimensionSet(0, -2, 2, 0, 0)
     ),
+    
+    sigma_
+    (
+        IOobject
+        (
+            phasePropertyName("thermo:sigma"),
+            mesh.time().timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        //dimCurrent*dimCurrent/dimVelocity/dimEnergy
+        dimensionSet(-1, -3, 3, 0, 0,2)
+    ),
 
     mu_
     (
@@ -95,6 +110,21 @@ Foam::psiThermo::psiThermo
         ),
         mesh,
         dimensionSet(0, -2, 2, 0, 0)
+    ),
+
+    sigma_
+    (
+        IOobject
+        (
+            phasePropertyName("thermo:sigma"),
+            mesh.time().timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        //dimCurrent*dimCurrent/dimVelocity/dimEnergy
+        dimensionSet(-1, -3, 3, 0, 0,2)
     ),
 
     mu_
@@ -174,6 +204,11 @@ const Foam::volScalarField& Foam::psiThermo::psi() const
     return psi_;
 }
 
+
+const Foam::volScalarField& Foam::psiThermo::sigma() const
+{
+    return sigma_;
+}
 
 Foam::tmp<Foam::volScalarField> Foam::psiThermo::mu() const
 {

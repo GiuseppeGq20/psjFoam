@@ -156,6 +156,9 @@ public:
             //- Compressibility [s^2/m^2]
             virtual const volScalarField& psi() const = 0;
 
+            //- Electric conductivity [S/m]
+            virtual const volScalarField& sigma() const = 0;
+
 
         // Access to transport state variables
 

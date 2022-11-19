@@ -32,6 +32,7 @@ inline Foam::myhConstThermo<EquationOfState>::myhConstThermo
 (
     const EquationOfState& st,
     const scalar cp,
+    const scalar sigma,
     const scalar hf,
     const scalar Tref,
     const scalar Href
@@ -39,6 +40,7 @@ inline Foam::myhConstThermo<EquationOfState>::myhConstThermo
 :
     EquationOfState(st),
     Cp_(cp),
+    sigma_(sigma),
     Hf_(hf),
     Tref_(Tref),
     Hsref_(Href)
@@ -56,6 +58,7 @@ inline Foam::myhConstThermo<EquationOfState>::myhConstThermo
 :
     EquationOfState(name, ct),
     Cp_(ct.Cp_),
+    sigma_(ct.sigma_),
     Hf_(ct.Hf_),
     Tref_(ct.Tref_),
     Hsref_(ct.Hsref_)
@@ -104,7 +107,7 @@ inline Foam::scalar Foam::myhConstThermo<EquationOfState>::Cp
 }
 
 template<class EquationOfState>
-inline Foam::scalar Foam::myhConstThermo<EquationOfState>::Sigma
+inline Foam::scalar Foam::myhConstThermo<EquationOfState>::sigma
 (
     const scalar p,
     const scalar T

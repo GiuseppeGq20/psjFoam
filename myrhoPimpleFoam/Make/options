@@ -9,14 +9,17 @@ EXE_INC = \
     -I../thermoModel/basic/lnInclude \
     -I$(LIB_SRC)/thermophysicalModels/basic/lnInclude \
     -I$(LIB_SRC)/TurbulenceModels/turbulenceModels/lnInclude \
+    -I../TurbulenceModels/compressible/lnInclude \
     -I$(LIB_SRC)/TurbulenceModels/compressible/lnInclude \
     -I$(LIB_SRC)/regionFaModels\lnInclude
 
 EXE_LIBS = \
+    -L$(FOAM_USER_LIBBIN) \
     -lfiniteVolume \
     -lfvOptions \
     -lmeshTools \
     -lcompressibleTransportModels \
+    -lmyfluidThermophysicalModels \
     -lfluidThermophysicalModels \
     -lspecie \
     -lturbulenceModels \

@@ -93,6 +93,7 @@ class myhConstThermo
     // Private data
 
         scalar Cp_;
+        scalar sigma_;
         scalar Hf_;
 
         //- Reference temperature
@@ -109,6 +110,7 @@ class myhConstThermo
         (
             const EquationOfState& st,
             const scalar cp,
+            const scalar sigma,
             const scalar hf,
             const scalar Tref,
             const scalar Href
@@ -150,7 +152,7 @@ public:
             inline scalar Cp(const scalar p, const scalar T) const;
 
             //- electric conductivity [S/m]
-            inline scalar Sigma(const scalar p, const scalar T) const;
+            inline scalar sigma(const scalar p, const scalar T) const;
 
             //- Absolute Enthalpy [J/kg]
             inline scalar Ha(const scalar p, const scalar T) const;

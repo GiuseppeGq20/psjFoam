@@ -37,6 +37,7 @@ void Foam::hePsiThermo<BasicPsiThermo, MixtureType>::calculate
     volScalarField& T,
     volScalarField& he,
     volScalarField& psi,
+    volScalarField& sigma,
     volScalarField& mu,
     volScalarField& alpha,
     const bool doOldTimes
@@ -52,6 +53,7 @@ void Foam::hePsiThermo<BasicPsiThermo, MixtureType>::calculate
             T.oldTime(),
             he.oldTime(),
             psi.oldTime(),
+            sigma.oldTime(),
             mu.oldTime(),
             alpha.oldTime(),
             true
@@ -61,6 +63,7 @@ void Foam::hePsiThermo<BasicPsiThermo, MixtureType>::calculate
     const scalarField& hCells = he.primitiveField();
     const scalarField& pCells = p.primitiveField();
 
+    scalarField& sigmaCells = sigma.primitiveFieldRef();
     scalarField& TCells = T.primitiveFieldRef();
     scalarField& psiCells = psi.primitiveFieldRef();
     scalarField& muCells = mu.primitiveFieldRef();
@@ -82,6 +85,7 @@ void Foam::hePsiThermo<BasicPsiThermo, MixtureType>::calculate
         }
 
         psiCells[celli] = mixture_.psi(pCells[celli], TCells[celli]);
+        sigmaCells[celli] = mixture_.sigma(pCells[celli], TCells[celli]);
 
         muCells[celli] = mixture_.mu(pCells[celli], TCells[celli]);
         alphaCells[celli] = mixture_.alphah(pCells[celli], TCells[celli]);
@@ -90,6 +94,7 @@ void Foam::hePsiThermo<BasicPsiThermo, MixtureType>::calculate
     const volScalarField::Boundary& pBf = p.boundaryField();
     volScalarField::Boundary& TBf = T.boundaryFieldRef();
     volScalarField::Boundary& psiBf = psi.boundaryFieldRef();
+    volScalarField::Boundary& sigmaBf = sigma.boundaryFieldRef();
     volScalarField::Boundary& heBf = he.boundaryFieldRef();
     volScalarField::Boundary& muBf = mu.boundaryFieldRef();
     volScalarField::Boundary& alphaBf = alpha.boundaryFieldRef();
@@ -99,6 +104,7 @@ void Foam::hePsiThermo<BasicPsiThermo, MixtureType>::calculate
         const fvPatchScalarField& pp = pBf[patchi];
         fvPatchScalarField& pT = TBf[patchi];
         fvPatchScalarField& ppsi = psiBf[patchi];
+        fvPatchScalarField& psigma = sigmaBf[patchi];
         fvPatchScalarField& phe = heBf[patchi];
         fvPatchScalarField& pmu = muBf[patchi];
         fvPatchScalarField& palpha = alphaBf[patchi];
@@ -113,6 +119,7 @@ void Foam::hePsiThermo<BasicPsiThermo, MixtureType>::calculate
                 phe[facei] = mixture_.HE(pp[facei], pT[facei]);
 
                 ppsi[facei] = mixture_.psi(pp[facei], pT[facei]);
+                psigma[facei] = mixture_.sigma(pp[facei], pT[facei]);
                 pmu[facei] = mixture_.mu(pp[facei], pT[facei]);
                 palpha[facei] = mixture_.alphah(pp[facei], pT[facei]);
             }
@@ -130,6 +137,7 @@ void Foam::hePsiThermo<BasicPsiThermo, MixtureType>::calculate
                 }
 
                 ppsi[facei] = mixture_.psi(pp[facei], pT[facei]);
+                psigma[facei] = mixture_.sigma(pp[facei], pT[facei]);
                 pmu[facei] = mixture_.mu(pp[facei], pT[facei]);
                 palpha[facei] = mixture_.alphah(pp[facei], pT[facei]);
             }
@@ -154,6 +162,7 @@ Foam::hePsiThermo<BasicPsiThermo, MixtureType>::hePsiThermo
         this->T_,
         this->he_,
         this->psi_,
+        this->sigma_,
         this->mu_,
         this->alpha_,
         true                    // Create old time fields
@@ -177,6 +186,7 @@ Foam::hePsiThermo<BasicPsiThermo, MixtureType>::hePsiThermo
         this->T_,
         this->he_,
         this->psi_,
+        this->sigma_,
         this->mu_,
         this->alpha_,
         true                    // Create old time fields
@@ -205,6 +215,7 @@ void Foam::hePsiThermo<BasicPsiThermo, MixtureType>::correct()
         this->T_,
         this->he_,
         this->psi_,
+        this->sigma_,
         this->mu_,
         this->alpha_,
         false           // No need to update old times

@@ -64,7 +64,8 @@ protected:
 
         //- Compressibility [s^2/m^2]
         volScalarField psi_;
-
+        //- electric conductivity [S/m]
+        volScalarField sigma_;
         //- Dynamic viscosity [kg/m/s]
         volScalarField mu_;
 
@@ -172,6 +173,8 @@ public:
             //- Compressibility [s^2/m^2]
             virtual const volScalarField& psi() const;
 
+            //- electric conductivity [S/m]
+            virtual const volScalarField& sigma() const;
 
         // Access to transport state variables
 
