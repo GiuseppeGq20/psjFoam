@@ -1,6 +1,0 @@
-/*Math functions */
-math = Math
-$(math)/sigmoid.C
-$(math)/gaussian.C
-
-LIB = $(FOAM_USER_LIBBIN)/libHelperFunctions
