@@ -1,0 +1,6 @@
+thermoTest.C
+
+/*EXE = $(FOAM_USER_APPBIN)/termoTest*/
+
+EXE = ./termoTest.out
+
