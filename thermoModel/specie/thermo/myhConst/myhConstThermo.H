@@ -149,9 +149,6 @@ public:
             //- Heat capacity [J/(kg K)]
             inline scalar Cp(const scalar p, const scalar T) const;
 
-            //- electric conductivity [S/m]
-            inline scalar Sigma(const scalar p, const scalar T) const;
-
             //- Absolute Enthalpy [J/kg]
             inline scalar Ha(const scalar p, const scalar T) const;
 

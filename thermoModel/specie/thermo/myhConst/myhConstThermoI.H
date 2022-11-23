@@ -103,18 +103,6 @@ inline Foam::scalar Foam::myhConstThermo<EquationOfState>::Cp
     return static_cast<scalar>(Cp);
 }
 
-template<class EquationOfState>
-inline Foam::scalar Foam::myhConstThermo<EquationOfState>::Sigma
-(
-    const scalar p,
-    const scalar T
-) const
-{
-    //return Cp_ + EquationOfState::Cp(p, T);
-
-    #include "sigma.H"
-    return static_cast<scalar>(Sigma);
-}
 
 template<class EquationOfState>
 inline Foam::scalar Foam::myhConstThermo<EquationOfState>::Ha
