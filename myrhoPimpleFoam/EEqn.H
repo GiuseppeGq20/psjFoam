@@ -5,7 +5,13 @@
     
     //damping function
     //dimensionedScalar omega = 1/Foam::sqrt(Foam::max(JouleHeating/rho/he));
-    
+    dimensionedScalar testUrad
+    (
+        "Urad",
+        dimEnergy/dimVolume/dimTime,
+        1e7
+    );
+
     fvScalarMatrix EEqn
     (
         fvm::ddt(rho, he) + fvm::div(phi, he)
@@ -22,6 +28,7 @@
         )
       - fvm::laplacian(turbulence->alphaEff(), he)
       - JouleHeating
+      + testUrad 
     ==
         fvOptions(rho, he)
     );

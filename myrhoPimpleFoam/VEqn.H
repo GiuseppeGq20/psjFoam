@@ -1,5 +1,7 @@
 // Solve the Maxwell equation for the scalar potential
 
+sigmaC.update(thermo.p(),thermo.T());
+
 fvScalarMatrix VEqn
 (
     fvm::laplacian(sigma, V) 

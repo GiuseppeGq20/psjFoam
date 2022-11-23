@@ -21,12 +21,13 @@ dimensionedScalar mu
     transportProperties
 );
 
-dimensionedScalar sigma
+/*dimensionedScalar sigma
 (
     "sigma",
     dimensionSet(-1, -3, 3, 0, 0, 2, 0),
     transportProperties
 );
+*/
 
 //electric potential
 volScalarField V
@@ -79,6 +80,11 @@ volScalarField rho
     ),
     thermo.rho()
 );
+
+Info<<"create sigma field\n"<<endl;
+
+sigmaClass sigmaC(mesh,thermo.p(), thermo.T());
+const volScalarField& sigma = sigmaC.sigma();
 
 Info<< "Reading field U\n" << endl;
 volVectorField U
