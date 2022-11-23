@@ -9,3 +9,4 @@ constant/polyMesh/*
 
 !system/
 !.gitignore
+!*.sh

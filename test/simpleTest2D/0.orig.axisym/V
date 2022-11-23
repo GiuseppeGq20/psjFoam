@@ -35,7 +35,7 @@ boundaryField
     electrodFaceBot
     {
         type            fixedValue;
-        value   uniform 1;
+        value   uniform 5e3; //order of magnitude of the actual potential difference
     }
 
     "(front|back)"

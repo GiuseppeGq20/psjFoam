@@ -81,7 +81,9 @@ PIMPLE
     transonic       no;
     nCorrectors              2;
     nNonOrthogonalCorrectors 1;
-    nOuterCorrectors         1;
+// at least 2 outer loop to correct sigma and use the real value after updated T 
+//aggiungi schema loop pimple algorithm
+    nOuterCorrectors         2;
     pMinFactor      0.1;
     pMaxFactor      2;
 }

@@ -2,7 +2,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v2206                                 |
+|  \\    /   O peration     | Version:  v1912                                 |
 |   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -11,12 +11,42 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      transportProperties;
+    location    "constant";
+    object      thermophysicalProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-//electromagnetic properties
-//sigma       1;
-mu          12.56e-7; //vacuum magnetic permeability
+thermoType
+{
+    type            hePsiThermo;
+    mixture         pureMixture;
+    transport       myconst;
+    thermo          myhConst;
+    equationOfState myperfectGas;
+    specie          specie;
+    energy          sensibleEnthalpy;
+}
+
+mixture // air at room temperature (293 K)
+{
+    specie
+    {
+        molWeight   28.9;
+    }
+
+    thermodynamics
+    {
+        Cp          1005;
+        Hf          0;
+        //Href        3e5;
+    }
+
+    transport
+    {
+        mu          1.82e-05;
+        //mu          -1.0;
+        Pr          0.71;
+    }
+}
 
 // ************************************************************************* //

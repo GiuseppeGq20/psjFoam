@@ -17,14 +17,14 @@ FoamFile
 domain
 {
     //dimensions
-    Rin     1;
-    Rout    10;
-    Dbot    -2;
-    Dup     2;
-    Hbot    -5;
-    Hup     5;
+    Rin     5e-4;
+    Rout    6e-3;
+    Dbot    -1e-3;
+    Dup     1e-3;
+    Hbot    -3e-3;
+    Hup     3e-3;
 
-    width   0.01;
+    width   1e-3;
 
     // Number of cells
     RinCells  10; 
