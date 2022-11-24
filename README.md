@@ -14,3 +14,7 @@ remember to un-ignore each file file you want to track in the test directories
 - Conte non mette AEqn e la forza di Lorentz nella UEqn
 - L’effetto Joule nella EEqn di Conte è moltiplicato per 0.6
 - L’effetto Joule è calcolato nella PotEqn di Conte come JouleEffect= mySigma*(fvc::grad(V) & fvc::grad(V));
+
+## generating compile_command.json for intellisense
+use bear with allwmake
+> `./Allwmake -with-bear`
