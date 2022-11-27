@@ -47,19 +47,16 @@
 	const scalar sigma6_log_c6[n]=				{1.109244e+1, 6.026294e-2, 1.125935e-3, -2.170126e-5, -3.141895e-6,0,0,0,0,0};	
 	const scalar sigma6_log_delta6[n]= 		{8.942747, 8.687938e-2, 1.554323e-2, 3.584506e-5, -2.447405e-4,0,0,0,0,0};	
 	
-	//const scalar sigma7_log_a7[n]=				{ -1.011841e+1, -2.295953e+1, -1.220667e+1, -3.504472, -4.373233e-1, 1.127311e-2,6.598926e-3,-2.119755e-4,-1.369506e-4,-8.311253e-6};
-	//const scalar sigma7_log_c7[n]=				{1.314544e+1, 2.079129, 9.992304e-1, 2.223931e-1, 1.963954e-2, -1.622592e-4,-1.094608e-5,2.304744e-5,1.817656e-6,0};	
-	//const scalar sigma7_log_delta7[n]= 		{-1.743314, -1.807206e+1, -1.393980e+1, -5.232064, -7.607736e-1, 8.529592e-2,4.967101e-2,7.733746e-3,5.507513e-4,1.527569e-5};
+	const scalar sigma7_log_a7[n]=				{ -1.011841e+1, -2.295953e+1, -1.220667e+1, -3.504472, -4.373233e-1, 1.127311e-2,6.598926e-3,-2.119755e-4,-1.369506e-4,-8.311253e-6};
+	const scalar sigma7_log_c7[n]=				{1.314544e+1, 2.079129, 9.992304e-1, 2.223931e-1, 1.963954e-2, -1.622592e-4,-1.094608e-5,2.304744e-5,1.817656e-6,0};	
+	const scalar sigma7_log_delta7[n]= 		{-1.743314, -1.807206e+1, -1.393980e+1, -5.232064, -7.607736e-1, 8.529592e-2,4.967101e-2,7.733746e-3,5.507513e-4,1.527569e-5};
 	
 	//Calcolo coef
-
 	scalar pc_1=0.0, pc_2=0.0;
-	
 	for(int i=0; i<n; i++)
 	{
 	    pc_1+=pc1[i]*x[i];
 	    pc_2+=pc2[i]*x[i];
-	    
 	}
 
 	//a1,c1,delta1
@@ -82,7 +79,6 @@
 	    a_2+=sigma2_log_a2[i]*x[i];
 	    c_2+=sigma2_log_c2[i]*x[i];
 	    delta_2+=sigma2_log_delta2[i]*x[i];
-	    
 	}
 		
     a_2=Foam::exp(a_2);
@@ -101,8 +97,6 @@
     a_3=Foam::exp(a_3);
     c_3=Foam::exp(c_3);
 	delta_3=Foam::exp(delta_3);
-
-	
 	
 	//a4,c4,delta4
 	scalar a_4=0.0, c_4=0.0, delta_4=0.0;
@@ -112,8 +106,6 @@
 	    c_4+= sigma4_log_c4[i]*x[i];
 	    delta_4+= sigma4_log_delta4[i]*x[i];
 	}
-	
-
     a_4=Foam::exp(a_4);
     c_4=Foam::exp(c_4);
 	delta_4=Foam::exp(delta_4);
@@ -144,9 +136,7 @@
     c_6=Foam::exp(c_6);
 	delta_6=Foam::exp(delta_6);
 	
-	
 	//a7,c7,delta7
-	/*
     scalar a_7=0.0, c_7=0.0, delta_7=0.0;
 	for(int i=0; i<n; i++)
 	{
@@ -158,7 +148,6 @@
     a_7=Foam::exp(a_7);
     c_7=Foam::exp(c_7);
 	delta_7=Foam::exp(delta_7);
-    */
 
 	//Definizioni q
 	const scalar q1=(T-c_1)/delta_1;
@@ -167,33 +156,32 @@
 	const scalar q4=(T-c_4)/delta_4;
 	const scalar q5=(T-c_5)/delta_5;
 	const scalar q6=(T-c_6)/delta_6;
-	//const scalar q7=(T-c_7)/delta_7;
+	const scalar q7=(T-c_7)/delta_7;
     
-    //const scalar q[7]={q1,q2,q3,q4,q5,q6,q7};
-    const scalar q[6]={q1,q2,q3,q4,q5,q6};
+    const scalar q[7]={q1,q2,q3,q4,q5,q6,q7};
 
-    //Definizione sigma
-    //vedi nota ad inizio file
-    //const scalar sigma[7] {sigma1,sigma2,sigma3,sigma4,sigma5,sigma6,sigma7}; 
-    scalar sigma[6]; 
-    for (int j=0; j<6; j++)
-	{      
-		sigma[j]=Foam::exp(q[j])/(Foam::exp(q[j])+Foam::exp(-q[j]));
-	}
-	
+    //Definizione sigmoidi
+    const scalar maxValue=-10.0; // for q<-2.5 the sigmoid is less than 7e-3
+	scalar sigma[7];
+	for (int j=0; j<7; j++)
+	{   
+        if (2*q[j]< maxValue ) {
+            sigma[j]=0.0; 
+        }else{
+	    	sigma[j]=1.0/(1.0+Foam::exp(-2*q[j]));
+	    }
+    }
 
 	//Definizione a 
-    //const scalar a[7]={a_1,a_2,a_3,a_4,a_5,a_6,a_7};
-	const scalar a[6]={a_1,a_2,a_3,a_4,a_5,a_6};
-	//CALCOLO H
+    const scalar a[7]={a_1,a_2,a_3,a_4,a_5,a_6,a_7};
 	
+    //CALCOLO H
 	scalar z=pc_1*T+pc_2*Foam::pow(T,2); 
-	
-	for (int i=0; i<6; i++)
+	for (int i=0; i<7; i++)
 	{
 		z+=a[i]*sigma[i];
 	}
 	
-     scalar H=z*4.1867999409*1000.0; // conversion from cal/g to J/Kg
+    const scalar H=z*4.1867999409*1000.0; // conversion from cal/g to J/Kg
 
 

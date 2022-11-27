@@ -120,12 +120,16 @@
 	const scalar q[6]={q1,q2,q3,q4,q5,q6};
     
 	//Definizione sigma e gamma
+    const scalar maxValue=-10.0; // for q<-2.5 the sigmoid is less than 7e-3
 	scalar sigma[6];
-	
 	for (int j=0; j<6; j++)
-	{
-		sigma[j]=Foam::exp(q[j])/(Foam::exp(q[j])+Foam::exp(-q[j]));
-	}
+	{   
+        if (2*q[j]< maxValue ) {
+            sigma[j]=0.0; 
+        }else{
+	    	sigma[j]=1.0/(1.0+Foam::exp(-2*q[j]));
+	    }
+    }
 	
 	//Definizione a
     const scalar a[6]={a_1,a_2,a_3,a_4,a_5,a_6};

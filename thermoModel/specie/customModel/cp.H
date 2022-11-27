@@ -1,6 +1,6 @@
 // Specific Heat [cal/(gK)]
 		
-    scalar patm=p/101325;
+    const scalar patm=p/101325;
 	const int n=7;  //numero elementi di x
 
 	//Coef Tab 25
@@ -53,7 +53,6 @@
 	const scalar gamma11_log_c11[n]=			{1.109308e+1, 5.876202e-2, 1.243864e-3, 3.958414e-5,0,0,0};	
 	const scalar gamma11_log_delta11[n]= 		{8.959570, 1.014329e-1, 1.073510e-2, -1.155143e-3, -2.731432e-4,0,0};	
 
-
 	//Calcolo coef
 
     //c0 c1
@@ -98,7 +97,7 @@
 	    c_3+= sigma3_log_c3[i]*x[i];
 	    delta_3+= sigma3_log_delta3[i]*x[i];
 	}
-	
+
     a_3=Foam::exp(a_3);
     c_3=Foam::exp(c_3);
 	delta_3=Foam::exp(delta_3);
@@ -222,7 +221,7 @@
 
 	const scalar q[5]={q1,q2,q3,q4,q5}, qq[6]={q6,q7,q8,q9,q10,q11};
 
-    for (int i=0; i<5; i++)
+    /*for (int i=0; i<5; i++)
     {
         Info<<" q"<<i<<": "<<q[i]; 
     }
@@ -231,12 +230,20 @@
         Info<<" qq"<<i<<": "<<qq[i]; 
     }
     Info<<endl;
-	//Definizione sigma e gamma
+	*/
+    
+    //Definizione sigma e gamma
+    const scalar maxValue=-10.0; // for q<-2.5 the sigmoid is less than 7e-3
 	scalar sigma[5], gamma[6];
 	for (int j=0; j<5; j++)
-	{
-		sigma[j]=Foam::exp(q[j])/(Foam::exp(q[j])+Foam::exp(-q[j]));
-	}
+	{   
+        if (2*q[j]< maxValue ) {
+            sigma[j]=0.0; 
+        }else{
+	    	sigma[j]=1.0/(1.0+Foam::exp(-2*q[j]));
+	    }
+    }
+
 	for (int j=0; j<6; j++)
 	{
 		gamma[j]=Foam::exp(-Foam::pow(qq[j],2));
@@ -245,8 +252,7 @@
 	//Definizione a aa
 	scalar a[5]={a_1,a_2,a_3,a_4,a_5}, aa[6]={a_6,a_7,a_8,a_9,a_10,a_11};
 	//CALCOLO Cp
-	scalar z=0, h=0; 
-	
+	scalar z=0.0, h=0.0; 
 	for (int i=0; i<5; i++)
 	{
 		z=z+a[i]*sigma[i];
@@ -258,5 +264,4 @@
 	}
 	
 	const scalar cp=pc_0+pc_1*T+z+h;	
-			
-	scalar Cp=cp*4.1867999409*1000; // conversion from cal/g*K to J/Kg*K
+	const scalar Cp=cp*4.1867999409*1000; // conversion from cal/g*K to J/Kg*K

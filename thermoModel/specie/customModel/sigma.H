@@ -43,20 +43,13 @@
 	//Calcolo coef
    
     //eps_0
-	scalar esp0_a0v[n],esp0_c0v[n],esp0_delta0v[n],esp0_w0v[n];
 	scalar a_0=0, c_0=0, delta_0=0,w_0=0;
-	
 	for(int i=0; i<n; i++)
 	{
-	    esp0_a0v[i]=    eps0_log_a0[i]*x[i];
-	    esp0_c0v[i]=    eps0_log_c0[i]*x[i];
-	    esp0_delta0v[i]=eps0_log_delta0[i]*x[i];
-	    esp0_w0v[i]=eps0_log_w0[i]*x[i];	    
-	    
-	    a_0=a_0+esp0_a0v[i];
-	    c_0=c_0+esp0_c0v[i];
-	    delta_0=delta_0+esp0_delta0v[i];
-	    w_0=w_0+esp0_w0v[i];
+	    a_0+=    eps0_log_a0[i]*x[i];
+	    c_0+=    eps0_log_c0[i]*x[i];
+	    delta_0+=eps0_log_delta0[i]*x[i];
+	    w_0+=eps0_log_w0[i]*x[i];	    
 	}
 
 	a_0=Foam::exp(a_0);
@@ -65,18 +58,13 @@
 	w_0=Foam::exp(w_0);	
 	
 	//a1,c1,delta1
-	scalar sigma1_log_a1v[n],sigma1_log_c1v[n],sigma1_log_delta1v[n];
 	scalar a_1=0, c_1=0, delta_1=0;
 	
 	for(int i=0; i<n; i++)
 	{
-	    sigma1_log_a1v[i]=    sigma1_log_a1[i]*x[i];
-	    sigma1_log_c1v[i]=    sigma1_log_c1[i]*x[i];
-	    sigma1_log_delta1v[i]=sigma1_log_delta1[i]*x[i];
-	    
-	    a_1=a_1+sigma1_log_a1v[i];
-	    c_1=c_1+sigma1_log_c1v[i];
-	    delta_1=delta_1+sigma1_log_delta1v[i];
+	    a_1+=    sigma1_log_a1[i]*x[i];
+	    c_1+=    sigma1_log_c1[i]*x[i];
+	    delta_1+=sigma1_log_delta1[i]*x[i];
 	}
     
 	a_1=Foam::exp(a_1);
@@ -84,74 +72,50 @@
 	delta_1=Foam::exp(delta_1);
 
 	//a2,c2,delta2
-	scalar sigma2_a2v[n],sigma2_log_c2v[n],sigma2_log_delta2v[n];
 	scalar a_2=0, c_2=0, delta_2=0;	
 	for(int i=0; i<n; i++)
 	{
-	    sigma2_a2v[i]=    sigma2_a2[i]*x[i];
-	    sigma2_log_c2v[i]=    sigma2_log_c2[i]*x[i];
-	    sigma2_log_delta2v[i]=sigma2_log_delta2[i]*x[i];
-	    
-	    a_2=a_2+sigma2_a2v[i];
-	    c_2=c_2+sigma2_log_c2v[i];
-	    delta_2=delta_2+sigma2_log_delta2v[i];	    
+	    a_2+=    sigma2_a2[i]*x[i];
+	    c_2+=    sigma2_log_c2[i]*x[i];
+	    delta_2+=sigma2_log_delta2[i]*x[i];
 	}
-		
 
     c_2=Foam::exp(c_2);
 	delta_2=Foam::exp(delta_2);
 	
 	//a3,c3,delta3
-	scalar sigma3_meno_a3v[n],sigma3_log_c3v[n],sigma3_log_delta3v[n];
 	scalar a_3=0, c_3=0, delta_3=0;	
 	for(int i=0; i<n; i++)
 	{
-	    sigma3_meno_a3v[i]=    sigma3_meno_a3[i]*x[i];
-	    sigma3_log_c3v[i]=    sigma3_log_c3[i]*x[i];
-	    sigma3_log_delta3v[i]=sigma3_log_delta3[i]*x[i];
-	    
-	    a_3=a_3+sigma3_meno_a3v[i];
-		c_3=c_3+sigma3_log_c3v[i];
-		delta_3=delta_3+sigma3_log_delta3v[i];	
+	    a_3+=    sigma3_meno_a3[i]*x[i];
+	    c_3+=    sigma3_log_c3[i]*x[i];
+	    delta_3+=sigma3_log_delta3[i]*x[i];
 	}
 	
     a_3=-a_3;
     c_3=Foam::exp(c_3);
 	delta_3=Foam::exp(delta_3);
-
-	
 	
 	//a4,c4,delta4
-	scalar sigma4_meno_a4v[n],sigma4_log_c4v[n],sigma4_log_delta4v[n];
 	scalar a_4=0, c_4=0, delta_4=0;
 	for(int i=0; i<n; i++)
 	{
-	    sigma4_meno_a4v[i]=    sigma4_meno_a4[i]*x[i];
-	    sigma4_log_c4v[i]=    sigma4_log_c4[i]*x[i];
-	    sigma4_log_delta4v[i]=sigma4_log_delta4[i]*x[i];
-	    
-	a_4=a_4+sigma4_meno_a4v[i];
-	c_4=c_4+sigma4_log_c4v[i];
-	delta_4=delta_4+sigma4_log_delta4v[i];
+	    a_4+=    sigma4_meno_a4[i]*x[i];
+	    c_4+=    sigma4_log_c4[i]*x[i];
+	    delta_4+=sigma4_log_delta4[i]*x[i];
 	}
-	
 
     a_4=-(a_4);
     c_4=Foam::exp(c_4);
 	delta_4=Foam::exp(delta_4);
 	
 	//a5,c5,delta5
-	scalar sigma5_meno_a5v[n],sigma5_log_c5v[n],sigma5_log_delta5v[n];
 	scalar a_5=0, c_5=0, delta_5=0;	
 	for(int i=0; i<n; i++)
 	{
-	    sigma5_meno_a5v[i]=    sigma5_meno_a5[i]*x[i];
-	    sigma5_log_c5v[i]=    sigma5_log_c5[i]*x[i];
-	    sigma5_log_delta5v[i]=sigma5_log_delta5[i]*x[i];
-	    
-	a_5=a_5+sigma5_meno_a5v[i];
-	c_5=c_5+sigma5_log_c5v[i];
-	delta_5=delta_5+sigma5_log_delta5v[i];
+	    a_5+=    sigma5_meno_a5[i]*x[i];
+	    c_5+=    sigma5_log_c5[i]*x[i];
+	    delta_5+=sigma5_log_delta5[i]*x[i];
 	}
 		
     a_5=-(a_5);
@@ -159,50 +123,29 @@
 	delta_5=Foam::exp(delta_5);
 		
 	//a6,c6,delta6
-	scalar sigma6_a6v[n],sigma6_log_c6v[n],sigma6_log_delta6v[n];
 	scalar a_6=0, c_6=0, delta_6=0;
 	for(int i=0; i<n; i++)
 	{
-	    sigma6_a6v[i]=    sigma6_a6[i]*x[i];
-	    sigma6_log_c6v[i]=    sigma6_log_c6[i]*x[i];
-	    sigma6_log_delta6v[i]=sigma6_log_delta6[i]*x[i];
-	    
-	a_6=a_6+sigma6_a6v[i];
-	c_6=c_6+sigma6_log_c6v[i];
-	delta_6=delta_6+sigma6_log_delta6v[i];
-
-
+	    a_6+=    sigma6_a6[i]*x[i];
+	    c_6+=    sigma6_log_c6[i]*x[i];
+	    delta_6+=sigma6_log_delta6[i]*x[i];
 	}
-		
 
     c_6=Foam::exp(c_6);
 	delta_6=Foam::exp(delta_6);
 	
-	
 	//a7,c7,delta7
-	scalar sigma7_log_c7v[n],sigma7_log_delta7v[n];
 	scalar a_7=0, c_7=0, delta_7=0;
 	for(int i=0; i<n; i++)
 	{
-
-	    sigma7_log_c7v[i]=    sigma7_log_c7[i]*x[i];
-	    sigma7_log_delta7v[i]=sigma7_log_delta7[i]*x[i];
-	    
-
-	c_7=c_7+sigma7_log_c7v[i];
-	delta_7=delta_7+sigma7_log_delta7v[i];
-
-
+	    c_7+=    sigma7_log_c7[i]*x[i];
+	    delta_7+=sigma7_log_delta7[i]*x[i];
 	}
 		
     a_7=a_3+a_4+a_5-a_1-a_2-a_6;
     c_7=Foam::exp(c_7);
 	delta_7=Foam::exp(delta_7);
 	
-	
-
-
-		
 	//Definizioni q
 	const scalar eps0=a_0-c_0*Foam::exp(-Foam::pow(Foam::log(T)/delta_0,w_0));
 	
@@ -213,10 +156,8 @@
 	const scalar q5=(T-c_5)/delta_5;
 	const scalar q6=(T-c_6)/delta_6;
 	const scalar q7=(T-c_7)/delta_7;
-	
 
 	const scalar q[7]={q1,q2,q3,q4,q5,q6,q7};
-    
     /*for (int i=0; i<7; i++)
     {
         Info<<"q"<<i<<": "<<q[i]<<" ";
@@ -224,31 +165,30 @@
     Info<<endl;
     */
 	//Definizione sigma e gamma
-	scalar sigma[6];
+	const scalar maxValue=-10.0;
+	scalar sigma[7];
 	// just 6 for overflow errors in exp()
-	for (int j=0; j<6; j++)
+	for (int j=0; j<7; j++)
 	{
-		sigma[j]=Foam::exp(q[j])/(Foam::exp(q[j])+Foam::exp(-q[j]));
+		if (2*q[j]< maxValue ) {
+            sigma[j]=0.0; 
+        }else{
+	    	sigma[j]=1.0/(1.0+Foam::exp(-2*q[j]));
+		}
 	}
 	
 	//Definizione a aa
 	scalar a[7]={a_1,a_2,a_3,a_4,a_5,a_6,a_7};
 	
-	//CALCOLO Kappa
+	//CALCOLO sigma [S/m]
 	
 	scalar z=0; 
 	
-	for (int i=0; i<6; i++)
+	for (int i=0; i<7; i++)
 	{
 		z=z+a[i]*sigma[i];
 	}
 	
-	
 	const scalar log_sigma_elec=eps0+z;	
-	
-
-	
 	const scalar Sigma=Foam::exp(log_sigma_elec);
 	
-	
-

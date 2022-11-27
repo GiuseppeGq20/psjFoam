@@ -11,10 +11,10 @@
 	const scalar  c_0=1.138022e-5;
 	const scalar  delta_0=2.525477e+2;
 	const scalar  w_0=1;
-    //
-	const scalar sigma1_a1[n]=		{2.658346e-3,0,0,0,0,0};	
-	const scalar sigma1_c1[n]=		{-1.158238e+4,0,0,0,0,0};	
-	const scalar sigma1_delta1[n]= {8.370196e+3,0,0,0,0,0};
+
+	const scalar a_1= 2.658346e-3;	
+	const scalar c_1= -1.158238e+4;	
+	const scalar delta_1= 8.370196e+3;
 	
 	const scalar sigma2_log_a2[n]=		{-9.146259, 9.214388e-2, -7.532526e-3,0,0, 0};	
 	const scalar sigma2_log_c2[n]=		{8.758933, 5.609203e-2, 7.113878e-4,0,0, 0};	
@@ -53,16 +53,6 @@
 	const scalar sigma10_delta10[n]= 		{2.879605e+4, 2.066908e+3, 1.929331e+2, -6.651374e+1, -7.803606,0};	
 
 	//Calcolo coef
-
-	//a1,c1,delta1
-	scalar a_1=0, c_1=0, delta_1=0;
-	
-	for(int i=0; i<n; i++)
-	{
-	    a_1+= sigma1_a1[i]*x[i];
-	    c_1+= sigma1_c1[i]*x[i];
-	    delta_1+= sigma1_delta1[i]*x[i];
-	}
 
 	//a2,c2,delta2
 	scalar a_2=0, c_2=0, delta_2=0;	
@@ -197,38 +187,41 @@
     
 	//Definizione sigma e sigma
 	scalar sigma[5], sigmasigma[5];
-	
-	for (int j=0; j<5; j++)
-	{
-		sigma[j]=Foam::exp(q[j])/(Foam::exp(q[j])+Foam::exp(-q[j]));
+    const scalar maxValue=-10.0; // for q<-2.5 the sigmoid is less than 7e-3
+    for (int j=0; j<5; j++)
+	{   
+        if (2*q[j]< maxValue ) {
+            sigma[j]=0.0; 
+        }else{
+	    	sigma[j]=1.0/(1.0+Foam::exp(-2*q[j]));
+	    }
+    }
 
-	}
-	
-	for (int j=0; j<5; j++)
-	{
-		sigmasigma[j]=Foam::exp(qq[j])/(Foam::exp(qq[j])+Foam::exp(-qq[j]));
-	}
-	
-
+    for (int j=0; j<5; j++)
+	{   
+        if (2*qq[j]< maxValue ) {
+            sigmasigma[j]=0.0; 
+        }else{
+	    	sigmasigma[j]=1.0/(1.0+Foam::exp(-2*qq[j]));
+	    }
+    }
 	
 	//Definizione a aa
 	const scalar a[5]={a_1,a_2,a_3,a_4,a_5}, aa[5]={a_6,a_7,a_8,a_9,a_10};
 	
 	//CALCOLO mu
-	
 	scalar z=0.0, h=0.0; 
 	
 	for (int i=0; i<5; i++)
 	{
-		z=z+a[i]*sigma[i];
+		z+=a[i]*sigma[i];
 	}
 	
 	for (int i=0; i<5; i++)
 	{
-		h=h+aa[i]*sigmasigma[i];
+		h+=aa[i]*sigmasigma[i];
 	}
 	
 	const scalar log_mu=Foam::log( eps0+z)+h;	
-	
-    scalar mu=Foam::exp(log_mu);
+    const scalar mu=Foam::exp(log_mu);
 	
