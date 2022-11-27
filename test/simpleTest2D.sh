@@ -58,7 +58,7 @@ for Case in ${cases[@]}; do
             rm -r 0 
         fi
         cp -r 0.orig.axisym 0
-
+        setFields &>/dev/null
         $App &> $App.$Case.log
         
         echo "copying logs"

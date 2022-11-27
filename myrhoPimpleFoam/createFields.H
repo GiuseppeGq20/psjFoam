@@ -85,6 +85,7 @@ Info<<"create sigma field\n"<<endl;
 
 sigmaClass sigmaC(mesh,thermo.p(), thermo.T());
 const volScalarField& sigma = sigmaC.sigma();
+Info<<sigma.name()<<endl;
 
 Info<< "Reading field U\n" << endl;
 volVectorField U

@@ -18,8 +18,8 @@ limitT
 {
     type       limitTemperature;
     active     yes;
-    min        101;
-    max        2000;
+    min        100;
+    max        45000;
     selectionMode all;
 }
 

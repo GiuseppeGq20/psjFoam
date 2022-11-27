@@ -24,9 +24,9 @@ boundaryField
 {
     outlet
     {
-        //type            zeroGradient;
-        type            fixedValue;
-        value   uniform $Tinlet;
+        type            zeroGradient;
+        //type            fixedValue;
+        //value   uniform $Tinlet;
     }
 
     "electrod.*"

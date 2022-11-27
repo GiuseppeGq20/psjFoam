@@ -2,15 +2,19 @@
     volScalarField& he = thermo.he();
     
     volScalarField JouleHeating= sigma*Foam::magSqr(fvc::grad(V));
-    
+    //Info<<"joulHeating\n"<<JouleHeating<<endl;
     //damping function
-    //dimensionedScalar omega = 1/Foam::sqrt(Foam::max(JouleHeating/rho/he));
-    dimensionedScalar testUrad
+    dimensionedScalar myone("myone",dimensionSet(0,0,0.5,0,0,0,0),1);
+    //dimensionedScalar myomega=Foam::max(Foam::sqrt((rho*he)/JouleHeating));
+    //dimensionedScalar omega=myomega/myone;
+
+    dimensionedScalar Urad
     (
         "Urad",
         dimEnergy/dimVolume/dimTime,
-        1e7
+        1e10
     );
+    
 
     fvScalarMatrix EEqn
     (
