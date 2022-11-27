@@ -32,7 +32,7 @@
         )
       - fvm::laplacian(turbulence->alphaEff(), he)
       - JouleHeating
-      + testUrad 
+      + Urad 
     ==
         fvOptions(rho, he)
     );
