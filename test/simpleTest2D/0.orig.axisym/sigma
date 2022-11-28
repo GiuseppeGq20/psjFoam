@@ -23,7 +23,8 @@ internalField   uniform $sigma;
 boundaryField
 {   
     //note: this boundary conditions aren't actually used because the sigma on the
-    various patches is internally calculated and updated by the sigmaClass
+    //various patches is internally calculated and updated by the sigmaClass
+    
     outlet
     {
         type         zeroGradient; 
