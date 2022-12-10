@@ -5,26 +5,27 @@ Solver for PSj actuators
 The solver and library should succesfully compile with openfoam2206 installed on your machine
 ([how to install openfoam2206](https://develop.openfoam.com/Development/openfoam/-/wikis/precompiled)).
 First of all clone this repo on your machine.
->`git clone https://github.com/GiuseppeGq20/JetActuatorFoam.git`
+    git clone https://github.com/GiuseppeGq20/JetActuatorFoam.git
 
 then cd into it,switch to the relevant branch, for example `sigma-solver`:
->`git checkout sigma-solver`
+    
+    git checkout sigma-solver
 
 The first time you do that this will create the branch locally, and it will automatically
 track the remote branch with the same name.
 To compile all the solvers and library run:
-> `./Allwmake`
 
-optionally you can add debug option `-debug`, multi process compilation `-j` and
-`-with-bear` option to create a `compile_commands.json` databade useful for code 
-linting.
->`./Allwmake -j -debug -with-bear`
+    ./Allwmake
+
+optionally you can add debug option `-debug`, multi process compilation `-j`.
+    
+    ./Allwmake -j -debug 
 
 ## run simpleTest2D
 You have to cd in `test/simpleTest2D` and then you can run the Allrun script.
-> `cd test/simpleTest2D
-./Allrun.axisym.sh`
-
+    
+    cd test/simpleTest2D
+    ./Allrun.axisym.sh
 
 ## note
 remember to un-ignore each file file you want to track in the test directories
@@ -41,7 +42,8 @@ remember to un-ignore each file file you want to track in the test directories
 
 ## generating compile_command.json for intellisense
 use bear with allwmake
-> `./Allwmake -with-bear`
+    
+    ./Allwmake -with-bear
 
 ## hypothesis on whhy simpleTest2D keeps failing
 Due to the current initialization:
