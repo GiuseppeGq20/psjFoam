@@ -1,6 +1,30 @@
 # jetAxtuatorFoam
 Solver for PSj actuators
 
+## compilation process
+The solver and library should succesfully compile with openfoam2206 installed on your machine
+([how to install openfoam2206](https://develop.openfoam.com/Development/openfoam/-/wikis/precompiled)).
+First of all clone this repo on your machine.
+>`git clone https://github.com/GiuseppeGq20/JetActuatorFoam.git`
+
+then cd into it,switch to the relevant branch, for example `sigma-solver`:
+>`git checkout sigma-solver`
+
+The first time you do that this will create the branch locally, and it will automatically
+track the remote branch with the same name.
+To compile all the solvers and library run:
+> `./Allwmake`
+
+optionally you can add debug option `-debug`, multi process compilation `-j` and
+`-with-bear` option to create a `compile_commands.json` databade useful for code 
+linting.
+>`./Allwmake -j -debug -with-bear`
+
+## run simpleTest2D
+You have to cd in `test/simpleTest2D` and then you can run the Allrun script.
+> `cd test/simpleTest2D
+./Allrun.axisym.sh`
+
 
 ## note
 remember to un-ignore each file file you want to track in the test directories
@@ -18,3 +42,13 @@ remember to un-ignore each file file you want to track in the test directories
 ## generating compile_command.json for intellisense
 use bear with allwmake
 > `./Allwmake -with-bear`
+
+## hypothesis on whhy simpleTest2D keeps failing
+Due to the current initialization:
+- V=0 internal field and dirichlet on electrod faces
+- T>5000 K on the inter electrod space while T=298 K elsewhere
+we think that the simulation undergoes an unphysical transient period with an 
+unphysical electric field (grad(V)) between the electrods
+that leads to a joule heating term >1e15, so it becames the
+leading term and as a result we have a sensisble hentalpy > 1e8 that fails the 
+Newton-Rhapson algorithm to calculate the temperature distribution.
