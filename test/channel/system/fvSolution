@@ -1,0 +1,103 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1912                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+    p
+    {
+        //solver          GAMG;
+        //smoother        GaussSeidel;
+        solver          PBiCGStab;
+        preconditioner  DIC;
+        tolerance       1e-6;
+        relTol          0.01;
+    }
+
+    pFinal
+    {
+        $p;
+        relTol          0;
+    }
+
+    "(rho|U|k|omega|e|h|nuTilda)"
+    {
+        solver          PBiCGStab;
+        preconditioner  DILU;
+        tolerance       1e-6;
+        relTol          0.1;
+    }
+
+    "(V|A)"
+    {
+        solver          PBiCGStab;
+        preconditioner  DIC;
+        tolerance       1e-6;
+        relTol          0.1;
+    }
+
+    "(rho|U|k|omega|e|h|nuTilda|V|A)Final"
+    {
+        $U;
+        relTol          0;
+    }
+
+    "(V|A)Final"
+    {
+        $V;
+        relTol          0;
+    }
+}
+
+SIMPLE
+{
+    residualControl
+    {
+        p               1e-4;
+        U               1e-4;
+        "(k|omega|e)"   1e-4;
+    }
+
+    nNonOrthogonalCorrectors 0;
+    //pMinFactor      0.1;
+    //pMaxFactor      2;
+    pMax            3e5;
+    pMin            1e4;
+}
+
+PIMPLE
+{
+    consistent      yes;
+    transonic       no;
+    nCorrectors              2;
+    nNonOrthogonalCorrectors 1;
+// at least 2 outer loop to correct sigma and use the real value after updated T 
+//aggiungi schema loop pimple algorithm
+    nOuterCorrectors         2;
+    //pMinFactor      0.1;
+    //pMaxFactor      2;
+    pMax            3e5;
+    pMin            1e4;
+}
+
+relaxationFactors
+{
+    equations
+    {
+        ".*"     1;
+    }
+}
+
+// ************************************************************************* //
