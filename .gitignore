@@ -6,6 +6,8 @@ compile_commands.json
 #mac
 .DS_Store
 
+#python
+.ipynb_chekpoints
 #global openfoam
 
 # symbolic links used at compile time for wmake

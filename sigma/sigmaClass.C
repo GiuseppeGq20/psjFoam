@@ -59,6 +59,8 @@ const Foam::volScalarField& T
                 this->sigmaDAngola(pp[facei], Tp[facei]);
         }
     }
+    //sigmaBf.updateCoeffs();
+    //sigmaBf.evaluate();
     //Info<<sigma_<<endl;
 }
 
