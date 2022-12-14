@@ -26,11 +26,11 @@ regions
     // (does zerogradient on boundaries)
     boxToCell
     {
-        box (0 -1 -2) (5e-4 1 2);
+        box (0 -1 -2) (4e-4 1 2);
 
         fieldValues
         (
-            volScalarFieldValue T 10000
+            volScalarFieldValue T 7500
         );
     }
 

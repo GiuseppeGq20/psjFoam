@@ -23,7 +23,7 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         1e-6;
+endTime         1e-5;
 
 deltaT          1e-7;
 
@@ -79,7 +79,7 @@ OptimisationSwitches
 
 }
 
-DebugSwitches
+/*DebugSwitches
 {
     fluidThermo 1;
     psiThermo   1;
@@ -122,7 +122,7 @@ DebugSwitches
     volumeExpr  1;
     waveTransmissive 1;
     zeroGradient 1;
-}
+}*/
 
 libs (
 "libmyfluidThermophysicalModels.so"

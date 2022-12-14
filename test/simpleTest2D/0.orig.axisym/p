@@ -22,10 +22,11 @@ internalField   uniform $pOut;
 
 boundaryField
 {
-    outlet
-    {
-        type            fixedValue;
-        value   uniform $pOut;
+    "outlet.*"
+    {   
+        type            inletOutlet;
+        inletValue      uniform $pOut;
+        value           uniform $pOut;
     }
 
     "electrod.*"

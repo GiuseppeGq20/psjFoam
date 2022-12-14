@@ -14,8 +14,11 @@ runApplication blockMesh -dict system/blockMeshDict.axisym
 runApplication extrudeMesh
 
 #runApplication refineMesh -overwrite
+#runApplication refineMesh -overwrite
 
 runApplication setFields
+
+#runApplication setExprFields
 
 runApplication $(getApplication)
 

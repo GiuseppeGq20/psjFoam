@@ -14,7 +14,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-Tinlet          298;
+Tinlet          300;
 
 dimensions      [0 0 0 1 0 0 0];
 
@@ -24,9 +24,15 @@ boundaryField
 {
     outlet
     {
-        type            zeroGradient;
-        //type            fixedValue;
-        //value   uniform $Tinlet;
+        //type            zeroGradient;
+        type            fixedValue;
+        value   uniform $Tinlet;
+    }
+    
+    "outletSides.*"
+    {
+        type            fixedValue;
+        value   uniform $Tinlet;
     }
 
     "electrod.*"
