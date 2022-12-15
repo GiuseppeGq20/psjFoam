@@ -7,7 +7,7 @@ compile_commands.json
 .DS_Store
 
 #python
-.ipynb_chekpoints
+.ipynb_checkpoints
 #global openfoam
 
 # symbolic links used at compile time for wmake
