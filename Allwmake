@@ -9,10 +9,12 @@ echo "run Allwmake ThermoModel"
 
 echo "clean build"
 wclean sigma
+wclean Urad
 wclean myrhoPimpleFoam
 
 echo "build targets"
 wmake sigma
+wmake Urad
 wmake myrhoPimpleFoam
 
 

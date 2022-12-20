@@ -87,6 +87,10 @@ sigmaClass sigmaC(mesh,thermo.p(), thermo.T());
 const volScalarField& sigma = sigmaC.sigma();
 Info<<sigma.name()<<endl;
 
+Info<< "create Urad field\n"<<endl;
+Urad uradC(mesh,thermo.T());
+const volScalarField& urad = uradC.urad();
+
 Info<< "Reading field U\n" << endl;
 volVectorField U
 (
