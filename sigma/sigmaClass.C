@@ -27,7 +27,6 @@ License
 
 #include "sigmaClass.H"
 
-
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * //
 void Foam::sigmaClass::init
 (
@@ -36,7 +35,7 @@ const Foam::volScalarField& T
 )
 {
     //volScalarField& sigma = sigma_.ref();
-    scalarField& sigmaCells = sigma_.primitiveFieldRef();
+    scalarField& sigmaCells = this->sigma_.primitiveFieldRef();
     const scalarField& pCells = p.primitiveField();
     const scalarField& TCells = T.primitiveField();
 
@@ -84,7 +83,7 @@ const Foam::volScalarField& p,
 const Foam::volScalarField& T 
 )
 :
-
+    
     sigma_
     (
         IOobject
@@ -95,8 +94,10 @@ const Foam::volScalarField& T
             IOobject::NO_READ,
             IOobject::AUTO_WRITE
         ),
-        mesh
-    )   
+        mesh,
+        dimensionedScalar(dimCurrent*dimCurrent/dimMass/pow(dimVelocity,3),0.0) //initialize field to zero value
+    )
+    
 {
     this->init(p, T);
 }
