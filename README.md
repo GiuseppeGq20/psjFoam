@@ -9,7 +9,7 @@ First of all clone this repo on your machine.
 
 then cd into it,switch to the relevant branch, for example `sigma-solver`:
     
-    git checkout sigma-solver
+    git switch sigma-solver
 
 The first time you do that this will create the branch locally, and it will automatically
 track the remote branch with the same name.
