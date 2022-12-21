@@ -55,6 +55,7 @@ Note
 #include "localEulerDdtScheme.H"
 #include "fvcSmooth.H"
 #include "sigmaClass.H"
+#include "Urad.H"
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 int main(int argc, char *argv[])
@@ -168,7 +169,7 @@ int main(int argc, char *argv[])
            
             // Maxwell eqns
             #include "VEqn.H"
-            #include "AEqn.H"
+            //#include "AEqn.H"
             // 
 
             #include "UEqn.H"

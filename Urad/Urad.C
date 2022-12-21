@@ -105,7 +105,9 @@ const
         }
         index--;
 
-        nec= NECtable[index] + (T-Ttable[index])*(NECtable[index+1]-NECtable[index])/(Ttable[index+1]- Ttable[index]);
+        nec= NECtable[index] + 
+            (T-Ttable[index])*(NECtable[index+1]-NECtable[index])/
+            (Ttable[index+1]- Ttable[index]);
         
     }
 
