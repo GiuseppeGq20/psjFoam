@@ -79,9 +79,11 @@ const
         // raise error or keep urad equal to last high value
         nec=NECtable[N-1];
     }else{
-        //TODO: implement binary search
+
         //find index
-        /*{
+        //binary search
+        int index=0;
+        {
             int L=0;
             int R=N-1;
             while (L<R){
@@ -90,21 +92,24 @@ const
                     L=m+1;
                 }else if (Ttable[m]> T){
                     R=m-1;
-                }else {
+                }else if(T==Ttable[m]) {
                     index=m;
+                }else if( (Ttable[m]<T) && (T<Ttable[m+1]) ){
+                    index = m;
                 }
         
             }
-        }*/
+        }
 
         //this works because Ttable is sorted in acending order
-        int index=0;
+        // linear search
+        /*int index=0;
         while (Ttable[index]<T)
         {
             index++;
         }
         index--;
-
+        */
         nec= NECtable[index] + 
             (T-Ttable[index])*(NECtable[index+1]-NECtable[index])/
             (Ttable[index+1]- Ttable[index]);
