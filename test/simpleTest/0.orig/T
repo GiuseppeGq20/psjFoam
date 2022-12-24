@@ -24,9 +24,8 @@ boundaryField
 {
     outlet
     {
-        type            inletOutlet;
-        inletValue      uniform $Tinlet;
-        value           $inletValue;
+        type            fixedValue;
+        value   uniform $Tinlet;
     }
 
     "electrod.*"
@@ -36,12 +35,12 @@ boundaryField
 
     "(front|back)"
     {
-        type            wedge;
+        type            empty;
     }
 
     axis
     {
-        type empty;
+        type symmetry;
     }
     
     //#includeEtc "caseDicts/setConstraintTypes"

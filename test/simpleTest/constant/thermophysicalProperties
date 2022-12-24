@@ -1,3 +1,4 @@
+
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
@@ -19,11 +20,11 @@ thermoType
 {
     type            hePsiThermo;
     mixture         pureMixture;
-    transport       const;
-    thermo          hConst;
-    equationOfState perfectGas;
+    transport       myconst;
+    thermo          myhConst;
+    equationOfState myperfectGas;
     specie          specie;
-    energy          sensibleInternalEnergy;
+    energy          sensibleEnthalpy;
 }
 
 mixture // air at room temperature (293 K)
@@ -32,14 +33,18 @@ mixture // air at room temperature (293 K)
     {
         molWeight   28.9;
     }
+
     thermodynamics
     {
         Cp          1005;
         Hf          0;
+        //Href        3e5;
     }
+
     transport
     {
         mu          1.82e-05;
+        //mu          -1.0;
         Pr          0.71;
     }
 }

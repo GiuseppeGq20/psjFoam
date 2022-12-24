@@ -18,10 +18,12 @@ solvers
 {
     p
     {
-        solver          GAMG;
-        smoother        GaussSeidel;
-        tolerance       1e-6;
-        relTol          0.01;
+        //solver          GAMG;
+        //smoother        GaussSeidel;
+        solver          PBiCGStab;
+        preconditioner  DILU;
+        tolerance       1e-9;
+        relTol          0.001;
     }
 
     pFinal
@@ -30,7 +32,7 @@ solvers
         relTol          0;
     }
 
-    "(rho|U|k|omega|e|nuTilda)"
+    "(rho|U|k|omega|e|h|nuTilda)"
     {
         solver          PBiCGStab;
         preconditioner  DILU;
@@ -38,40 +40,55 @@ solvers
         relTol          0.1;
     }
 
-    "(rho|U|k|omega|e|nuTilda)Final"
+    "(V|A)"
+    {
+        solver          PBiCGStab;
+        preconditioner  DIC;
+        tolerance       1e-6;
+        relTol          0.1;
+    }
+
+    "(rho|U|k|omega|e|h|nuTilda)Final"
     {
         $U;
         relTol          0;
     }
-}
 
-SIMPLE
-{
-    residualControl
+    "(V|A)Final"
     {
-        p               1e-4;
-        U               1e-4;
-        "(k|omega|e)"   1e-4;
+        $V;
+        relTol          0;
     }
-
-    nNonOrthogonalCorrectors 0;
-    pMinFactor      0.1;
-    pMaxFactor      2;
 }
+
 
 PIMPLE
 {
     consistent      yes;
-    transonic       no;
-    nCorrectors              2;
-    nNonOrthogonalCorrectors 1;
-    nOuterCorrectors         1;
-    pMinFactor      0.1;
-    pMaxFactor      2;
+    transonic       yes;
+    nCorrectors              3;
+    nNonOrthogonalCorrectors 0;
+// at least 2 outer loop to correct sigma and use the real value after updated T 
+//aggiungi schema loop pimple algorithm
+    nOuterCorrectors         3;
+    //pMinFactor      0.1;
+    //pMaxFactor      2;
+    outerCorrectorResidualControl
+    {
+        ".*"
+        {
+            relTol 1e-3;
+            tolerance 2e-3;
+        }
+    }
 }
 
 relaxationFactors
 {
+    fields
+    {
+        ",*"     1;
+    }
     equations
     {
         ".*"     1;

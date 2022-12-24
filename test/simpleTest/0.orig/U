@@ -24,8 +24,8 @@ boundaryField
 {
     outlet
     {
-        type            freestreamVelocity;
-        freestreamValue uniform $Uinlet;
+        type            fixedValue;
+        value uniform $Uinlet;
     }
 
     "electrod.*"
@@ -35,12 +35,12 @@ boundaryField
 
     "(front|back)"
     {
-        type            wedge;
+        type            empty;
     }
 
     axis
     {
-        type empty;
+        type symmetry;
     }
     
     //#includeEtc "caseDicts/setConstraintTypes"

@@ -24,13 +24,8 @@ boundaryField
 {
     outlet
     {
-        type            waveTransmissive;
-        field           p;
-        psi             thermo:psi;
-        gamma           1.4;
-        fieldInf        $pOut;
-        lInf            5;
-        value           uniform $pOut;
+        type            fixedValue;
+        value   uniform $pOut;
     }
 
     "electrod.*"
@@ -40,12 +35,12 @@ boundaryField
 
     "(front|back)"
     {
-        type            wedge;
+        type            empty;
     }
 
     axis
     {
-        type empty;
+        type symmetry;
     }
 
     //#includeEtc "caseDicts/setConstraintTypes"

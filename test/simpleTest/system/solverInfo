@@ -14,6 +14,6 @@ Description
 
 #includeEtc "caseDicts/postProcessing/numerical/solverInfo.cfg"
 
-fields (p U);
+fields (p U V A);
 
 // ************************************************************************* //

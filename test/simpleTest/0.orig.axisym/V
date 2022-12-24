@@ -64,9 +64,9 @@ boundaryField
    
     "electrodFaceTop"
     {
-        type            zeroGradient;
-        //type            fixedValue;
-        //value   uniform 0;
+        //type            zeroGradient;
+        type            fixedValue;
+        value   uniform 3e3;
     }
     
     "electrodFaceBot"
