@@ -161,7 +161,7 @@
     const scalar q[7]={q1,q2,q3,q4,q5,q6,q7};
 
     //Definizione sigmoidi
-    const scalar maxValue=-10.0; // for q<-2.5 the sigmoid is less than 7e-3
+    const scalar maxValue=-100.0; // for q<-2.5 the sigmoid is less than 7e-3
 	scalar sigma[7];
 	for (int j=0; j<7; j++)
 	{   

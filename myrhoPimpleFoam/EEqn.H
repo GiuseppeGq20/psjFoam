@@ -1,6 +1,7 @@
 {
     volScalarField& he = thermo.he();
     
+    Info<<"max h"<<max(he)<<endl;
     volScalarField JouleHeating= sigma*Foam::magSqr(fvc::grad(V));
     uradC.update(thermo.T());
     
@@ -19,11 +20,17 @@
         omega=1;
     }
     */
-    if (pimple.firstIter() && (pimple.nCorrPIMPLE()>1) )
+    //volScalarField source("source",dimPower/dimMass,mesh,0);
+
+    volScalarField source=JouleHeating-urad;
+    if ( pimple.firstIter() && (pimple.nCorrPIMPLE()>1) )
     {  
         //TODO find a better way to set JouleHeating to zero at first outer iteration
-        dimensionedScalar myzero("myzero",dimensionSet(-1,-3,3,0,0,2,0),0);
-        JouleHeating = myzero*Foam::magSqr(fvc::grad(V));
+        //dimensionedScalar myzero("myzero",dimensionSet(-1,-3,3,0,0,2,0),0);
+        dimensionedScalar myzero("myzero",dimensionSet(0,0,0,0,0),0);
+        //volScalarField source("source",dimPower/dimMass,mesh,0);
+        source = myzero*source;
+        
     }
 
     //Info<<"omega: "<<omega<<endl;
@@ -34,8 +41,7 @@
         dimEnergy/dimVolume/dimTime,
         1e20
     );*/
-    
-
+   
     //#include "Urad.H"
 
     Info<<"before eq:\n"
@@ -61,9 +67,8 @@
             )
           : -dpdt
         )
-      - fvm::laplacian(turbulence->alphaEff(), he)
-      - JouleHeating
-      + urad 
+    - fvm::laplacian(turbulence->alphaEff(), he)
+    - source 
     ==
         fvOptions(rho, he)
     );
@@ -81,10 +86,10 @@
     fvOptions.correct(he);
     
     
-    sigma.write();
-    V.write();
-    he.write();
-    dpdt.write();
+   // sigma.write();
+   // V.write();
+   // he.write();
+   // dpdt.write();
 
     thermo.correct();
 

@@ -100,7 +100,7 @@ inline Foam::scalar Foam::myhConstThermo<EquationOfState>::Cp
     //return Cp_ + EquationOfState::Cp(p, T);
 
     #include "cp.H"
-    return static_cast<scalar>(Cp);
+    return Cp;
 }
 
 
@@ -124,7 +124,7 @@ inline Foam::scalar Foam::myhConstThermo<EquationOfState>::Hs
     
     //custom model
     #include "H.H"
-    return static_cast<scalar>(H) + Hsref_ + EquationOfState::H(p, T);
+    return H + Hsref_ + EquationOfState::H(p, T);
     
     //return Cp_*(T - Tref_) + Hsref_ + EquationOfState::H(p, T); 
 
@@ -148,7 +148,7 @@ inline Foam::scalar Foam::myhConstThermo<EquationOfState>::S
     
     //custom model
     #include "S.H"
-    return static_cast<scalar>(S);
+    return S;
 }
 
 

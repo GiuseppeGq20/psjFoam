@@ -66,10 +66,18 @@ inline Foam::scalar Foam::species::thermo<Thermo, Type>::T
 
     do
     {
+        //Netwon Rapshon
         Test = Tnew;
         Tnew =
             (this->*limit)
             (Test - ((this->*F)(p, Test) - f)/(this->*dFdT)(p, Test));
+        
+        //Info<<"Test, Tnew, F, dFdT, p, f: "
+        //     <<Test<<", "<<Tnew<<", "<<(this->*F)(p, Test)
+        //    <<", "<<(this->*dFdT)(p, Test)<<", "<<p<<", "<<f<<", "<<nl;
+        //Info<<"T0, Ttol: "<<T0<<" "<<Ttol<<nl;
+        //bisezione
+        
 
         if (iter++ > maxIter_)
         {

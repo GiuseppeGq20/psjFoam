@@ -165,7 +165,7 @@
     Info<<endl;
     */
 	//Definizione sigma e gamma
-	const scalar maxValue=-10.0;
+	const scalar maxValue=-100.0;
 	scalar sigma[7];
 	// just 6 for overflow errors in exp()
 	for (int j=0; j<7; j++)

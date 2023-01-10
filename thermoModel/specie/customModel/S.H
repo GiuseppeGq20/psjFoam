@@ -153,7 +153,7 @@
     
 	//Definizione sigma
 	scalar sigma[7]; 
-    const scalar maxValue=-10.0; // for q<-2.5 the sigmoid is less than 7e-3
+    const scalar maxValue=-100.0; // for q<-2.5 the sigmoid is less than 7e-3
     for (int j=0; j<7; j++)
 	{   
         if (2*q[j]< maxValue ) {
