@@ -21,13 +21,16 @@ internalField   uniform 1e5;
 boundaryField
 {
     inlet
-    {
-        type            cyclic;
+    {   
+        //type cyclic
+        type            zeroGradient;
     }
 
     outlet
-    {
-        type            cyclic;
+    {   
+        //type cyclic
+        type            fixedValue;
+        value   uniform 1e5;
     }
 
     symm

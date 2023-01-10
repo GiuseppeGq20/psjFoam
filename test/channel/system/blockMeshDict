@@ -17,9 +17,9 @@ FoamFile
 scale   1;
 geom
 {
-    L 2;
+    L 10;
     H 0.5;
-    Nx 30;
+    Nx 150;
     Ny 60;
     y_grading 60;
 };
@@ -53,7 +53,7 @@ edges
 
 boundary
 (
-    inlet
+   /* inlet
     {
         type cyclic;
         neighbourPatch outlet;
@@ -76,6 +76,27 @@ boundary
             
         );
     }
+    */
+    inlet
+    {
+        type patch;
+        faces
+        (
+            (0 3 7 4)
+        );
+    }
+
+    outlet
+    {
+        type patch;
+        faces
+        (
+            (1 5 6 2)
+            
+        );
+    }
+
+
     symm
     {
         type symmetry;

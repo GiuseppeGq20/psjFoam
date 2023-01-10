@@ -22,12 +22,16 @@ boundaryField
 {
     inlet
     {
-        type            cyclic;
+        //type            cyclic;
+        type            fixedValue;
+        value           uniform 0;
     }
 
     outlet
     {
-        type            cyclic;
+        //type            cyclic;
+        type            fixedValue;
+        value           uniform 0;
     }
 
     symm

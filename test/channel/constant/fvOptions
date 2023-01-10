@@ -14,7 +14,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-momentumSource
+/*momentumSource
 {
     type            meanVelocityForce;
 
@@ -23,7 +23,7 @@ momentumSource
     fields          (U);
     Ubar            (1e-3 0 0);
 }
-
+*/
 
 //does not work
 /*directionalPressureGradientExplicitSource1

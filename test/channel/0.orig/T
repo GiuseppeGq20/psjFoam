@@ -14,7 +14,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-Tinlet          300;
+Tinlet          7500;
 
 dimensions      [0 0 0 1 0 0 0];
 
@@ -24,12 +24,14 @@ boundaryField
 {
     inlet
     {
-        type            cyclic;
+        //type            cyclic;
+        type            zeroGradient;
     }
 
     outlet
     {
-        type            cyclic;
+        //type            cyclic;
+        type            zeroGradient;
     }
 
     symm
@@ -39,7 +41,9 @@ boundaryField
 
     wall
     {
-        type            zeroGradient;
+        //type            zeroGradient;
+        type            fixedGradient;
+        gradient   uniform -10;
     }
 
 }
