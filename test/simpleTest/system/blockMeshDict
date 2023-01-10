@@ -17,26 +17,22 @@ FoamFile
 domain
 {
     //dimensions
+    H 2e-3;
     Rin     5e-4;
-    Rout    6e-3;
-    Dbot    -1e-3;
-    Dup     1e-3;
-    Hbot    -3e-3;
-    Hup     3e-3;
+    Rout    #eval"10*$H";
+    Dbot    #eval"-0.5*$H";
+    Dup     #eval"0.5*$H";
+    Hbot    #eval"$Dbot -10*$H";
+    Hup     #eval"$Dbot +10*$H";
 
     width   1e-3;
 
     // Number of cells
-    RinCells  10; 
+    RinCells  9; 
     DCells    30;
-    HCells    20; 
-    RoutCells 40; 
+    HCells    300; 
+    RoutCells 260; 
     
-    // Mesh grading
-    zGrading    7000;  // aerofoil to far field
-    xUGrading   5;   // towards centre upstream
-    leadGrading 0.2; // towards leading edge
-    xDGrading   150;  // downstream
 }
 
 
@@ -98,7 +94,7 @@ boundary
 (
     axis
     {
-        type symmetry;
+        type empty;
         faces
         (
             (3 7 4 0)
@@ -123,27 +119,50 @@ boundary
         );
     }
 
-    electrodSides
+    electrodSidesBot
     {
         type wall;
         faces
         (
-            (11 15 6 2)
             (1 5 8 12)
     
         );
     }
-
-    outlet
+    
+    electrodSidesTop
+    {
+        type wall;
+        faces
+        ( 
+            (11 15 6 2)
+        );
+    }
+    
+    outletSidesTop
     {
         type patch;
         faces
         (
             (11 10 14 15)
+        );
+    }
+     
+    outletSidesBot
+    {
+        type patch;
+        faces
+        (
+            (12 13 9 8)
+        );
+    }   
+    outlet
+    {
+        type patch;
+        faces
+        (
             (14 10 18 19)
             (18 19 17 16)
             (16 17 13 9)
-            (12 13 9 8)
         );
     }
 

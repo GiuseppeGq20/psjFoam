@@ -21,7 +21,7 @@ internalField   uniform (0 0 0);
 
 boundaryField
 {
-    outlet
+    "outlet.*"
     {
         type            fixedValue;
         value   uniform (0 0 0);
@@ -34,12 +34,12 @@ boundaryField
 
     "(front|back)"
     {
-        type            empty;
+        type            wedge;
     }
 
     axis
     {
-        type symmetry;
+        type empty;
     }
 }
 

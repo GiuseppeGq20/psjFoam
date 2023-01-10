@@ -14,7 +14,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-Tinlet          298;
+Tinlet          300;
 
 dimensions      [0 0 0 1 0 0 0];
 
@@ -22,11 +22,18 @@ internalField   uniform $Tinlet;
 
 boundaryField
 {
-    outlet
+    "outlet.*"
     {
+        //type            zeroGradient;
         type            fixedValue;
         value   uniform $Tinlet;
     }
+    
+    /*"outletSides.*"
+    {
+        type            fixedValue;
+        value   uniform $Tinlet;
+    }*/
 
     "electrod.*"
     {
@@ -35,12 +42,12 @@ boundaryField
 
     "(front|back)"
     {
-        type            empty;
+        type            wedge;
     }
 
     axis
     {
-        type symmetry;
+        type empty;
     }
     
     //#includeEtc "caseDicts/setConstraintTypes"

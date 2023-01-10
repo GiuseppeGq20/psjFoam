@@ -6,20 +6,16 @@ cd "${0%/*}" || exit                                # Run from this directory
 #restore0Dir
 rm log.*
 rm -r 0 
-cp -r 0.orig.axisym 0
+cp -r 0.orig 0
 runApplication foamListTimes -rm
 
-runApplication blockMesh -dict system/blockMeshDict.axisym
+runApplication blockMesh -dict system/blockMeshDict.arcdischarge 
 
-runApplication extrudeMesh
+runApplication setFields -dict system/setFieldsDict.arcdischarge
 
-runApplication refineMesh -overwrite
-#runApplication refineMesh -overwrite
+runApplication  decomposePar -force
 
-runApplication setFields
-
-#runApplication setExprFields
-
-runApplication $(getApplication)
+#runApplication $(getApplication)
+runParallel $(getApplication)
 
 #------------------------------------------------------------------------------

@@ -1,8 +1,8 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v2206                                 |
-|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|  \\    /   O peration     | Version:  2.3.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
@@ -10,43 +10,35 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
+    location    "system";
     object      setFieldsDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defaultFieldValues
 (
-    volScalarFieldValue T 298
-    volVectorFieldValue U (0 0 0)
-    volScalarFieldValue p 1e5
+    	volScalarFieldValue T 288
+    	volScalarFieldValue p 101325
+	    //volScalarFieldValue rho 1.22
+ 	//volScalarFieldValue mySigma 1e-010    
 );
 
 regions
 (
-    // Set cell values
-    // (does zerogradient on boundaries)
     boxToCell
     {
-        box (0 -1 -2) (5e-4 1 2);
-
+        box (-0.001 0 -0.01) (0.001 0.0004 0.01);
         fieldValues
         (
             volScalarFieldValue T 7500
-            volScalarFieldValue p 1e6
+	        volScalarFieldValue p   1e6
+            //volScalarFieldValue rho 1.22             
+          //  volScalarFieldValue mySigma 0.0003 
         );
+		
     }
 
-    // Set patch values (using ==)
-    /*boxToFace
-    {
-        box (0 0 -1) (0.1461 0.292 1);
-
-        fieldValues
-        (
-            volScalarFieldValue alpha1 1
-        );
-    }
-    */
 );
+
 
 // ************************************************************************* //

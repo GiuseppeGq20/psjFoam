@@ -20,32 +20,79 @@ internalField   uniform 0;
 
 boundaryField
 {
-    outlet
+    /*"outletSides.*"
     {
         type            fixedValue;
         value   uniform 0;
-    }
-
-    "(electrodSides|electrodFaceTop)"
+    }*/
+    
+    "outlet.*"
     {
+        type            fixedValue;
+        value           uniform 0;
+    }
+    /*
+    electrodSidesTop
+    {
+        //type            zeroGradient;
+        type            fixedValue;
+        value   uniform 0;
+    }
+    */
+
+    /*electrodSidesBot
+    {
+	    type		 codedFixedValue;
+	    value		 uniform 0 ;
+	
+	    name 		 rampV;
+	    code
+	    #{
+		    const vectorField& Cf = patch().Cf();
+		    scalarField& field = *this;
+		
+		    const scalar Vmax = 4e3;
+		    const scalar zi = Cf[0][2];
+		    const scalar zf = Cf[Cf.size()-1][2];
+		    const scalar L = abs(zf-zi);
+		
+		    forAll(Cf, faceI)
+		    {
+			    const scalar z = Cf[faceI][2];
+			    const scalar f_p = 1 + (z-zi)/L;
+			    const scalar V_p = Vmax*f_p;	
+			    field[faceI] = scalar (V_p);
+		    }
+	    #};
+	}*/
+    
+   
+    "electrodFaceTop"
+    {
+        //type            zeroGradient;
         type            fixedValue;
         value   uniform 0;
     }
     
-    electrodFaceBot
+    "electrodFaceBot"
     {
         type            fixedValue;
-        value   uniform 1;
+        value   uniform 400;
+    }
+
+    "electrodSides.*"
+    {
+        type            zeroGradient;
     }
 
     "(front|back)"
     {
-        type            empty;
+        type            wedge;
     }
 
     axis
     {
-        type symmetry;
+        type empty;
     }
 }
 

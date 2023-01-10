@@ -22,10 +22,11 @@ internalField   uniform $pOut;
 
 boundaryField
 {
-    outlet
-    {
-        type            fixedValue;
-        value   uniform $pOut;
+    "outlet.*"
+    {   
+        type            inletOutlet;
+        inletValue      uniform $pOut;
+        value           uniform $pOut;
     }
 
     "electrod.*"
@@ -35,12 +36,12 @@ boundaryField
 
     "(front|back)"
     {
-        type            empty;
+        type            wedge;
     }
 
     axis
     {
-        type symmetry;
+        type empty;
     }
 
     //#includeEtc "caseDicts/setConstraintTypes"
