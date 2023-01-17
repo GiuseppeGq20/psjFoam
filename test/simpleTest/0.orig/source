@@ -1,3 +1,4 @@
+
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
@@ -10,54 +11,28 @@ FoamFile
     version     2.0;
     format      ascii;
     class       volScalarField;
-    object      T;
+    object      source;
 }
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * /
 
-Tinlet          300;
 
-dimensions      [0 0 0 1 0 0 0];
+dimensions      [1 -1 -3 0 0 0 0];
 
-internalField   uniform $Tinlet;
+internalField   uniform 0;
 
 boundaryField
 {
     "outlet.*"
-    {
-        //type            zeroGradient;
-        type            fixedValue;
-        value   uniform $Tinlet;
-    }
-    
-    /*"outletSides.*"
-    {
-        type            fixedValue;
-        value   uniform $Tinlet;
-    }*/
-
-    "electrodSide.*"
-    {
-        type            zeroGradient;
-    }
-   
-    
-    "electrodFace.*"
-    {
-        type            zeroGradient;    
+    {   
+        type            calculated;
+        value           uniform 0;
     }
 
-    /*"electrodFaceTop"
+    "electrod.*"
     {
-        type fixedGradient;
-        gradient   uniform 5e6;
+        type            calculated;
+        value           uniform 0;
     }
-
-    "electrodFaceBot"
-    {
-        type fixedGradient;
-        gradient   uniform 5e6;
-    }
-    */
 
     "(front|back)"
     {
@@ -68,7 +43,7 @@ boundaryField
     {
         type empty;
     }
-    
+
     //#includeEtc "caseDicts/setConstraintTypes"
 }
 

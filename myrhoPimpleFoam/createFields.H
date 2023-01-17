@@ -43,8 +43,21 @@ volScalarField V
     mesh
 );
 
+volScalarField source
+(
+    IOobject
+    (
+        "source",
+        runTime.timeName(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh
+);
+
 //vector potential
-volVectorField A
+/*volVectorField A
 (
     IOobject
     (
@@ -56,7 +69,7 @@ volVectorField A
     ),
     mesh
 );
-
+*/
 Info<< "Reading thermophysical properties\n" << endl;
 
 autoPtr<fluidThermo> pThermo

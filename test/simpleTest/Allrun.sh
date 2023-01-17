@@ -14,9 +14,10 @@ runApplication blockMesh
 runApplication extrudeMesh
 
 #runApplication refineMesh -overwrite
-runApplication refineMesh -overwrite
+#runApplication refineMesh -overwrite
 runApplication setFields
 
+runApplication topoSet
 #runApplication setExprFields
 runApplication  decomposePar -force
 

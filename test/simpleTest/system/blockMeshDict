@@ -28,11 +28,15 @@ domain
     width   1e-3;
 
     // Number of cells
-    RinCells  9; 
-    DCells    30;
-    HCells    300; 
-    RoutCells 260; 
+    RinCells  9;//9; 
+    DCells    60;//30;
+    HCells    200;//300; 
+    RoutCells 180;//260; 
     
+    //gradings
+    Dgrading    4;
+    RoutGrading 10;
+    Hgrading    10;
 }
 
 
@@ -69,19 +73,46 @@ blocks
 (
     hex (0 1 5 4 3 2 6 7)
     ($:domain.RinCells 1 $:domain.DCells)
-    simpleGrading (1 1 1)
+    simpleGrading 
+    (
+        1
+        1
+        (
+            (0.5 0.5 $:domain.Dgrading)
+            (0.5 0.5 #eval"1/$:domain.Dgrading")
+        )
+    )
    
     hex (8 9 13 12 1 16 17 5)
     ($:domain.RoutCells 1 $:domain.HCells)
-    simpleGrading (1 1 1)
+    simpleGrading 
+    (   
+        $:domain.RoutGrading
+        1 
+        #eval"1/$:domain.Hgrading"
+    )
 
     hex (1 16 17 5 2 18 19 6)
     ($:domain.RoutCells 1 $:domain.DCells)
-    simpleGrading (1 1 1)
+    simpleGrading
+    (
+        $:domain.RoutGrading
+        1
+        (
+            (0.5 0.5 $:domain.Dgrading)
+            (0.5 0.5 #eval"1/$:domain.Dgrading")
+        )
+    )
 
     hex (2 18 19 6 11 10 14 15)
     ($:domain.RoutCells 1 $:domain.HCells)
-    simpleGrading (1 1 1)
+    simpleGrading
+    (   
+        $:domain.RoutGrading
+        1 
+        $:domain.Hgrading
+    )
+
 );
 
 

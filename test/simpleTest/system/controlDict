@@ -41,7 +41,7 @@ writeCompression off;
 
 timeFormat      general;
 
-timePrecision   6;
+timePrecision   9;
 
 runTimeModifiable true;
 
@@ -55,7 +55,39 @@ functions
     #includeFunc solverInfo
     //#includeFunc calcB
     //#includeFunc wallShearStress
-   
+  
+    meanSourceterm
+    {
+        // Mandatory entries (unmodifiable)
+        type            volFieldValue;
+        libs            (fieldFunctionObjects);
+
+        // Mandatory entries (runtime modifiable)
+        fields          ( source );
+        operation       volAverage;
+        regionType      cellZone;
+        name            interElectrodZone;
+
+        // Optional entries (runtime modifiable)
+        postOperation   none;
+        //weightField     alpha1;
+
+        // Optional (inherited) entries
+        writeFields     false;
+        scalingFactor   1.0;
+        writePrecision  8;
+        writeToFile     true;
+        //useUserTime     true;
+        //region          region0;
+        enabled         true;
+        log             true;
+        timeStart       0;
+        timeEnd         1000;
+        //executeControl  timeStep;
+        //executeInterval 1;
+        writeControl    timeStep;
+        writeInterval   1;
+    }
 }
 
 OptimisationSwitches
@@ -123,6 +155,7 @@ OptimisationSwitches
     waveTransmissive 1;
     zeroGradient 1;
 }*/
+
 
 libs (
 "libmyfluidThermophysicalModels.so"

@@ -22,7 +22,7 @@
     */
     //volScalarField source("source",dimPower/dimMass,mesh,0);
 
-    volScalarField source=JouleHeating-urad;
+    source=JouleHeating-urad;
     if ( pimple.firstIter() && (pimple.nCorrPIMPLE()>1) )
     {  
         //TODO find a better way to set JouleHeating to zero at first outer iteration

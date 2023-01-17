@@ -23,7 +23,7 @@ solvers
         //solver          PBiCGStab;
         //preconditioner  DILU;
         tolerance       1e-9;
-        relTol          0.0001;
+        relTol          0.001;
     }
 
     pFinal
@@ -40,13 +40,14 @@ solvers
         relTol          0.1;
     }
 
-    "(V|A)"
+    V
     {   
-        solver          GAMG;
-        smoother        GaussSeidel;
-        //solver          PBiCGStab;
+        //solver          GAMG;
+        //smoother        GaussSeidel;
+        solver          smoothSolver;//PBiCGStab;
+        smoother        symGaussSeidel;
         //preconditioner  DIC;
-        tolerance       1e-7;
+        tolerance       1e-3;
         relTol          0.001;
     }
 
@@ -56,7 +57,7 @@ solvers
         relTol          0;
     }
 
-    "(V|A)Final"
+    VFinal
     {
         $V;
         relTol          0;
