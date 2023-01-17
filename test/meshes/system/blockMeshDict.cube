@@ -1,3 +1,4 @@
+
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
@@ -13,21 +14,21 @@ FoamFile
     object      blockMeshDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-scale 1;//0.001; // scale to [mm]
+scale 0.001; // scale to [mm]
 
 domain
 {
    
-    L   0.04;
-    H   0.1;
-    W   0.04;
-    mL  -0.04;
-    mH  -0.01;
-    mW  0;//-0.04;
+    L   12;
+    H   12;
+    W   12;
+    mL  -12;
+    mH  -12;
+    mW  -12;
 
-    LCells  80;
-    HCells  80;
-    WCells  80;
+    LCells  32;
+    HCells  8;
+    WCells  32;
 }
 
 

@@ -17,30 +17,24 @@ FoamFile
 // Self intersection (single or multiple surfaces).
 // - Use 'surfaces' entry (a wordRe list) if it exists.
 // - If the dictionary name does not have an extension, 'surfaces' is mandatory.
-electrods
+join
 {
     extractionMethod    extractFromSurface;
 
-    surfaces            (faceBot.stl sideBot.stl faceTop.stl sideTop.stl);
-
+    surfaces            (join.stl);
+    
     // mm -> m scaling
     // scale               0.001;
 
-    includedAngle       120;
+    includedAngle       170;
 
-curvature true;
+    curvature true;
     // Do not mark region edges
     geometricTestOnly   yes;
 
-    includedAngle       120;
-
-    curvature true;
-        // Do not mark region edges
-            geometricTestOnly   yes;
-
 
     // Generate additional intersection features (none | self | region)
-    intersectionMethod  self;
+    intersectionMethod  none;
 
     // Tolerance for surface intersections
     // tolerance           1e-3;

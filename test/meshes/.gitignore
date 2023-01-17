@@ -1,0 +1,14 @@
+#case directories
+/*
+
+!0.orig*/
+
+!constant/
+#ignore mesh
+constant/polyMesh/*
+constant/extendedFeatureEdgeMesh/*
+
+!geometry/
+!system/
+!.gitignore
+!*.sh
