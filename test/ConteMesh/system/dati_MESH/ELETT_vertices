@@ -1,0 +1,91 @@
+
+
+//***********  ELETTRODI
+
+//TRA ELETTRODI INTERNO
+
+
+//X=0
+
+//CIRC 
+name e1_0 (0 		0			#eval "-$z3")
+
+name e2_0 (0		0			#eval "-$z3+$delec/2")
+name e3_0 (0		$xcelec	 		#eval "-$z3+$ycelec")
+
+name e4_0 (0		#eval "$delec/2"	#eval "-$z3")
+
+name e5_0 (0		$xcelec	 		#eval "-$z3-$ycelec")
+name e6_0 (0		0			#eval "-$z3-$delec/2")
+
+//QUADRATO
+name e7_0  (0 		0	 		#eval "-$z2")
+name e8_0  (0 		$qq			#eval "-$z2")
+name e9_0  (0		$qq	 		#eval "-$z3")
+name e10_0 (0 		$qq			#eval "-$z3-$qq")
+name e11_0 (0 		0	 		#eval "-$z3-$qq")
+
+
+//OTTAGONO INTERNO
+name e12_0  (0		0	 		       #eval "-$z3+$R_oe")
+name e13_0 (0 		#eval "$y_otte"			#eval "-$z3+$x_otte")
+name e14_0  (0		#eval "$R_oe"	 		#eval "-$z3")
+name e15_0 (0 		#eval "$y_otte"			#eval "-$z3-$x_otte")
+name e16_0 (0		0	 		       #eval "-$z3-$R_oe")
+
+
+
+
+
+//X=qq
+
+//CIRC 
+name e1_qq ($qq 		0			#eval "-$z3")
+
+name e2_qq ($qq		0			#eval "-$z3+$delec/2")
+name e3_qq ($qq		$xcelec	 		#eval "-$z3+$ycelec")
+
+name e4_qq ($qq		#eval "$delec/2"	#eval "-$z3")
+
+name e5_qq ($qq		$xcelec	 		#eval "-$z3-$ycelec")
+name e6_qq ($qq		0			#eval "-$z3-$delec/2")
+
+//QUADRATO
+name e7_qq  ($qq 		0	 		#eval "-$z2")
+name e8_qq  ($qq 		$qq			#eval "-$z2")
+name e9_qq  ($qq		$qq	 		#eval "-$z3")
+name e10_qq ($qq 		$qq			#eval "-$z3-$qq")
+name e11_qq ($qq 		0	 		#eval "-$z3-$qq")
+
+
+//OTTAGONO INTERNO
+name e12_qq  ($qq 		0	 		       #eval "-$z3+$R_oe")
+name e13_qq ($qq 		#eval "$y_otte"			#eval "-$z3+$x_otte")
+name e14_qq  ($qq 		#eval "$R_oe"	 		#eval "-$z3")
+name e15_qq ($qq 		#eval "$y_otte"			#eval "-$z3-$x_otte")
+name e16_qq ($qq 		0	 		       #eval "-$z3-$R_oe")
+
+
+
+//ESTERNO VERSO CAVITA
+name v11_3 (0 			#eval "$Dcav/2"		#eval "-$z3")
+name v12_3 ($xcav 		$ycav			#eval "-$z3")
+name v13_3 (#eval "$Dcav/2"	0	 		#eval "-$z3")
+
+//ESTERNO VERSO CAVITA
+name v11_2 (0 			#eval "$Dcav/2"		#eval "-$z4")
+name v12_2 ($xcav 		$ycav			#eval "-$z4")
+name v13_2 (#eval "$Dcav/2"	0	 		#eval "-$z4")
+
+//CIRC 
+name e1_c project (#eval "$Dcav/2" 		0			#eval "-$z3") (CAVITA)
+
+name e2_c project (#eval "$Dcav/2"	        0			#eval "-$z3+$delec/2") (CAVITA)
+name e3_c project (#eval "$Dcav/2"		$xcelec	 		#eval "-$z3+$ycelec") (CAVITA)
+
+name e4_c project (#eval "$Dcav/2"		#eval "$delec/2"	#eval "-$z3") (CAVITA)
+
+name e5_c project (#eval "$Dcav/2"		$xcelec	 		#eval "-$z3-$ycelec") (CAVITA)
+name e6_c project (#eval "$Dcav/2"		0			#eval "-$z3-$delec/2") (CAVITA)
+
+

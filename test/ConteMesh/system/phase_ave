@@ -1,0 +1,18 @@
+phase_ave
+     {
+         type                    fieldAverage;
+         functionObjectLibs ( "libfieldFunctionObjects.so" );
+         enabled                true;
+         outputControl        outputTime;
+ 
+         fields
+         (
+             U
+             {
+                 mean          on;
+                 prime2Mean  off;
+                 base           time;
+             }
+
+         );
+    }

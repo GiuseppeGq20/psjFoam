@@ -1,0 +1,70 @@
+
+// ************************* Esterno ultimo blocco *******************************
+
+//Cilindro intenro
+//outlet
+project   v5_10 v6_10  (cilindro_INTERNO)
+project   v6_10 v7_10  (cilindro_INTERNO)
+
+//inlet
+project   v5_9 v6_9  (cilindro_INTERNO)
+project   v6_9 v7_9  (cilindro_INTERNO)
+
+
+
+//Cilindro Intermedio
+//outlet
+project   v8_10 v9_10  (cilindro_ESTERNO1)
+project   v9_10 v10_10  (cilindro_ESTERNO1)
+
+//inlet
+project   v8_9 v9_9  (cilindro_ESTERNO1)
+project   v9_9 v10_9  (cilindro_ESTERNO1)
+
+
+//Cilindro ESTERNO
+//outlet
+//project   v11_10 v12_10  (cilindro_ESTERNO2)
+//project   v12_10 v13_10  (cilindro_ESTERNO2)
+
+//inlet
+//project   v11_9 v12_9  (cilindro_ESTERNO2)
+//project   v12_9 v13_9  (cilindro_ESTERNO2)
+
+
+// ************************* Primo piano esterno *******************************
+
+//Cilindro intenro
+
+
+//inlet
+project   v5_8 v6_8  (cilindro_INTERNO)
+project   v6_8 v7_8  (cilindro_INTERNO)
+
+
+
+//Cilindro Intermedio
+
+//inlet
+project   v8_8 v9_8  (cilindro_ESTERNO1)
+project   v9_8 v10_8  (cilindro_ESTERNO1)
+
+
+//Cilindro ESTERNO
+
+//inlet
+//project   v11_8 v12_8  (cilindro_ESTERNO2)
+//project   v12_8 v13_8  (cilindro_ESTERNO2)
+
+
+// ************************* Inlet NOZZLE*******************************
+
+//Cilindro intenro
+
+
+//inlet
+project   v5_7 v6_7  (cilindro_INTERNO)
+project   v6_7 v7_7  (cilindro_INTERNO)
+
+
+

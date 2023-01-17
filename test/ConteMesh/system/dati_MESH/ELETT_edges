@@ -1,0 +1,50 @@
+// *************************ELEC*******************************
+
+
+//cerchio 
+project   e2_0 e3_0  (ELETTRODI)
+project   e2_qq e3_qq (ELETTRODI)
+
+project   e4_0 e3_0  (ELETTRODI)
+project   e4_qq e3_qq  (ELETTRODI)
+
+
+project   e5_0 e4_0  (ELETTRODI)
+project   e5_qq e4_qq  (ELETTRODI)
+
+project   e5_0 e6_0  (ELETTRODI)
+project   e5_qq e6_qq  (ELETTRODI)
+
+
+
+
+
+project   e2_c e3_c  (CAVITA ELETTRODI)
+project   e4_c e3_c  (CAVITA ELETTRODI)
+project   e5_c e4_c  (CAVITA ELETTRODI)
+project   e5_c e6_c  (CAVITA ELETTRODI)
+
+//DIAGONALI
+project   e3_c v12_4  (CAVITA)
+project   e4_c v12_3  (CAVITA)
+project   e5_c v12_2  (CAVITA)
+
+
+project    v12_4 v12_3  (CAVITA)
+project   v12_2 v12_3  (CAVITA)
+
+
+project   v12_2 v13_2  (CAVITA)
+
+
+
+
+
+
+
+
+
+      
+
+
+

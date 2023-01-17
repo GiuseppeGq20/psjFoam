@@ -1,0 +1,10 @@
+
+// diagonale elettrodi
+en 8;
+enc 2;
+
+
+//diagonale cerchio 
+ccc 4; 
+
+cccg 1.4;

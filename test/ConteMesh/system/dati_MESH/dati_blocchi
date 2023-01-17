@@ -1,0 +1,71 @@
+//Esterno
+
+L10 	 160; 	//Numero celle ultimo piano esterno
+L10g 	15;  	
+
+
+L9 	25; 	//Primo piano esterno
+L9g 	1.8;  	
+
+
+L8 	34; 	//Nozzle
+L8g 	1;  	
+
+
+aa  20;
+aag 5;
+
+bb 20;
+bbg 5;
+
+
+//CILINDRO INTERNO
+
+lo    	8; 	//lati ottagono
+log	1; 
+
+N1      7; 	//cerchio interno
+N1g	0.8;	
+
+//CILINDRO ESTERNI
+Ni      25;  //circonf  intermedia
+Nig      1.8;  
+
+Ne      12;  //circonf  esterna
+Neg     6;
+
+Nee      1;  //circonf  esterna
+Neeg      6;
+
+
+//CILINDRO INTERNO
+N2     6;//8; 	//cerchio esterno interno 1
+N2g	1.6;	
+
+N3      14; 	//cerchio esterno interno 1
+N3g	1.2; //2	
+
+// ************************ INTENRO *******************
+
+//PRIMO PIANO INTERNO
+L7 	7;
+L7g 	0.8; 
+
+//PRIMO SFERA
+L6 	$lo;
+L6g 	1; 
+
+
+//DOPO SFERA
+
+//SECONDO PIANO
+L5 	18;
+L5g 	0.8; 
+
+
+
+
+//BASE
+//SECONDO PIANO
+L1 	5;
+L1g 	1; 

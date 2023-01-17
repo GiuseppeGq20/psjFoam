@@ -1,0 +1,56 @@
+// ************** SFERA **************************
+
+
+//***********  piano centrale
+
+//OTTAGONO
+name a (0 		#eval "$y_ott" 		#eval "-$z1-$x_ott"	)
+name d (0		0	 		#eval "-$z1-$R_o"	)
+
+
+name b (#eval "$x_ottp"	#eval "$y_ottp" 	#eval "-$z1-$x_ott"	)
+name c (#eval "$y_ott" 	0	 		#eval "-$z1-$x_ott"	)
+
+
+
+//circonferenza piano zy
+name  c1 project (0 		$yc			#eval "-$z1-$xc"	) (SFERA)
+name  c2 project (0 		0			#eval "-$z1-$du/2"	) (SFERA)
+
+
+//circonferenza piano zx
+name  cc1 project ($yc		0 			#eval "-$z1-$xc"	) (SFERA)
+name  cc2  project (0 		0			#eval "-$z1-$du/2"	) (SFERA)
+
+
+// diagonale
+
+name cd project (#eval "$du/2"		#eval "$du/2"	#eval "-$z1-$du/2") (SFERA)
+
+
+//SFERA 2
+//circonferenza piano zx
+name  cc3 project (0		$yc2			#eval "-$z1-$xc2"	) (SFERA2)
+name  cc4  project (0 		0			#eval "-$z1-$RR2"	) (SFERA2)
+
+//circonferenza piano zy
+name  c3 project ($yc2 		0 			#eval "-$z1-$xc2"	) (SFERA2)
+name  c4 project (0 		0			#eval "-$z1-$RR2"	) (SFERA2)
+ 
+name cdd project (#eval "$RR2"		#eval "$RR2"	#eval "-$z1-$RR2") (SFERA2)
+
+
+
+
+
+
+
+//ESTERNO SFERA 
+//CIRC ESTERNO 2
+name v11_5 (0 			#eval "$Dcav/2"		#eval "-$z1-$xc2")
+name v12_5 ($xcav 		$ycav			#eval "-$z1-$xc2")
+name v13_5 (#eval "$Dcav/2"	0	 		#eval "-$z1-$xc2")
+
+
+
+

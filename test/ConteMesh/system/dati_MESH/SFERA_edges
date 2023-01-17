@@ -1,0 +1,39 @@
+//Sfera
+
+//Spicchio1
+project   v5_6 c1  (SFERA)
+project   cc1 v7_6 (SFERA)
+
+//Spicchio_INTERMEDIO
+project   cd v6_6   (SFERA)
+project   cd c1    (SFERA)
+project   cd cc1    (SFERA)
+
+project   c2 cc1    (SFERA)
+project   c2 c1    (SFERA)
+
+
+//SFERA2
+project   cc3 cdd    (SFERA2)   
+project   v8_6   cc3    (SFERA2)  
+project   v9_6 cdd    (SFERA2)  
+
+project   v10_6 c3    (SFERA2)   
+project   cdd c3    (SFERA2)  
+
+project   c3 c4    (SFERA2) 
+
+project   c4 cc3    (SFERA2) 
+
+
+//CAVITA
+project   v11_5 v12_5  (CAVITA)
+project   v12_5 v13_5  (CAVITA)
+
+
+
+
+  
+
+
+

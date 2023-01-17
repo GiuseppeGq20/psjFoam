@@ -1,0 +1,91 @@
+// ************** Primo piano interno **************************
+
+
+//***********  TOP CAVITA
+
+//CIRC INTERNO ESTERNO 1 TOP CAVITA
+name v8_7  (0 			#eval "$Dint/2"		0)
+name v9_7  ($xcint1 		$ycint1			0)
+name v10_7 (#eval "$Dint/2"	0	 		0)
+
+//CIRC ESTERNO 2
+name v11_7 (0 			#eval "$Dcav/2"		0)
+name v12_7 ($xcav 		$ycav			0)
+name v13_7 (#eval "$Dcav/2"	0	 		0)
+
+
+
+// ******* PRIMO PIANO INTERNO
+//OTTAGONO
+name v1_6 (0 			#eval "$R_o" 		#eval "-$z1")
+name v2_6 ($x_ott 		$y_ott			#eval "-$z1")
+name v3_6 (#eval "$R_o" 	0	 		#eval "-$z1")
+name v4_6 (0			0	 		#eval "-$z1")
+
+
+//CIRC NOZZLE
+name v5_6 (0 			#eval "$du/2" 		#eval "-$z1")
+name v6_6 ($xc 			$yc			#eval "-$z1")
+name v7_6 (#eval "$du/2"	0	 		#eval "-$z1")
+
+
+//CIRC INTERNO ESTERNO 1
+name v8_6  (0 			#eval "$Dint/2"		#eval "-$z1")
+name v9_6  ($xcint1 		$ycint1			#eval "-$z1")
+name v10_6 (#eval "$Dint/2"	0	 		#eval "-$z1")
+
+
+//CIRC ESTERNO 2
+name v11_6 (0 			#eval "$Dcav/2"		#eval "-$z1")
+name v12_6 ($xcav 		$ycav			#eval "-$z1")
+name v13_6 (#eval "$Dcav/2"	0	 		#eval "-$z1")
+
+
+//INTERNO DOPO SFERA
+//QUADRATO
+name v1_4 (0 			$qq	 		#eval "-$z2")
+name v2_4 ($qq	 		$qq			#eval "-$z2")
+name v3_4 ($qq		 	0	 		#eval "-$z2")
+name v4_4 (0			0	 		#eval "-$z2")
+
+//CIRC ESTERNO 2
+name v11_4 (0 			#eval "$Dcav/2"		#eval "-$z2")
+name v12_4 ($xcav 		$ycav			#eval "-$z2")
+name v13_4 (#eval "$Dcav/2"	0	 		#eval "-$z2")
+
+
+
+
+//INTERNO DOPO SFERA
+//QUADRATO
+name v1_3 (0 			$qq	 		#eval "-$z3")
+name v2_3 ($qq	 		$qq			#eval "-$z3")
+name v3_3 ($qq		 	0	 		#eval "-$z3")
+name v4_3 (0			0	 		#eval "-$z3")
+
+//QUADRATO
+name v1_2 (0 			$qq	 		#eval "-$z4")
+name v2_2 ($qq	 		$qq			#eval "-$z4")
+name v3_2 ($qq		 	0	 		#eval "-$z4")
+name v4_2 (0			0	 		#eval "-$z4")
+
+//CIRC ESTERNO 2
+name v11_2 (0 			#eval "$Dcav/2"		#eval "-$z4")
+name v12_2 ($xcav 		$ycav			#eval "-$z4")
+name v13_2 (#eval "$Dcav/2"	0	 		#eval "-$z4")
+
+
+
+//SOTTO ELETTRODI
+//QUADRATO
+name v1_1 (0 			$qq	 		#eval "-$Lcav")
+name v2_1 ($qq	 		$qq			#eval "-$Lcav")
+name v3_1 ($qq		 	0	 		#eval "-$Lcav")
+name v4_1 (0			0	 		#eval "-$Lcav")
+
+//CIRC ESTERNO 2
+name v11_1 (0 			#eval "$Dcav/2"		#eval "-$Lcav")
+name v12_1 ($xcav 		$ycav			#eval "-$Lcav")
+name v13_1 (#eval "$Dcav/2"	0	 		#eval "-$Lcav")
+
+

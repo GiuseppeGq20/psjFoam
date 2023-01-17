@@ -1,0 +1,37 @@
+//PRIMO PIANO INTERNO
+
+//Ott
+hex (d c b a v4_6 v3_6 v2_6 v1_6 ) 	($lo $lo $lo) simpleGrading ($log $log 1)     
+
+
+//SFERA1
+
+//Spicchio1
+hex (a c1 v5_6 v1_6 b cd v6_6 v2_6) 	($N1 $lo $lo) simpleGrading ($N1g 1 1) 
+//Spicchio intermedio
+hex ( b cd v6_6 v2_6 c cc1 v7_6 v3_6) 	($N1 $lo $lo ) simpleGrading ($N1g 1 1) 
+
+//Spicchio 2
+hex (d c cc1 c2 a b cd c1 ) 		($lo $N1  $lo) simpleGrading (1  $N1g 1)    //skdlksdlskdlskdsldsk
+
+
+//SFERA2
+
+//Spicchio1
+hex (  c1 v5_6 v6_6 cd  cc3 v8_6 v9_6 cdd ) 	($lo  $lo $N2 ) simpleGrading ( 1 1  $N2g) 
+//Spicchio intermedio
+hex (cc1 v7_6 v10_6 c3 cd v6_6 v9_6 cdd ) 	($lo    $N2 $lo ) simpleGrading (1  $N2g 1) 
+
+//Spicchio 2
+hex (c2 cc1 c3 c4 c1 cd cdd cc3) 		( $lo $N2  $lo) simpleGrading (  1  $N2g 1) 
+
+
+
+//Circ esterna2
+hex (c3 v13_5 v12_5 cdd v10_6 v13_6 v12_6 v9_6 ) ($N3 $lo $L6) simpleGrading ($N3g $log $L6g)     
+hex (cdd v12_5 v11_5 cc3  v9_6 v12_6 v11_6 v8_6 ) ($N3 $lo $L6) simpleGrading ($N3g $log $L6g)  
+
+
+
+
+

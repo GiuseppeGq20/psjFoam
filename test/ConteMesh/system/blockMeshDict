@@ -1,0 +1,144 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  7
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+#include "dati_MESH/dati_geometrici"
+
+
+#include "dati_MESH/dati_geometrici_elettrodi"
+
+#include "dati_MESH/geometry"
+
+
+
+vertices
+(
+#include "dati_MESH/ESTERNO_vertices"
+#include "dati_MESH/INTERNO_vertices"
+#include "dati_MESH/SFERA_vertices"
+#include "dati_MESH/ELETT_vertices"
+);
+
+
+
+#include "dati_MESH/dati_blocchi"	
+#include "dati_MESH/dati_blocchi_elettrodi"	
+
+
+
+blocks
+(
+
+#include "dati_MESH/ESTERNO_blocks"
+#include "dati_MESH/INTERNO_blocks"
+#include "dati_MESH/SFERA_blocks"
+#include "dati_MESH/ELETT_blocks"
+
+);
+
+
+edges
+(
+#include "dati_MESH/ESTERNO_edges"
+#include "dati_MESH/INTERNO_edges"
+#include "dati_MESH/SFERA_edges"
+#include "dati_MESH/ELETT_edges"
+);
+
+
+faces
+(
+
+project (e2_c e3_c v12_4 v13_4 ) CAVITA
+project (e3_c e4_c v12_3 v12_4 ) CAVITA
+project (e5_c v12_2 v12_3   e4_c ) CAVITA
+project (e6_c v13_2 v12_2 e5_c ) CAVITA
+
+);
+
+
+boundary
+(
+
+ outlet
+    {
+        type patch;
+        faces
+        (
+          
+//TOP
+        (v4_10 v3_10 v2_10 v1_10)
+	(v3_10 v7_10 v6_10 v2_10)
+	(v2_10 v6_10 v5_10 v1_10)
+	(v7_10 v10_10 v9_10 v6_10)
+	(v6_10 v9_10 v8_10 v5_10)
+	(v10_10 v13_10 v12_10 v9_10)
+	(v9_10 v12_10 v11_10 v8_10)
+
+
+(v13_10 v14_10 v15_10 v12_10)
+(v12_10 v15_10 v16_10 v17_10)
+(v11_10 v12_10 v17_10 v18_10)
+
+
+
+
+
+        );
+    }
+
+ side
+    {
+        type patch;
+        faces
+        (
+         
+
+//SIDE
+
+//2° piano 
+	(v14_10 v15_10 v14_9 v15_9 )
+       (v15_10 v16_10 v15_9 v16_9)
+
+	(v18_10 v17_10 v18_9 v17_9 )
+      (v17_10 v16_10 v17_9 v16_9)
+//1°Piano
+	(v18_9 v17_9 v18_8 v17_8 )
+      (v17_9 v16_9 v17_8 v16_8)
+
+	(v14_9 v15_9 v14_8 v15_8 )
+       (v15_9 v16_9 v15_8 v16_8)
+
+
+
+
+        );
+    }
+
+
+
+);
+
+
+defaultPatch
+{
+    name wall;
+    type wall;
+}
+
+
+mergePatchPairs
+(
+);
