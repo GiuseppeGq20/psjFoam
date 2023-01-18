@@ -1,34 +1,40 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  5                                     |
-|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|  \\    /   O peration     | Version:  v1912                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    location    "system";
-    object      mirrorMeshDict;
+    class       volScalarField;
+    object      T;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+Tinlet          300;
 
-//PER FARE DOPO il mirror della mesh in ubuntu devo dare la normale rispetto a cui voglio 
-//fare il mirror (normale e piano).. il mirror si fa generando prima la mesh a metà e poi su Ubuntu
-//mirrorMesh -overwrite. 
+dimensions      [0 0 0 1 0 0 0];
 
-planeType       pointAndNormal;
+internalField   uniform $Tinlet;
 
-pointAndNormalDict
+boundaryField
 {
-    point   (0 0 0);
-    normal  (1 0 0);
+    "(outlet|side)"
+    {
+        //type            zeroGradient;
+        type            fixedValue;
+        value   uniform $Tinlet;
+    }
+    
+    wall
+    {
+        type            zeroGradient;
+    }
+    
+    //#includeEtc "caseDicts/setConstraintTypes"
 }
-
-planeTolerance  1e-09;
-
 
 // ************************************************************************* //

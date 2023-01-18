@@ -17,20 +17,20 @@ FoamFile
 
 ddtSchemes
 {
-    default         Euler;
+    default         backward;
 }
 
 gradSchemes
 {
-    default         leastSquares;   //Gauss linear;
-    grad(U)	    cellLimited leastSquares 1.0;   //default
+    default         Gauss linear;//leastSquares;   
+    grad(U)	        $default;//cellLimited leastSquares 1.0;   //default
 
 }
 
 divSchemes
 {
     default         none;
-    div(phi,U)      Gauss MinmodV; //Gauss limitedLinearV 1;
+    div(phi,U)      Gauss upwind;//MinmodV; //Gauss limitedLinearV 1;
 
     div(phiv,p)     Gauss limitedLinear 1; //Gauss linear;
     div(phi,e)      Gauss limitedLinear 1; //Gauss linear;

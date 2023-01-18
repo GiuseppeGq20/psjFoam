@@ -18,13 +18,15 @@ solvers
 {
     p
     {
-        solver          PCG;
-        preconditioner  DIC;
+        
+        solver          GAMG;//PCG;
+        smoother        symGaussSeidel;
+        //preconditioner  DIC;
         tolerance       1e-09;
         relTol          0.00051;
     }
 
-    e
+    h
     {
         solver          PBiCG; //BICCG;
         preconditioner  DILU;
@@ -33,23 +35,23 @@ solvers
     }
 
 
-    eFinal
+    hFinal
     {
-	$e;
+	    $h;
         relTol          0;
     }
 
 
     pFinal
     {
-	$p;
-        relTol          0;
+	    $p;
+        //relTol          0;
     }
 
 
     "rho.*"
     {
-	$p;
+	    $p;
         tolerance       1e-08;
         relTol          0;
     }
@@ -57,8 +59,10 @@ solvers
 
     "(U|R|k|omega)"
     {
-        solver          smoothSolver;
-        smoother        symGaussSeidel;
+        solver          PBiCGStab; //BICCG;
+        preconditioner  DILU;
+        //solver          smoothSolver;
+        //smoother        symGaussSeidel;
         tolerance       1e-05;
         relTol          0.01;
     }
@@ -74,7 +78,7 @@ PIMPLE
 {
 
     momentumPredictor		yes;
-    nOuterCorrectors     	2;		
+    nOuterCorrectors     	1;		
     nCorrectors 		2;
     nNonOrthogonalCorrectors 	1;
 

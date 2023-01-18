@@ -1,8 +1,7 @@
-
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v1912                                 |
+|  \\    /   O peration     | Version:  v2206                                 |
 |   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -11,42 +10,42 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    location    "constant";
-    object      thermophysicalProperties;
+    object      setFieldsDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-thermoType
-{
-    type            hePsiThermo;
-    mixture         pureMixture;
-    transport       myconst;
-    thermo          myhConst;
-    equationOfState myperfectGas;
-    specie          specie;
-    energy          sensibleEnthalpy;
-}
+defaultFieldValues
+(
+    volScalarFieldValue T 298
+    volScalarFieldValue p 1e5
+);
 
-mixture // air at room temperature (293 K)
-{
-    specie
+regions
+(
+    // Set cell values
+    // (does zerogradient on boundaries)
+    /*zoneToCell
     {
-        molWeight   28.9;
-    }
+        zone cavity;
+        fieldValues
+        (
+            volScalarFieldValue T 7500
+            volScalarFieldValue p 1e6
+        );
+    }*/
 
-    thermodynamics
+    cylinderToCell
     {
-        Cp          1005;
-        Hf          0;
-        //Href        3e5;
+        radius 5e-4;
+        p1 (-0.001 0 -4.5e-3);
+        p2 (0.001 0 -4.5e-3);
+        
+        fieldValues
+        (
+            volScalarFieldValue T 7500
+            volScalarFieldValue p 1e6
+        );
     }
-
-    transport
-    {
-        mu          1.82e-05;
-        //mu          -1.0;
-        Pr          0.71;
-    }
-}
+);
 
 // ************************************************************************* //

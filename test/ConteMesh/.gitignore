@@ -1,10 +1,11 @@
 #case directories
-
+log.*
+processor*
 !0.orig*/
-
+0/
 #!constant/
 #ignore mesh
-constant/polyMesh/*
+constant/polyMesh/
 
 !system/
 !.gitignore

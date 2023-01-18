@@ -1,4 +1,3 @@
-
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
@@ -10,43 +9,34 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    location    "constant";
-    object      thermophysicalProperties;
+    class       volVectorField;
+    object      U;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-thermoType
+Uinlet          (0 0 0);
+
+dimensions      [0 1 -1 0 0 0 0];
+
+internalField   uniform $Uinlet;
+
+boundaryField
 {
-    type            hePsiThermo;
-    mixture         pureMixture;
-    transport       myconst;
-    thermo          myhConst;
-    equationOfState myperfectGas;
-    specie          specie;
-    energy          sensibleEnthalpy;
-}
-
-mixture // air at room temperature (293 K)
-{
-    specie
-    {
-        molWeight   28.9;
+    "(outlet|side)"
+    {   
+        type            inletOutlet;
+        inletValue      uniform $Uinlet;
+        value           uniform $Uinlet;
+        //type            fixedValue;
+        //value uniform $Uinlet;
     }
 
-    thermodynamics
+    wall
     {
-        Cp          1005;
-        Hf          0;
-        //Href        3e5;
+        type            noSlip;
     }
 
-    transport
-    {
-        mu          1.82e-05;
-        //mu          -1.0;
-        Pr          0.71;
-    }
+    //#includeEtc "caseDicts/setConstraintTypes"
 }
 
 // ************************************************************************* //
