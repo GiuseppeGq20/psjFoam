@@ -25,7 +25,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "myperfectGas.H"
+#include "DAngolaGas.H"
 #include "thermodynamicConstants.H"
 
 using namespace Foam::constant::thermodynamic;
@@ -33,7 +33,7 @@ using namespace Foam::constant::thermodynamic;
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * //
 
 template<class Specie>
-inline Foam::myperfectGas<Specie>::myperfectGas(const Specie& sp)
+inline Foam::DAngolaGas<Specie>::DAngolaGas(const Specie& sp)
 :
     Specie(sp)
 {}
@@ -42,10 +42,10 @@ inline Foam::myperfectGas<Specie>::myperfectGas(const Specie& sp)
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 template<class Specie>
-inline Foam::myperfectGas<Specie>::myperfectGas
+inline Foam::DAngolaGas<Specie>::DAngolaGas
 (
     const word& name,
-    const myperfectGas<Specie>& pg
+    const DAngolaGas<Specie>& pg
 )
 :
     Specie(name, pg)
@@ -53,27 +53,27 @@ inline Foam::myperfectGas<Specie>::myperfectGas
 
 
 template<class Specie>
-inline Foam::autoPtr<Foam::myperfectGas<Specie>>
-Foam::myperfectGas<Specie>::clone() const
+inline Foam::autoPtr<Foam::DAngolaGas<Specie>>
+Foam::DAngolaGas<Specie>::clone() const
 {
-    return autoPtr<myperfectGas<Specie>>::New(*this);
+    return autoPtr<DAngolaGas<Specie>>::New(*this);
 }
 
 
 template<class Specie>
-inline Foam::autoPtr<Foam::myperfectGas<Specie>> Foam::myperfectGas<Specie>::New
+inline Foam::autoPtr<Foam::DAngolaGas<Specie>> Foam::DAngolaGas<Specie>::New
 (
     const dictionary& dict
 )
 {
-    return autoPtr<myperfectGas<Specie>>::New(dict);
+    return autoPtr<DAngolaGas<Specie>>::New(dict);
 }
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 template<class Specie>
-inline Foam::scalar Foam::myperfectGas<Specie>::rho(scalar p, scalar T) const
+inline Foam::scalar Foam::DAngolaGas<Specie>::rho(scalar p, scalar T) const
 {   
     #include "MM.H" // [Kg/Kmol]
     return MM*p/(RR*T);
@@ -81,35 +81,35 @@ inline Foam::scalar Foam::myperfectGas<Specie>::rho(scalar p, scalar T) const
 
 
 template<class Specie>
-inline Foam::scalar Foam::myperfectGas<Specie>::H(scalar p, scalar T) const
+inline Foam::scalar Foam::DAngolaGas<Specie>::H(scalar p, scalar T) const
 {
     return 0;
 }
 
 
 template<class Specie>
-inline Foam::scalar Foam::myperfectGas<Specie>::Cp(scalar p, scalar T) const
+inline Foam::scalar Foam::DAngolaGas<Specie>::Cp(scalar p, scalar T) const
 {
     return 0;
 }
 
 
 template<class Specie>
-inline Foam::scalar Foam::myperfectGas<Specie>::E(scalar p, scalar T) const
+inline Foam::scalar Foam::DAngolaGas<Specie>::E(scalar p, scalar T) const
 {
     return 0;
 }
 
 
 template<class Specie>
-inline Foam::scalar Foam::myperfectGas<Specie>::Cv(scalar p, scalar T) const
+inline Foam::scalar Foam::DAngolaGas<Specie>::Cv(scalar p, scalar T) const
 {
     return 0;
 }
 
 
 template<class Specie>
-inline Foam::scalar Foam::myperfectGas<Specie>::S(scalar p, scalar T) const
+inline Foam::scalar Foam::DAngolaGas<Specie>::S(scalar p, scalar T) const
 {
     //return -this->R()*log(p/Pstd);
     return 0;
@@ -117,7 +117,7 @@ inline Foam::scalar Foam::myperfectGas<Specie>::S(scalar p, scalar T) const
 
 
 template<class Specie>
-inline Foam::scalar Foam::myperfectGas<Specie>::psi(scalar p, scalar T) const
+inline Foam::scalar Foam::DAngolaGas<Specie>::psi(scalar p, scalar T) const
 {   
     //return 1.0/(this->R()*T);
     #include "MM.H"
@@ -126,7 +126,7 @@ inline Foam::scalar Foam::myperfectGas<Specie>::psi(scalar p, scalar T) const
 
 
 template<class Specie>
-inline Foam::scalar Foam::myperfectGas<Specie>::Z(scalar p, scalar T) const
+inline Foam::scalar Foam::DAngolaGas<Specie>::Z(scalar p, scalar T) const
 {
     return 1;
     //return 0;
@@ -134,7 +134,7 @@ inline Foam::scalar Foam::myperfectGas<Specie>::Z(scalar p, scalar T) const
 
 
 template<class Specie>
-inline Foam::scalar Foam::myperfectGas<Specie>::CpMCv(scalar p, scalar T) const
+inline Foam::scalar Foam::DAngolaGas<Specie>::CpMCv(scalar p, scalar T) const
 {
     // return this->R();
     #include "MM.H" //[Kg/kmol]
@@ -145,14 +145,14 @@ inline Foam::scalar Foam::myperfectGas<Specie>::CpMCv(scalar p, scalar T) const
 // * * * * * * * * * * * * * * * Member Operators  * * * * * * * * * * * * * //
 
 template<class Specie>
-inline void Foam::myperfectGas<Specie>::operator+=(const myperfectGas<Specie>& pg)
+inline void Foam::DAngolaGas<Specie>::operator+=(const DAngolaGas<Specie>& pg)
 {
     Specie::operator+=(pg);
 }
 
 
 template<class Specie>
-inline void Foam::myperfectGas<Specie>::operator*=(const scalar s)
+inline void Foam::DAngolaGas<Specie>::operator*=(const scalar s)
 {
     Specie::operator*=(s);
 }
@@ -161,13 +161,13 @@ inline void Foam::myperfectGas<Specie>::operator*=(const scalar s)
 // * * * * * * * * * * * * * * * Friend Operators  * * * * * * * * * * * * * //
 
 template<class Specie>
-inline Foam::myperfectGas<Specie> Foam::operator+
+inline Foam::DAngolaGas<Specie> Foam::operator+
 (
-    const myperfectGas<Specie>& pg1,
-    const myperfectGas<Specie>& pg2
+    const DAngolaGas<Specie>& pg1,
+    const DAngolaGas<Specie>& pg2
 )
 {
-    return myperfectGas<Specie>
+    return DAngolaGas<Specie>
     (
         static_cast<const Specie&>(pg1) + static_cast<const Specie&>(pg2)
     );
@@ -175,24 +175,24 @@ inline Foam::myperfectGas<Specie> Foam::operator+
 
 
 template<class Specie>
-inline Foam::myperfectGas<Specie> Foam::operator*
+inline Foam::DAngolaGas<Specie> Foam::operator*
 (
     const scalar s,
-    const myperfectGas<Specie>& pg
+    const DAngolaGas<Specie>& pg
 )
 {
-    return myperfectGas<Specie>(s*static_cast<const Specie&>(pg));
+    return DAngolaGas<Specie>(s*static_cast<const Specie&>(pg));
 }
 
 
 template<class Specie>
-inline Foam::myperfectGas<Specie> Foam::operator==
+inline Foam::DAngolaGas<Specie> Foam::operator==
 (
-    const myperfectGas<Specie>& pg1,
-    const myperfectGas<Specie>& pg2
+    const DAngolaGas<Specie>& pg1,
+    const DAngolaGas<Specie>& pg2
 )
 {
-    return myperfectGas<Specie>
+    return DAngolaGas<Specie>
     (
         static_cast<const Specie&>(pg1) == static_cast<const Specie&>(pg2)
     );

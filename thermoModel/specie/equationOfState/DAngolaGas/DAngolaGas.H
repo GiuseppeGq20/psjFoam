@@ -24,7 +24,7 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::myperfectGas
+    Foam::DAngolaGas
 
 Group
     grpSpecieEquationOfState
@@ -33,13 +33,13 @@ Description
     Perfect gas equation of state.
 
 SourceFiles
-    myperfectGasI.H
-    myperfectGas.C
+    DAngolaGasI.H
+    DAngolaGas.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef myperfectGas_H
-#define myperfectGas_H
+#ifndef DAngolaGas_H
+#define DAngolaGas_H
 
 #include "autoPtr.H"
 
@@ -50,43 +50,43 @@ namespace Foam
 
 // Forward declaration of friend functions and operators
 
-template<class Specie> class myperfectGas;
+template<class Specie> class DAngolaGas;
 
 template<class Specie>
-inline myperfectGas<Specie> operator+
+inline DAngolaGas<Specie> operator+
 (
-    const myperfectGas<Specie>&,
-    const myperfectGas<Specie>&
+    const DAngolaGas<Specie>&,
+    const DAngolaGas<Specie>&
 );
 
 template<class Specie>
-inline myperfectGas<Specie> operator*
+inline DAngolaGas<Specie> operator*
 (
     const scalar,
-    const myperfectGas<Specie>&
+    const DAngolaGas<Specie>&
 );
 
 template<class Specie>
-inline myperfectGas<Specie> operator==
+inline DAngolaGas<Specie> operator==
 (
-    const myperfectGas<Specie>&,
-    const myperfectGas<Specie>&
+    const DAngolaGas<Specie>&,
+    const DAngolaGas<Specie>&
 );
 
 template<class Specie>
 Ostream& operator<<
 (
     Ostream&,
-    const myperfectGas<Specie>&
+    const DAngolaGas<Specie>&
 );
 
 
 /*---------------------------------------------------------------------------*\
-                           Class myperfectGas Declaration
+                           Class DAngolaGas Declaration
 \*---------------------------------------------------------------------------*/
 
 template<class Specie>
-class myperfectGas
+class DAngolaGas
 :
     public Specie
 {
@@ -96,19 +96,19 @@ public:
     // Constructors
 
         //- Construct from components
-        inline myperfectGas(const Specie& sp);
+        inline DAngolaGas(const Specie& sp);
 
         //- Construct from dictionary
-        myperfectGas(const dictionary& dict);
+        DAngolaGas(const dictionary& dict);
 
         //- Construct as named copy
-        inline myperfectGas(const word& name, const myperfectGas&);
+        inline DAngolaGas(const word& name, const DAngolaGas&);
 
         //- Construct and return a clone
-        inline autoPtr<myperfectGas> clone() const;
+        inline autoPtr<DAngolaGas> clone() const;
 
         // Selector from dictionary
-        inline static autoPtr<myperfectGas> New(const dictionary& dict);
+        inline static autoPtr<DAngolaGas> New(const dictionary& dict);
 
 
     // Member functions
@@ -116,7 +116,7 @@ public:
         //- Return the instantiated type name
         static word typeName()
         {
-            return "myperfectGas<" + word(Specie::typeName_()) + '>';
+            return "DAngolaGas<" + word(Specie::typeName_()) + '>';
         }
 
 
@@ -164,28 +164,28 @@ public:
 
     // Member operators
 
-        inline void operator+=(const myperfectGas&);
+        inline void operator+=(const DAngolaGas&);
         inline void operator*=(const scalar);
 
 
     // Friend operators
 
-        friend myperfectGas operator+ <Specie>
+        friend DAngolaGas operator+ <Specie>
         (
-            const myperfectGas&,
-            const myperfectGas&
+            const DAngolaGas&,
+            const DAngolaGas&
         );
 
-        friend myperfectGas operator* <Specie>
+        friend DAngolaGas operator* <Specie>
         (
             const scalar s,
-            const myperfectGas&
+            const DAngolaGas&
         );
 
-        friend myperfectGas operator== <Specie>
+        friend DAngolaGas operator== <Specie>
         (
-            const myperfectGas&,
-            const myperfectGas&
+            const DAngolaGas&,
+            const DAngolaGas&
         );
 
 
@@ -194,7 +194,7 @@ public:
         friend Ostream& operator<< <Specie>
         (
             Ostream&,
-            const myperfectGas&
+            const DAngolaGas&
         );
 };
 
@@ -205,10 +205,10 @@ public:
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-#include "myperfectGasI.H"
+#include "DAngolaGasI.H"
 
 #ifdef NoRepository
-    #include "myperfectGas.C"
+    #include "DAngolaGas.C"
 #endif
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

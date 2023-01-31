@@ -28,7 +28,7 @@ License
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * //
 
 template<class EquationOfState>
-inline Foam::myhConstThermo<EquationOfState>::myhConstThermo
+inline Foam::hDAngolaThermo<EquationOfState>::hDAngolaThermo
 (
     const EquationOfState& st,
     const scalar cp,
@@ -48,10 +48,10 @@ inline Foam::myhConstThermo<EquationOfState>::myhConstThermo
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 template<class EquationOfState>
-inline Foam::myhConstThermo<EquationOfState>::myhConstThermo
+inline Foam::hDAngolaThermo<EquationOfState>::hDAngolaThermo
 (
     const word& name,
-    const myhConstThermo& ct
+    const hDAngolaThermo& ct
 )
 :
     EquationOfState(name, ct),
@@ -63,25 +63,25 @@ inline Foam::myhConstThermo<EquationOfState>::myhConstThermo
 
 
 template<class EquationOfState>
-inline Foam::autoPtr<Foam::myhConstThermo<EquationOfState>>
-Foam::myhConstThermo<EquationOfState>::clone() const
+inline Foam::autoPtr<Foam::hDAngolaThermo<EquationOfState>>
+Foam::hDAngolaThermo<EquationOfState>::clone() const
 {
-    return autoPtr<myhConstThermo<EquationOfState>>::New(*this);
+    return autoPtr<hDAngolaThermo<EquationOfState>>::New(*this);
 }
 
 
 template<class EquationOfState>
-inline Foam::autoPtr<Foam::myhConstThermo<EquationOfState>>
-Foam::myhConstThermo<EquationOfState>::New(const dictionary& dict)
+inline Foam::autoPtr<Foam::hDAngolaThermo<EquationOfState>>
+Foam::hDAngolaThermo<EquationOfState>::New(const dictionary& dict)
 {
-    return autoPtr<myhConstThermo<EquationOfState>>::New(dict);
+    return autoPtr<hDAngolaThermo<EquationOfState>>::New(dict);
 }
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 template<class EquationOfState>
-inline Foam::scalar Foam::myhConstThermo<EquationOfState>::limit
+inline Foam::scalar Foam::hDAngolaThermo<EquationOfState>::limit
 (
     const scalar T
 ) const
@@ -91,7 +91,7 @@ inline Foam::scalar Foam::myhConstThermo<EquationOfState>::limit
 
 
 template<class EquationOfState>
-inline Foam::scalar Foam::myhConstThermo<EquationOfState>::Cp
+inline Foam::scalar Foam::hDAngolaThermo<EquationOfState>::Cp
 (
     const scalar p,
     const scalar T
@@ -105,7 +105,7 @@ inline Foam::scalar Foam::myhConstThermo<EquationOfState>::Cp
 
 
 template<class EquationOfState>
-inline Foam::scalar Foam::myhConstThermo<EquationOfState>::Ha
+inline Foam::scalar Foam::hDAngolaThermo<EquationOfState>::Ha
 (
     const scalar p, const scalar T
 ) const
@@ -115,7 +115,7 @@ inline Foam::scalar Foam::myhConstThermo<EquationOfState>::Ha
 
 
 template<class EquationOfState>
-inline Foam::scalar Foam::myhConstThermo<EquationOfState>::Hs
+inline Foam::scalar Foam::hDAngolaThermo<EquationOfState>::Hs
 (
     const scalar p, const scalar T
 ) const
@@ -132,14 +132,14 @@ inline Foam::scalar Foam::myhConstThermo<EquationOfState>::Hs
 
 
 template<class EquationOfState>
-inline Foam::scalar Foam::myhConstThermo<EquationOfState>::Hc() const
+inline Foam::scalar Foam::hDAngolaThermo<EquationOfState>::Hc() const
 {
     return Hf_;
 }
 
 
 template<class EquationOfState>
-inline Foam::scalar Foam::myhConstThermo<EquationOfState>::S
+inline Foam::scalar Foam::hDAngolaThermo<EquationOfState>::S
 (
     const scalar p, const scalar T
 ) const
@@ -153,7 +153,7 @@ inline Foam::scalar Foam::myhConstThermo<EquationOfState>::S
 
 
 template<class EquationOfState>
-inline Foam::scalar Foam::myhConstThermo<EquationOfState>::Gstd
+inline Foam::scalar Foam::hDAngolaThermo<EquationOfState>::Gstd
 (
     const scalar T
 ) const
@@ -163,7 +163,7 @@ inline Foam::scalar Foam::myhConstThermo<EquationOfState>::Gstd
 
 
 /*template<class EquationOfState>
-inline Foam::scalar Foam::myhConstThermo<EquationOfState>::dCpdT
+inline Foam::scalar Foam::hDAngolaThermo<EquationOfState>::dCpdT
 (
     const scalar p, const scalar T
 ) const
@@ -175,9 +175,9 @@ inline Foam::scalar Foam::myhConstThermo<EquationOfState>::dCpdT
 // * * * * * * * * * * * * * * * Member Operators  * * * * * * * * * * * * * //
 
 template<class EquationOfState>
-inline void Foam::myhConstThermo<EquationOfState>::operator+=
+inline void Foam::hDAngolaThermo<EquationOfState>::operator+=
 (
-    const myhConstThermo<EquationOfState>& ct
+    const hDAngolaThermo<EquationOfState>& ct
 )
 {
     scalar Y1 = this->Y();
@@ -199,10 +199,10 @@ inline void Foam::myhConstThermo<EquationOfState>::operator+=
 // * * * * * * * * * * * * * * * Friend Operators  * * * * * * * * * * * * * //
 
 template<class EquationOfState>
-inline Foam::myhConstThermo<EquationOfState> Foam::operator+
+inline Foam::hDAngolaThermo<EquationOfState> Foam::operator+
 (
-    const myhConstThermo<EquationOfState>& ct1,
-    const myhConstThermo<EquationOfState>& ct2
+    const hDAngolaThermo<EquationOfState>& ct1,
+    const hDAngolaThermo<EquationOfState>& ct2
 )
 {
     EquationOfState eofs
@@ -213,7 +213,7 @@ inline Foam::myhConstThermo<EquationOfState> Foam::operator+
 
     if (mag(eofs.Y()) < SMALL)
     {
-        return myhConstThermo<EquationOfState>
+        return hDAngolaThermo<EquationOfState>
         (
             eofs,
             ct1.Cp_,
@@ -224,7 +224,7 @@ inline Foam::myhConstThermo<EquationOfState> Foam::operator+
     }
     else
     {
-        return myhConstThermo<EquationOfState>
+        return hDAngolaThermo<EquationOfState>
         (
             eofs,
             ct1.Y()/eofs.Y()*ct1.Cp_
@@ -240,13 +240,13 @@ inline Foam::myhConstThermo<EquationOfState> Foam::operator+
 
 
 template<class EquationOfState>
-inline Foam::myhConstThermo<EquationOfState> Foam::operator*
+inline Foam::hDAngolaThermo<EquationOfState> Foam::operator*
 (
     const scalar s,
-    const myhConstThermo<EquationOfState>& ct
+    const hDAngolaThermo<EquationOfState>& ct
 )
 {
-    return myhConstThermo<EquationOfState>
+    return hDAngolaThermo<EquationOfState>
     (
         s*static_cast<const EquationOfState&>(ct),
         ct.Cp_,
@@ -258,10 +258,10 @@ inline Foam::myhConstThermo<EquationOfState> Foam::operator*
 
 
 template<class EquationOfState>
-inline Foam::myhConstThermo<EquationOfState> Foam::operator==
+inline Foam::hDAngolaThermo<EquationOfState> Foam::operator==
 (
-    const myhConstThermo<EquationOfState>& ct1,
-    const myhConstThermo<EquationOfState>& ct2
+    const hDAngolaThermo<EquationOfState>& ct1,
+    const hDAngolaThermo<EquationOfState>& ct2
 )
 {
     EquationOfState eofs
@@ -270,7 +270,7 @@ inline Foam::myhConstThermo<EquationOfState> Foam::operator==
      == static_cast<const EquationOfState&>(ct2)
     );
 
-    return myhConstThermo<EquationOfState>
+    return hDAngolaThermo<EquationOfState>
     (
         eofs,
         ct2.Y()/eofs.Y()*ct2.Cp_

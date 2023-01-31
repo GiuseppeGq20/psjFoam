@@ -6,6 +6,7 @@
      \\/     M anipulation  |
 -------------------------------------------------------------------------------
     Copyright (C) 2011-2017 OpenFOAM Foundation
+    Copyright (C) 2020 OpenCFD Ltd.
 -------------------------------------------------------------------------------
 License
     This file is part of OpenFOAM.
@@ -25,45 +26,49 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "myconstTransport.H"
+#include "hDAngolaThermo.H"
 #include "IOstreams.H"
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-template<class Thermo>
-Foam::myconstTransport<Thermo>::myconstTransport(const dictionary& dict)
+template<class EquationOfState>
+Foam::hDAngolaThermo<EquationOfState>::hDAngolaThermo(const dictionary& dict)
 :
-    Thermo(dict),
-    mu_(dict.subDict("transport").get<scalar>("mu")),
-    rPr_(1.0/dict.subDict("transport").get<scalar>("Pr"))
+    EquationOfState(dict),
+    Cp_(dict.subDict("thermodynamics").get<scalar>("Cp")),
+    Hf_(dict.subDict("thermodynamics").get<scalar>("Hf")),
+    Tref_(dict.subDict("thermodynamics").getOrDefault<scalar>("Tref", Tstd)),
+    Hsref_(dict.subDict("thermodynamics").getOrDefault<scalar>("Href", 0))
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-template<class Thermo>
-void Foam::myconstTransport<Thermo>::myconstTransport::write(Ostream& os) const
+template<class EquationOfState>
+void Foam::hDAngolaThermo<EquationOfState>::write(Ostream& os) const
 {
-    os.beginBlock(this->name());
-
-    Thermo::write(os);
+    EquationOfState::write(os);
 
     // Entries in dictionary format
     {
-        os.beginBlock("transport");
-        os.writeEntry("mu", mu_);
-        os.writeEntry("Pr", scalar(1.0/rPr_));
+        os.beginBlock("thermodynamics");
+        os.writeEntry("Cp", Cp_);
+        os.writeEntry("Hf", Hf_);
+        os.writeEntryIfDifferent<scalar>("Tref", Tstd, Tref_);
+        os.writeEntryIfDifferent<scalar>("Href", 0, Hsref_);
         os.endBlock();
     }
-
-    os.endBlock();
 }
 
 
-// * * * * * * * * * * * * * * * IOstream Operators  * * * * * * * * * * * * //
+// * * * * * * * * * * * * * * * Ostream Operator  * * * * * * * * * * * * * //
 
-template<class Thermo>
-Foam::Ostream& Foam::operator<<(Ostream& os, const myconstTransport<Thermo>& ct)
+template<class EquationOfState>
+Foam::Ostream& Foam::operator<<
+(
+    Ostream& os,
+    const hDAngolaThermo<EquationOfState>& ct
+)
 {
     ct.write(os);
     return os;

@@ -20,9 +20,9 @@ thermoType
 {
     type            hePsiThermo;
     mixture         pureMixture;
-    transport       myconst;
-    thermo          myhConst;
-    equationOfState myperfectGas;
+    transport       DAngola;
+    thermo          hDAngola;
+    equationOfState DAngolaGas;
     specie          specie;
     energy          sensibleEnthalpy;
 }

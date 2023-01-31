@@ -25,7 +25,7 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::myhConstThermo
+    Foam::hDAngolaThermo
 
 Group
     grpSpecieThermo
@@ -35,13 +35,13 @@ Description
     templated into the EquationOfState.
 
 SourceFiles
-    myhConstThermoI.H
-    myhConstThermo.C
+    hDAngolaThermoI.H
+    hDAngolaThermo.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef myhConstThermo_H
-#define myhConstThermo_H
+#ifndef hDAngolaThermo_H
+#define hDAngolaThermo_H
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -50,43 +50,43 @@ namespace Foam
 
 // Forward declaration of friend functions and operators
 
-template<class EquationOfState> class myhConstThermo;
+template<class EquationOfState> class hDAngolaThermo;
 
 template<class EquationOfState>
-inline myhConstThermo<EquationOfState> operator+
+inline hDAngolaThermo<EquationOfState> operator+
 (
-    const myhConstThermo<EquationOfState>&,
-    const myhConstThermo<EquationOfState>&
+    const hDAngolaThermo<EquationOfState>&,
+    const hDAngolaThermo<EquationOfState>&
 );
 
 template<class EquationOfState>
-inline myhConstThermo<EquationOfState> operator*
+inline hDAngolaThermo<EquationOfState> operator*
 (
     const scalar,
-    const myhConstThermo<EquationOfState>&
+    const hDAngolaThermo<EquationOfState>&
 );
 
 template<class EquationOfState>
-inline myhConstThermo<EquationOfState> operator==
+inline hDAngolaThermo<EquationOfState> operator==
 (
-    const myhConstThermo<EquationOfState>&,
-    const myhConstThermo<EquationOfState>&
+    const hDAngolaThermo<EquationOfState>&,
+    const hDAngolaThermo<EquationOfState>&
 );
 
 template<class EquationOfState>
 Ostream& operator<<
 (
     Ostream&,
-    const myhConstThermo<EquationOfState>&
+    const hDAngolaThermo<EquationOfState>&
 );
 
 
 /*---------------------------------------------------------------------------*\
-                           Class myhConstThermo Declaration
+                           Class hDAngolaThermo Declaration
 \*---------------------------------------------------------------------------*/
 
 template<class EquationOfState>
-class myhConstThermo
+class hDAngolaThermo
 :
     public EquationOfState
 {
@@ -105,7 +105,7 @@ class myhConstThermo
     // Private Member Functions
 
         //- Construct from components
-        inline myhConstThermo
+        inline hDAngolaThermo
         (
             const EquationOfState& st,
             const scalar cp,
@@ -120,16 +120,16 @@ public:
     // Constructors
 
         //- Construct from dictionary
-        myhConstThermo(const dictionary& dict);
+        hDAngolaThermo(const dictionary& dict);
 
         //- Construct as named copy
-        inline myhConstThermo(const word&, const myhConstThermo&);
+        inline hDAngolaThermo(const word&, const hDAngolaThermo&);
 
         //- Construct and return a clone
-        inline autoPtr<myhConstThermo> clone() const;
+        inline autoPtr<hDAngolaThermo> clone() const;
 
         //- Selector from dictionary
-        inline static autoPtr<myhConstThermo> New(const dictionary& dict);
+        inline static autoPtr<hDAngolaThermo> New(const dictionary& dict);
 
 
     // Member Functions
@@ -137,7 +137,7 @@ public:
         //- Return the instantiated type name
         static word typeName()
         {
-            return "myhConst<" + EquationOfState::typeName() + '>';
+            return "hDAngola<" + EquationOfState::typeName() + '>';
         }
 
         //- Limit temperature to be within the range
@@ -184,27 +184,27 @@ public:
 
     // Member operators
 
-        inline void operator+=(const myhConstThermo&);
+        inline void operator+=(const hDAngolaThermo&);
 
 
     // Friend operators
 
-        friend myhConstThermo operator+ <EquationOfState>
+        friend hDAngolaThermo operator+ <EquationOfState>
         (
-            const myhConstThermo&,
-            const myhConstThermo&
+            const hDAngolaThermo&,
+            const hDAngolaThermo&
         );
 
-        friend myhConstThermo operator* <EquationOfState>
+        friend hDAngolaThermo operator* <EquationOfState>
         (
             const scalar,
-            const myhConstThermo&
+            const hDAngolaThermo&
         );
 
-        friend myhConstThermo operator== <EquationOfState>
+        friend hDAngolaThermo operator== <EquationOfState>
         (
-            const myhConstThermo&,
-            const myhConstThermo&
+            const hDAngolaThermo&,
+            const hDAngolaThermo&
         );
 
 
@@ -213,7 +213,7 @@ public:
         friend Ostream& operator<< <EquationOfState>
         (
             Ostream&,
-            const myhConstThermo&
+            const hDAngolaThermo&
         );
 };
 
@@ -224,10 +224,10 @@ public:
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-#include "myhConstThermoI.H"
+#include "hDAngolaThermoI.H"
 
 #ifdef NoRepository
-    #include "myhConstThermo.C"
+    #include "hDAngolaThermo.C"
 #endif
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

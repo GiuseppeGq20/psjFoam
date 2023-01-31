@@ -25,7 +25,7 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::myconstTransport
+    Foam::DAngolaTransport
 
 Group
     grpSpecieTransport
@@ -36,13 +36,13 @@ Description
     conductivity).
 
 SourceFiles
-    myconstTransportI.H
-    myconstTransport.C
+    DAngolaTransportI.H
+    DAngolaTransport.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef myconstTransport_H
-#define myconstTransport_H
+#ifndef DAngolaTransport_H
+#define DAngolaTransport_H
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -51,36 +51,36 @@ namespace Foam
 
 // Forward Declarations
 
-template<class Thermo> class myconstTransport;
+template<class Thermo> class DAngolaTransport;
 
 template<class Thermo>
-inline myconstTransport<Thermo> operator+
+inline DAngolaTransport<Thermo> operator+
 (
-    const myconstTransport<Thermo>&,
-    const myconstTransport<Thermo>&
+    const DAngolaTransport<Thermo>&,
+    const DAngolaTransport<Thermo>&
 );
 
 template<class Thermo>
-inline myconstTransport<Thermo> operator*
+inline DAngolaTransport<Thermo> operator*
 (
     const scalar,
-    const myconstTransport<Thermo>&
+    const DAngolaTransport<Thermo>&
 );
 
 template<class Thermo>
 Ostream& operator<<
 (
     Ostream&,
-    const myconstTransport<Thermo>&
+    const DAngolaTransport<Thermo>&
 );
 
 
 /*---------------------------------------------------------------------------*\
-                           Class myconstTransport Declaration
+                           Class DAngolaTransport Declaration
 \*---------------------------------------------------------------------------*/
 
 template<class Thermo>
-class myconstTransport
+class DAngolaTransport
 :
     public Thermo
 {
@@ -96,7 +96,7 @@ class myconstTransport
     // Private Member Functions
 
         //- Construct from components
-        inline myconstTransport
+        inline DAngolaTransport
         (
             const Thermo& t,
             const scalar mu,
@@ -112,16 +112,16 @@ public:
     // Constructors
 
         //- Construct as named copy
-        inline myconstTransport(const word&, const myconstTransport&);
+        inline DAngolaTransport(const word&, const DAngolaTransport&);
 
         //- Construct from dictionary
-        explicit myconstTransport(const dictionary& dict);
+        explicit DAngolaTransport(const dictionary& dict);
 
         //- Construct and return a clone
-        inline autoPtr<myconstTransport> clone() const;
+        inline autoPtr<DAngolaTransport> clone() const;
 
         // Selector from dictionary
-        inline static autoPtr<myconstTransport> New(const dictionary& dict);
+        inline static autoPtr<DAngolaTransport> New(const dictionary& dict);
 
 
     // Member Functions
@@ -129,7 +129,7 @@ public:
         //- Return the instantiated type name
         static word typeName()
         {
-            return "myconst<" + Thermo::typeName() + '>';
+            return "DAngola<" + Thermo::typeName() + '>';
         }
 
         //- Dynamic viscosity [kg/ms]
@@ -150,23 +150,23 @@ public:
 
     // Member Operators
 
-        inline void operator+=(const myconstTransport&);
+        inline void operator+=(const DAngolaTransport&);
 
         inline void operator*=(const scalar);
 
 
     // Friend Operators
 
-        friend myconstTransport operator+ <Thermo>
+        friend DAngolaTransport operator+ <Thermo>
         (
-            const myconstTransport&,
-            const myconstTransport&
+            const DAngolaTransport&,
+            const DAngolaTransport&
         );
 
-        friend myconstTransport operator* <Thermo>
+        friend DAngolaTransport operator* <Thermo>
         (
             const scalar,
-            const myconstTransport&
+            const DAngolaTransport&
         );
 
 
@@ -175,7 +175,7 @@ public:
         friend Ostream& operator<< <Thermo>
         (
             Ostream&,
-            const myconstTransport&
+            const DAngolaTransport&
         );
 };
 
@@ -186,10 +186,10 @@ public:
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-#include "myconstTransportI.H"
+#include "DAngolaTransportI.H"
 
 #ifdef NoRepository
-    #include "myconstTransport.C"
+    #include "DAngolaTransport.C"
 #endif
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

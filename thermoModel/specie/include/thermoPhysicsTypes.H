@@ -36,12 +36,12 @@ Description
 #define thermoPhysicsTypes_H
 
 #include "specie.H"
-#include "myperfectGas.H"
-#include "myhConstThermo.H"
+#include "DAngolaGas.H"
+#include "hDAngolaThermo.H"
 
 #include "sensibleEnthalpy.H"
 #include "thermo.H"
-#include "myconstTransport.H"
+#include "DAngolaTransport.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -49,13 +49,13 @@ namespace Foam
 {
     // thermo physics types based on sensibleEnthalpy
     typedef
-    myconstTransport
+    DAngolaTransport
     <
         species::thermo
         <
-            myhConstThermo
+            hDAngolaThermo
             <
-                myperfectGas<specie>
+                DAngolaGas<specie>
             >,
             sensibleEnthalpy
         >

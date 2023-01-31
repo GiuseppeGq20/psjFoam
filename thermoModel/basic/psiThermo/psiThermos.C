@@ -29,12 +29,12 @@ License
 #include "makeThermo.H"
 
 #include "specie.H"
-#include "myperfectGas.H"
-#include "myhConstThermo.H"
+#include "DAngolaGas.H"
+#include "hDAngolaThermo.H"
 #include "sensibleEnthalpy.H"
 #include "thermo.H"
 
-#include "myconstTransport.H"
+#include "DAngolaTransport.H"
 
 
 #include "hePsiThermo.H"
@@ -54,10 +54,10 @@ makeThermos
     psiThermo,
     hePsiThermo,
     pureMixture,
-    myconstTransport,
+    DAngolaTransport,
     sensibleEnthalpy,
-    myhConstThermo,
-    myperfectGas,
+    hDAngolaThermo,
+    DAngolaGas,
     specie
 );
 

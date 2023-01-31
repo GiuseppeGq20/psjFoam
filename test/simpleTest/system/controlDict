@@ -158,6 +158,6 @@ OptimisationSwitches
 
 
 libs (
-"libmyfluidThermophysicalModels.so"
+"libDAngolafluidThermophysicalModels.so"
 );
 // ************************************************************************* //

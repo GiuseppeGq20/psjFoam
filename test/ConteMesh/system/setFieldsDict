@@ -43,7 +43,7 @@ regions
         fieldValues
         (
             volScalarFieldValue T 7500
-            volScalarFieldValue p 1e6
+            volScalarFieldValue p 1.2e5
         );
     }
 );

@@ -25,13 +25,13 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "myperfectGas.H"
+#include "DAngolaGas.H"
 #include "IOstreams.H"
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 template<class Specie>
-Foam::myperfectGas<Specie>::myperfectGas(const dictionary& dict)
+Foam::DAngolaGas<Specie>::DAngolaGas(const dictionary& dict)
 :
     Specie(dict)
 {}
@@ -40,7 +40,7 @@ Foam::myperfectGas<Specie>::myperfectGas(const dictionary& dict)
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 template<class Specie>
-void Foam::myperfectGas<Specie>::write(Ostream& os) const
+void Foam::DAngolaGas<Specie>::write(Ostream& os) const
 {
     Specie::write(os);
 }
@@ -49,7 +49,7 @@ void Foam::myperfectGas<Specie>::write(Ostream& os) const
 // * * * * * * * * * * * * * * * Ostream Operator  * * * * * * * * * * * * * //
 
 template<class Specie>
-Foam::Ostream& Foam::operator<<(Ostream& os, const myperfectGas<Specie>& pg)
+Foam::Ostream& Foam::operator<<(Ostream& os, const DAngolaGas<Specie>& pg)
 {
     pg.write(os);
     return os;

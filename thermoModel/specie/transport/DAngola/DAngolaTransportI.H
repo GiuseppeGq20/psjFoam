@@ -28,7 +28,7 @@ License
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 template<class Thermo>
-inline Foam::myconstTransport<Thermo>::myconstTransport
+inline Foam::DAngolaTransport<Thermo>::DAngolaTransport
 (
     const Thermo& t,
     const scalar mu,
@@ -42,10 +42,10 @@ inline Foam::myconstTransport<Thermo>::myconstTransport
 
 
 template<class Thermo>
-inline Foam::myconstTransport<Thermo>::myconstTransport
+inline Foam::DAngolaTransport<Thermo>::DAngolaTransport
 (
     const word& name,
-    const myconstTransport& ct
+    const DAngolaTransport& ct
 )
 :
     Thermo(name, ct),
@@ -55,28 +55,28 @@ inline Foam::myconstTransport<Thermo>::myconstTransport
 
 
 template<class Thermo>
-inline Foam::autoPtr<Foam::myconstTransport<Thermo>>
-Foam::myconstTransport<Thermo>::clone() const
+inline Foam::autoPtr<Foam::DAngolaTransport<Thermo>>
+Foam::DAngolaTransport<Thermo>::clone() const
 {
-    return autoPtr<myconstTransport<Thermo>>::New(*this);
+    return autoPtr<DAngolaTransport<Thermo>>::New(*this);
 }
 
 
 template<class Thermo>
-inline Foam::autoPtr<Foam::myconstTransport<Thermo>>
-Foam::myconstTransport<Thermo>::New
+inline Foam::autoPtr<Foam::DAngolaTransport<Thermo>>
+Foam::DAngolaTransport<Thermo>::New
 (
     const dictionary& dict
 )
 {
-    return autoPtr<myconstTransport<Thermo>>::New(dict);
+    return autoPtr<DAngolaTransport<Thermo>>::New(dict);
 }
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 template<class Thermo>
-inline Foam::scalar Foam::myconstTransport<Thermo>::mu
+inline Foam::scalar Foam::DAngolaTransport<Thermo>::mu
 (
     const scalar p,
     const scalar T
@@ -88,7 +88,7 @@ inline Foam::scalar Foam::myconstTransport<Thermo>::mu
 
 
 template<class Thermo>
-inline Foam::scalar Foam::myconstTransport<Thermo>::kappa
+inline Foam::scalar Foam::DAngolaTransport<Thermo>::kappa
 (
     const scalar p,
     const scalar T
@@ -101,7 +101,7 @@ inline Foam::scalar Foam::myconstTransport<Thermo>::kappa
 
 
 template<class Thermo>
-inline Foam::scalar Foam::myconstTransport<Thermo>::alphah
+inline Foam::scalar Foam::DAngolaTransport<Thermo>::alphah
 (
     const scalar p,
     const scalar T
@@ -115,9 +115,9 @@ inline Foam::scalar Foam::myconstTransport<Thermo>::alphah
 // * * * * * * * * * * * * * * * Member Operators  * * * * * * * * * * * * * //
 
 template<class Thermo>
-inline void Foam::myconstTransport<Thermo>::operator+=
+inline void Foam::DAngolaTransport<Thermo>::operator+=
 (
-    const myconstTransport<Thermo>& st
+    const DAngolaTransport<Thermo>& st
 )
 {
     scalar Y1 = this->Y();
@@ -136,7 +136,7 @@ inline void Foam::myconstTransport<Thermo>::operator+=
 
 
 template<class Thermo>
-inline void Foam::myconstTransport<Thermo>::operator*=
+inline void Foam::DAngolaTransport<Thermo>::operator*=
 (
     const scalar s
 )
@@ -148,10 +148,10 @@ inline void Foam::myconstTransport<Thermo>::operator*=
 // * * * * * * * * * * * * * * * Friend Operators  * * * * * * * * * * * * * //
 
 template<class Thermo>
-inline Foam::myconstTransport<Thermo> Foam::operator+
+inline Foam::DAngolaTransport<Thermo> Foam::operator+
 (
-    const myconstTransport<Thermo>& ct1,
-    const myconstTransport<Thermo>& ct2
+    const DAngolaTransport<Thermo>& ct1,
+    const DAngolaTransport<Thermo>& ct2
 )
 {
     Thermo t
@@ -161,7 +161,7 @@ inline Foam::myconstTransport<Thermo> Foam::operator+
 
     if (mag(t.Y()) < SMALL)
     {
-        return myconstTransport<Thermo>
+        return DAngolaTransport<Thermo>
         (
             t,
             0,
@@ -173,7 +173,7 @@ inline Foam::myconstTransport<Thermo> Foam::operator+
         scalar Y1 = ct1.Y()/t.Y();
         scalar Y2 = ct2.Y()/t.Y();
 
-        return myconstTransport<Thermo>
+        return DAngolaTransport<Thermo>
         (
             t,
             Y1*ct1.mu_ + Y2*ct2.mu_,
@@ -184,13 +184,13 @@ inline Foam::myconstTransport<Thermo> Foam::operator+
 
 
 template<class Thermo>
-inline Foam::myconstTransport<Thermo> Foam::operator*
+inline Foam::DAngolaTransport<Thermo> Foam::operator*
 (
     const scalar s,
-    const myconstTransport<Thermo>& ct
+    const DAngolaTransport<Thermo>& ct
 )
 {
-    return myconstTransport<Thermo>
+    return DAngolaTransport<Thermo>
     (
         s*static_cast<const Thermo&>(ct),
         ct.mu_,
