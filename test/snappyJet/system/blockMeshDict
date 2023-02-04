@@ -1,0 +1,92 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1912                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+scale 1;//0.001; // scale to [mm]
+
+domain
+{
+   
+    L   0.04;
+    H   0.1;
+    W   0.04;
+    mL  -0.04;
+    mH  -0.01;
+    mW  0;//-0.04;
+
+    LCells  80;
+    HCells  80;
+    WCells  80;
+}
+
+
+vertices
+(   
+    //  x           y           z
+
+    ($:domain.mW $:domain.mL $:domain.mH)
+    ($:domain.W $:domain.mL $:domain.mH)
+    ($:domain.W $:domain.L $:domain.mH)
+    ($:domain.mW $:domain.L $:domain.mH)
+    
+    ($:domain.mW $:domain.mL $:domain.H)
+    ($:domain.W $:domain.mL $:domain.H)
+    ($:domain.W $:domain.L $:domain.H)
+    ($:domain.mW $:domain.L $:domain.H)
+    
+   
+);
+
+blocks
+(
+    hex (0 1 2 3 4 5 6 7)
+    ($:domain.WCells $:domain.LCells $:domain.HCells)
+    simpleGrading (1 1 1)
+   
+);
+
+
+edges
+(
+);
+
+
+boundary
+(
+    sides
+    {
+        type patch;
+        faces
+        (
+            (4 5 6 7)
+            (0 3 2 1)
+        );    
+    }
+    
+    outlet
+    {
+        type patch;
+        faces
+        (
+            (1 5 4 0)
+            (1 2 6 5)
+            (2 3 7 6)
+            (0 4 7 3)
+        );
+    }
+
+
+);
+
+// ************************************************************************* //
