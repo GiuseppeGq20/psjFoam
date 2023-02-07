@@ -6,7 +6,7 @@
 !constant/
 #ignore mesh
 constant/polyMesh/*
-
+!geometry/
 !system/
 !.gitignore
 !*.sh

@@ -20,9 +20,9 @@ thermoType
 {
     type            hePsiThermo;
     mixture         pureMixture;
-    transport       DAngola;
-    thermo          hDAngola;
-    equationOfState DAngolaGas;
+    transport       const;
+    thermo          hConst;
+    equationOfState perfectGas;
     specie          specie;
     energy          sensibleEnthalpy;
 }
@@ -44,7 +44,6 @@ mixture // air at room temperature (293 K)
     transport
     {
         mu          1.82e-05;
-        //mu          -1.0;
         Pr          0.71;
     }
 }

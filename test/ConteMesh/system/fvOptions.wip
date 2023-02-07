@@ -18,7 +18,8 @@ codedSource
 {   
     active          false;
     type            scalarCodedSource;
-    selectionMode   all;
+    selectionMode   region;
+    name            interElectrodes;
 
     fields          (h);
     name            sourceTime;
@@ -28,22 +29,32 @@ codedSource
         const Time& time = mesh().time();
         const scalarField& V = mesh_.V();
         scalarField& heSource = eqn.source();
+       
+        const scalar N = 934;
+        const scalar timeArray[N]={
+                     #include "../data/time.H"    
+                    };
+        const scalar SourceArray[N]={
+                     #include "../data/source.H"    
+                    };
 
         // Start time
-        const scalar startTime = 2.0;
+        const scalar endTime = timeArray[N-1];
 
         // Retrieve the x component of the cell centres
         const scalarField& cellx = mesh_.C().component(0);
 
         // Only apply when we have reached the start time
-        if (time.value() > startTime)
+        if (time.value() < endTime)
         {
             // Apply the source
             forAll(cellx, i)
             {
                 // cell volume specific source
-                heSource[i] += 1e5*sin(200*cellx[i])*V[i];
+                heSource[i] += 
             };
+        } else {
+            
         }
     #};
 }
