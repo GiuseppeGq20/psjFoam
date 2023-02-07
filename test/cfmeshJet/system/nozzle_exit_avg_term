@@ -1,0 +1,40 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  7
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+nozzle_exit_avg_term
+{
+    type            surfaceFieldValue;
+    functionObjectLibs ("libfieldFunctionObjects.so");
+    enabled         true;
+
+    writeFields     true;
+
+
+   surfaceFormat   raw;
+    regionType          sampledSurface;
+
+
+
+    name      exit_nozzle;
+    sampledSurfaceDict
+    {
+        type plane;
+        planeType       pointAndNormal;
+        pointAndNormalDict
+        {
+            basePoint        (0 0 0.001990);
+            normalVector    (0 0 1);
+        }
+    }
+    operation       areaAverage;
+    fields
+    (
+ 
+        U
+    );
+}
+// ************************************************************************* //

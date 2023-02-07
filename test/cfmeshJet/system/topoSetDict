@@ -1,0 +1,65 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  7
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      topoSetDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+actions
+(
+    {
+        name    cavitySet;
+        type    cellSet;
+        action  new;
+       
+        source  cylinderToCell;
+
+        sourceInfo
+        {
+           p1 (0 0 -0.006);
+           p2 (0 0 0);
+ 	       radius 0.006;
+        }
+    }
+
+
+
+    {
+        name    cavity;
+        type    cellZoneSet;  
+        action  new;
+        source  setToCellZone; 
+       sourceInfo
+        {
+            set cavitySet;
+        }
+    }
+
+    {
+        name    interElectrodes;
+        type    cellSet;
+        action  new;
+       
+        source  cylinderToCell;
+
+        sourceInfo
+        {
+            radius 5e-4;
+            p1 (-0.001 0 -4.5e-3);
+            p2 (0.001 0 -4.5e-3);
+        }
+    }
+
+);
+
+// ************************************************************************* //
