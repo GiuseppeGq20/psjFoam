@@ -21,11 +21,11 @@ domain
     L   0.04;
     H   0.1;
     W   0.04;
-    mL  -0.04;
-    mH  -0.01;
+    mL  #eval{-$L};
+    mH  -0.002;
     mW  0;//-0.04;
 
-    LCells  80;
+    LCells  160;
     HCells  80;
     WCells  80;
 }
@@ -52,7 +52,16 @@ blocks
 (
     hex (0 1 2 3 4 5 6 7)
     ($:domain.WCells $:domain.LCells $:domain.HCells)
-    simpleGrading (1 1 1)
+    simpleGrading (1 1 1) 
+    /*simpleGrading (
+        20 
+        (
+            (0.45 0.25 .25)
+            (0.1 0.5 1)
+            (0.45 0.25 4)
+        )
+        20
+    )*/
    
 );
 

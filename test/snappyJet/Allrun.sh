@@ -11,11 +11,17 @@ runApplication foamListTimes -rm
 
 runApplication blockMesh
 
+#runApplication topoSet
+
+#refineMesh -dict system/refineMeshDict.cavity -overwrite > log.refineMesh
+
+#refineMesh   -overwrite >> log.refineMesh
+
 runApplication decomposePar -force
 
 runParallel snappyHexMesh
 
-runParallel mirrorMesh -overwrite
+#runParallel mirrorMesh -overwrite
 #runApplication refineMesh -overwrite
 
 #runApplication $(getApplication)
