@@ -25,7 +25,7 @@ FoamFile
 );
 */
 
-application     rhoPimpleFoam;
+application     psjFoam;
 
 startFrom       latestTime;
 

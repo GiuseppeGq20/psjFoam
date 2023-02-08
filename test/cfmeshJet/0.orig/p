@@ -29,7 +29,7 @@ boundaryField
         value           uniform $pOut;
     }
     
-    wall
+    "(plane|container|elec.*)"
     {
         type            zeroGradient;
     }

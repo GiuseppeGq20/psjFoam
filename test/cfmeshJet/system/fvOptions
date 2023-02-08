@@ -9,34 +9,18 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       volVectorField;
-    object      U;
+    class       dictionary;
+    object      fvOptions;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-Uinlet          (0 0 0);
-
-dimensions      [0 1 -1 0 0 0 0];
-
-internalField   uniform $Uinlet;
-
-boundaryField
+limitT
 {
-    "(outlet|side)"
-    {   
-        type            inletOutlet;
-        inletValue      uniform $Uinlet;
-        value           uniform $Uinlet;
-        //type            fixedValue;
-        //value uniform $Uinlet;
-    }
-
-    "(plane|container|elec.*)"
-    {
-        type            noSlip;
-    }
-
-    //#includeEtc "caseDicts/setConstraintTypes"
+    type       limitTemperature;
+    active     yes;
+    min        100;
+    max        45000;
+    selectionMode all;
 }
 
-// ************************************************************************* //
+//************************************************************************** //

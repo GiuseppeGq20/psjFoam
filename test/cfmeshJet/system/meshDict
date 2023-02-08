@@ -120,11 +120,11 @@ renameBoundary
             newName outlet;
         }
 
-        "(plane|container|elec.*)"
+        /*"(plane|container|elec.*)"
         {
             type    wall;
             newName wall;
-        }
+        }*/
     }
 }
 // ************************************************************************* //

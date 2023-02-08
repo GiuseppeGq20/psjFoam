@@ -48,7 +48,7 @@ solvers
         smoother        symGaussSeidel;
         //preconditioner  DIC;
         //nsweep          5;
-        tolerance       1e-5;
+        tolerance       1e-8;
         relTol          0.001;
     }
 

@@ -29,7 +29,17 @@ boundaryField
         value   uniform $Tinlet;
     }
     
-    wall
+    "(plane|container|elecSide.*)"
+    {
+        type            zeroGradient;
+    }
+    
+    elecFace1
+    {
+        type            zeroGradient;
+    }
+    
+    elecFace2
     {
         type            zeroGradient;
     }
