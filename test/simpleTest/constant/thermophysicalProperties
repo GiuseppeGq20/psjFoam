@@ -43,7 +43,8 @@ mixture // air at room temperature (293 K)
 
     transport
     {
-        mu          1.82e-05;
+        mu  0;
+        //mu          1.82e-05;
         //mu          -1.0;
         Pr          0.71;
     }

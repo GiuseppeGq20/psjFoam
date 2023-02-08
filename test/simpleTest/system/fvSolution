@@ -42,12 +42,13 @@ solvers
 
     V
     {   
-        //solver          GAMG;
+        solver          GAMG;
         //smoother        GaussSeidel;
-        solver          smoothSolver;//PBiCGStab;
+        //solver          smoothSolver;//PBiCGStab;
         smoother        symGaussSeidel;
         //preconditioner  DIC;
-        tolerance       1e-3;
+        //nsweep          5;
+        tolerance       1e-5;
         relTol          0.001;
     }
 
@@ -70,29 +71,29 @@ PIMPLE
     momentumPredictor yes;
     consistent      yes;
     transonic       yes;
-    SIMPLErho       on;
-    nCorrectors              5;
+    SIMPLErho       false;//on; //on doesn't solve continuity eq // con false e 1 outer loop nessuna fluttuazione
+    nCorrectors              4;
     nNonOrthogonalCorrectors 0;
 // at least 2 outer loop to correct sigma and use the real value after updated T 
 //aggiungi schema loop pimple algorithm
-    nOuterCorrectors         2;
+    nOuterCorrectors         1;
     //pMinFactor      0.1;
     //pMaxFactor      2;
-    outerCorrectorResidualControl
+    /*outerCorrectorResidualControl
     {
         ".*"
         {
             relTol 1e-2;
             tolerance 2e-3;
         }
-    }
+    }*/
 }
 
 relaxationFactors
 {
     fields
     {
-        ".*"     1;
+        ".*"     1; //set to 1= no relaxation (for transient simulations)
     }
     equations
     {

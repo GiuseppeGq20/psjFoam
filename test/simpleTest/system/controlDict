@@ -15,7 +15,7 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 //application     rhoPimpleFoam;
-application     myrhoPimpleFoam;
+application     psjFoam;
 
 startFrom       startTime;
 
@@ -23,7 +23,7 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         50e-6;
+endTime         30e-6;
 
 deltaT          1e-8;
 

@@ -43,13 +43,18 @@ boundaryField
     
     electrodFaceBot
     {
-        type        fixedGradient;
-        gradient    uniform -10;
+        type        fixedValue;
+        value       uniform 400;
+        //type        fixedGradient;
+        //gradient    uniform -10;
     }
     electrodFaceTop
-    {
-        type        fixedGradient;
-        gradient    uniform 10;
+    {        
+        type        fixedValue;
+        value       uniform 400;
+
+        //type        fixedGradient;
+        //gradient    uniform 10;
     }
     /*"electrodFace.*"
     {

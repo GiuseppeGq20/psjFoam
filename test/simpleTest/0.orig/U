@@ -33,7 +33,7 @@ boundaryField
 
     "electrod.*"
     {
-        type            noSlip;
+        type            slip;
     }
 
     "(front|back)"

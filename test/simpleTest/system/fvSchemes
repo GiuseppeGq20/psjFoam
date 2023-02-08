@@ -33,7 +33,7 @@ divSchemes
 {
     //default         Gauss upwind;
     default         none;
-    div(phi,U)      Gauss upwind;//MUSCL;
+    div(phi,U)      Gauss MUSCL;//upwind;//MUSCL;
 
     turbulence      Gauss upwind;
     //energy          Gauss MUSCL;
