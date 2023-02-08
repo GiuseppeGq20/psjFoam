@@ -5,8 +5,8 @@
     \\  /    A nd           | www.openfoam.com
      \\/     M anipulation  |
 -------------------------------------------------------------------------------
-    Copyright (C) 2011-2015 OpenFOAM Foundation
-    Copyright (C) 2016-2017 OpenCFD Ltd.
+    Copyright (C) 2011-2017 OpenFOAM Foundation
+    Copyright (C) 2019 OpenCFD Ltd.
 -------------------------------------------------------------------------------
 License
     This file is part of OpenFOAM.
@@ -25,17 +25,21 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Application
-    overRhoPimpleDyMFoam
+    rhoPimpleFoam
 
 Group
-    grpCompressibleSolvers grpMovingMeshSolvers
+    grpCompressibleSolvers
 
 Description
-    Transient solver for laminar or turbulent flow of compressible fluids
-    for HVAC and similar applications.
+    Transient solver for turbulent flow of compressible fluids for HVAC and
+    similar applications, with optional mesh motion and mesh topology changes.
 
     Uses the flexible PIMPLE (PISO-SIMPLE) solution for time-resolved and
     pseudo-transient simulations.
+
+Note
+   The motion frequency of this solver can be influenced by the presence
+   of "updateControl" and "updateInterval" in the dynamicMeshDict.
 
 \*---------------------------------------------------------------------------*/
 
@@ -46,34 +50,33 @@ Description
 #include "bound.H"
 #include "pimpleControl.H"
 #include "pressureControl.H"
-#include "CorrectPhi.H"
+#include "general/CorrectPhi/CorrectPhi.H"
 #include "fvOptions.H"
 #include "localEulerDdtScheme.H"
 #include "fvcSmooth.H"
-#include "cellCellStencilObject.H"
-#include "localMin.H"
-
+#include "sigmaClass.H"
+#include "Urad.H"
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 int main(int argc, char *argv[])
 {
     argList::addNote
-    (
-        "Transient solver for compressible turbulent flow.\n"
-        "With optional mesh motion and mesh topology changes."
+    (   "solver deerived from rhoPimpleFoam that adds jouleHeating effects\n"
+        "for a non self-inducing LTE plasma in the stationary electromagnetic."
+        "fields approximation."
     );
 
+    #include "postProcess.H"
+
+    #include "addCheckCaseOptions.H"
     #include "setRootCaseLists.H"
     #include "createTime.H"
     #include "createDynamicFvMesh.H"
     #include "createDyMControls.H"
-    #include "createRDeltaT.H"
     #include "initContinuityErrs.H"
     #include "createFields.H"
-    #include "createMRF.H"
-    #include "createFvOptions.H"
+    #include "createFieldRefs.H"
     #include "createRhoUfIfPresent.H"
-    #include "createControls.H"
 
     turbulence->validate();
 
@@ -89,9 +92,7 @@ int main(int argc, char *argv[])
 
     while (runTime.run())
     {
-        #include "readControls.H"
         #include "readDyMControls.H"
-
 
         // Store divrhoU from the previous mesh so that it can be mapped
         // and used in correctPhi to ensure the corrected phi has the
@@ -128,61 +129,36 @@ int main(int argc, char *argv[])
         {
             if (pimple.firstIter() || moveMeshOuterCorrectors)
             {
+                // Store momentum to set rhoUf for introduced faces.
+                autoPtr<volVectorField> rhoU;
+                if (rhoUf.valid())
+                {
+                    rhoU.reset(new volVectorField("rhoU", rho*U));
+                }
 
                 // Do any mesh changes
-                mesh.update();
+                mesh.controlledUpdate();
 
                 if (mesh.changing())
                 {
                     MRF.update();
 
-                    #include "setCellMask.H"
-
-                    const surfaceScalarField faceMaskOld
-                    (
-                        localMin<scalar>(mesh).interpolate(cellMask.oldTime())
-                    );
-
-                    // Zero Uf on old faceMask (H-I)
-                    rhoUf() *= faceMaskOld;
-
-                    surfaceVectorField rhoUfint(fvc::interpolate(rho*U));
-
-                    // Update Uf and phi on new C-I faces
-                    rhoUf() += (1-faceMaskOld)*rhoUfint;
-
-                    // Update Uf boundary
-                    forAll(rhoUf().boundaryField(), patchI)
-                    {
-                        rhoUf().boundaryFieldRef()[patchI] =
-                            rhoUfint.boundaryField()[patchI];
-                    }
-
-                    // Calculate absolute flux from the mapped surface velocity
-                    phi = mesh.Sf() & rhoUf();
-
                     if (correctPhi)
                     {
+                        // Calculate absolute flux
+                        // from the mapped surface velocity
+                        phi = mesh.Sf() & rhoUf();
+
                         #include "correctPhi.H"
+
+                        // Make the fluxes relative to the mesh-motion
+                        fvc::makeRelative(phi, rho, U);
                     }
 
-                    // Zero phi on current H-I
-                    const surfaceScalarField faceMask
-                    (
-                        localMin<scalar>(mesh).interpolate(cellMask)
-                    );
-
-                    phi *= faceMask;
-                    U   *= cellMask;
-
-                     // Make the fluxes relative to the mesh-motion
-                    fvc::makeRelative(phi, rho, U);
-
-                }
-
-                if (checkMeshCourantNo)
-                {
-                    #include "meshCourantNo.H"
+                    if (checkMeshCourantNo)
+                    {
+                        #include "meshCourantNo.H"
+                    }
                 }
             }
 
@@ -190,6 +166,11 @@ int main(int argc, char *argv[])
             {
                 #include "rhoEqn.H"
             }
+           
+            // Maxwell eqns
+            //#include "VEqn.H"
+            //#include "AEqn.H"
+            // 
 
             #include "UEqn.H"
             #include "EEqn.H"
@@ -197,8 +178,17 @@ int main(int argc, char *argv[])
             // --- Pressure corrector loop
             while (pimple.correct())
             {
-                #include "pEqn.H"
+                if (pimple.consistent())
+                {
+                    #include "pcEqn.H"
+                }
+                else
+                {
+                    #include "pEqn.H"
+                }
             }
+
+            //#include "EEqn.H"
 
             if (pimple.turbCorr())
             {

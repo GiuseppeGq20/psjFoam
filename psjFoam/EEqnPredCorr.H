@@ -1,10 +1,6 @@
 {
     volScalarField& he = thermo.he();
     
-    Info<<"max h"<<max(he)<<endl;
-    volScalarField JouleHeating= sigma*Foam::magSqr(fvc::grad(V));
-    uradC.update(thermo.T());
-    
     //damping function
     //dimensionedScalar myone("myone",dimensionSet(0,0,0.5,0,0,0,0),1);
     //dimensionedScalar myomega=Foam::max(Foam::sqrt((rho*he)/JouleHeating));
@@ -22,8 +18,7 @@
     */
     //volScalarField source("source",dimPower/dimMass,mesh,0);
 
-    source=JouleHeating-urad;
-    if ( pimple.firstIter() && (pimple.nCorrPIMPLE()>1) )
+   /* if ( pimple.firstIter() && (pimple.nCorrPIMPLE()>1) )
     {  
         //TODO find a better way to set JouleHeating to zero at first outer iteration
         //dimensionedScalar myzero("myzero",dimensionSet(-1,-3,3,0,0,2,0),0);
@@ -31,7 +26,7 @@
         //volScalarField source("source",dimPower/dimMass,mesh,0);
         source = myzero*source;
         
-    }
+    }*/
 
     //Info<<"omega: "<<omega<<endl;
     
@@ -41,19 +36,10 @@
         dimEnergy/dimVolume/dimTime,
         1e20
     );*/
-   
-    //#include "Urad.H"
 
-    Info<<"before eq:\n"
-        <<"max JouleHeating: "<<Foam::max(JouleHeating)
-        <<"\nmax Urad: "<<Foam::max(urad) 
-        <<"\nmax dpdt: "<<Foam::max(dpdt)<<endl;
-    
-    Info<<"todo correct"<<endl;
     thermo.correct();
-    Info<<"done correct"<<endl;
 
-    fvScalarMatrix EEqn
+    fvScalarMatrix EEqnPredictor
     (
         fvm::ddt(rho, he) + fvm::div(phi, he)
       + fvc::ddt(rho, K) + fvc::div(phi, K)
@@ -67,17 +53,57 @@
             )
           : -dpdt
         )
-    - fvm::laplacian(turbulence->alphaEff(), he)
-    - source 
+    - fvm::laplacian(turbulence->alphaEff(), he) 
     ==
         fvOptions(rho, he)
     );
+    
+    EEqnPredictor.solve();
+    fvOptions.constrain(EEqnPredictor); 
 
-    EEqn.relax();
+    //--- correction with Joule Heating ---//
+    thermo.correct();
 
-    fvOptions.constrain(EEqn);
+    sigmaC.update(thermo.p(),thermo.T()); //update electric conductivity
+    
+    // solve potential equation
+    #include "VEqn.H"
 
-    EEqn.solve();
+    volScalarField JouleHeating= sigma*Foam::magSqr(fvc::grad(V)); //calc joule heating
+    uradC.update(thermo.T()); // update NEC term
+    source=JouleHeating-urad;
+    
+    fvScalarMatrix EEqnCorrector
+    (
+        fvm::ddt(rho, he) + fvm::div(phi, he)
+      + fvc::ddt(rho, K) + fvc::div(phi, K)
+      + (
+            he.name() == "e"
+          ? fvc::div
+            (
+                fvc::absolute(phi/fvc::interpolate(rho), U),
+                p,
+                "div(phiv,p)"
+            )
+          : -dpdt
+        )
+    - fvm::laplacian(turbulence->alphaEff(), he) 
+    - source
+    ==
+        fvOptions(rho, he)
+    );
+    //EEqn+=source; //add source to LHS, at the end it leave the right sign
+
+    EEqnCorrector.relax();
+
+    fvOptions.constrain(EEqnCorrector);
+
+    EEqnCorrector.solve();
+
+    //sigmaC.update(thermo.p(),thermo.T()); //update electric conductivity
+    //uradC.update(thermo.T()); //update NEC term
+
+    //---------------//
 
     Info<<"after eq:\n"
         <<"max JouleHeating: "<<Foam::max(JouleHeating)
@@ -85,12 +111,6 @@
         <<"\nmax dpdt: "<<Foam::max(dpdt)<<endl;
     fvOptions.correct(he);
     
-    
-   // sigma.write();
-   // V.write();
-   // he.write();
-   // dpdt.write();
-
     thermo.correct();
 
 }
