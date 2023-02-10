@@ -61,6 +61,18 @@ makeThermos
     specie
 );
 
+// DAngola model with constant transport, useful for inviscid simulations
+makeThermos
+(
+    psiThermo,
+    hePsiThermo,
+    pureMixture,
+    const,
+    sensibleEnthalpy,
+    hDAngolaThermo,
+    DAngolaGas,
+    specie
+);
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
