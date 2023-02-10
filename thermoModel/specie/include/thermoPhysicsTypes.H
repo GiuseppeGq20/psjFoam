@@ -42,6 +42,7 @@ Description
 #include "sensibleEnthalpy.H"
 #include "thermo.H"
 #include "DAngolaTransport.H"
+#include "constTransport.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -59,9 +60,20 @@ namespace Foam
             >,
             sensibleEnthalpy
         >
+    > DAngolaGasHThermoPhysics;
+
+    typedef
+    constTransport
+    <
+        species::thermo
+        <
+            hDAngolaThermo
+            <
+                DAngolaGas<specie>
+            >,
+            sensibleEnthalpy
+        >
     > constGasHThermoPhysics;
-
-
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

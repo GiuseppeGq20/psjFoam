@@ -35,6 +35,7 @@ License
 #include "thermo.H"
 
 #include "DAngolaTransport.H"
+#include "constTransport.H"
 
 
 #include "hePsiThermo.H"
@@ -67,7 +68,7 @@ makeThermos
     psiThermo,
     hePsiThermo,
     pureMixture,
-    const,
+    constTransport,
     sensibleEnthalpy,
     hDAngolaThermo,
     DAngolaGas,
