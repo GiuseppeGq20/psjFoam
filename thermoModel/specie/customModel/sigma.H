@@ -165,16 +165,21 @@
     Info<<endl;
     */
 	//Definizione sigma e gamma
-	const scalar maxValue=-100.0;
+	//const scalar maxValue=-100.0;
 	scalar sigma[7];
 	// just 6 for overflow errors in exp()
 	for (int j=0; j<7; j++)
 	{
-		if (2*q[j]< maxValue ) {
+		/*if (2*q[j]< maxValue ) {
             sigma[j]=0.0; 
         }else{
 	    	sigma[j]=1.0/(1.0+Foam::exp(-2*q[j]));
-		}
+		}*/
+        if (q[j]>= 0){
+            sigma[j]=1.0/(1.0+Foam::exp(-2*q[j]));
+        }else{
+            sigma[j]=Foam::exp(2*q[j])/(1+ Foam::exp(2*q[j]));
+        }
 	}
 	
 	//Definizione a aa

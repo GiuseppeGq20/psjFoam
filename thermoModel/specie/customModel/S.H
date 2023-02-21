@@ -153,14 +153,19 @@
     
 	//Definizione sigma
 	scalar sigma[7]; 
-    const scalar maxValue=-100.0; // for q<-2.5 the sigmoid is less than 7e-3
+    //const scalar maxValue=-100.0; // for q<-2.5 the sigmoid is less than 7e-3
     for (int j=0; j<7; j++)
 	{   
-        if (2*q[j]< maxValue ) {
+        /*if (2*q[j]< maxValue ) {
             sigma[j]=0.0; 
         }else{
 	    	sigma[j]=1.0/(1.0+Foam::exp(-2*q[j]));
-	    }
+	    }*/
+        if (q[j]>= 0){
+            sigma[j]=1.0/(1.0+Foam::exp(-2*q[j]));
+        }else{
+            sigma[j]=Foam::exp(2*q[j])/(1+ Foam::exp(2*q[j]));
+        }
     }
 	
 	const scalar phi0=a_0*Foam::pow(T,w_0); 

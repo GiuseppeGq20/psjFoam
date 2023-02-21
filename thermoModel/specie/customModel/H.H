@@ -161,17 +161,22 @@
     const scalar q[7]={q1,q2,q3,q4,q5,q6,q7};
 
     //Definizione sigmoidi
-    const scalar maxValue=-100.0; // for q<-2.5 the sigmoid is less than 7e-3
+    //const scalar maxValue=-100.0; // for q<-2.5 the sigmoid is less than 7e-3
 	scalar sigma[7];
 	for (int j=0; j<7; j++)
 	{   
-        if (2*q[j]< maxValue ) {
-            sigma[j]=0.0; 
+        //if (2*q[j]< ma ) {
+        //    sigma[j]=0.0; 
+        //}else{
+	    //	sigma[j]=1.0/(1.0+Foam::exp(-2*q[j]));
+	    //}
+        if (q[j]>= 0){
+            sigma[j]=1.0/(1.0+Foam::exp(-2*q[j]));
         }else{
-	    	sigma[j]=1.0/(1.0+Foam::exp(-2*q[j]));
-	    }
+            sigma[j]=Foam::exp(2*q[j])/(1+ Foam::exp(2*q[j]));
+        }
     }
-
+	
 	//Definizione a 
     const scalar a[7]={a_1,a_2,a_3,a_4,a_5,a_6,a_7};
 	

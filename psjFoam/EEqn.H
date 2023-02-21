@@ -36,7 +36,7 @@
     uradC.update(thermo.T()); // update NEC term
     source=JouleHeating-urad;
     
-    EEqn+=source; //add source to LHS, at the end it leaves the right sign
+    EEqn-=source; //add source to LHS, at the end it leaves the right sign
 
     EEqn.relax();
 
@@ -67,6 +67,6 @@
     
     fvOptions.correct(he);
     
-    //thermo.correct();
+    thermo.correct();
 
 }
