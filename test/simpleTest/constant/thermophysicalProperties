@@ -20,7 +20,7 @@ thermoType
 {
     type            hePsiThermo;
     mixture         pureMixture;
-    transport       DAngola;
+    transport       const;//DAngola;
     thermo          hDAngola;
     equationOfState DAngolaGas;
     specie          specie;
