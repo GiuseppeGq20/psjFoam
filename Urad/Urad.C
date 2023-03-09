@@ -117,6 +117,7 @@ const
     }
 
     return 4* Foam::constant::mathematical::pi * nec;
+    //return 4* Foam::constant::mathematical::pi *10* nec; //moltiplico a caso per 10 
 }
 
 

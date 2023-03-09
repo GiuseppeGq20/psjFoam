@@ -120,7 +120,7 @@
 	const scalar q[6]={q1,q2,q3,q4,q5,q6};
     
 	//Definizione sigma e gamma
-    const scalar maxValue=-100.0; // for q<-2.5 the sigmoid is less than 7e-3
+    //const scalar maxValue=-100.0; // for q<-2.5 the sigmoid is less than 7e-3
 	scalar sigma[6];
 	for (int j=0; j<6; j++)
 	{   

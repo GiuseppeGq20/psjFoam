@@ -173,7 +173,7 @@ int main(int argc, char *argv[])
             // 
 
             #include "UEqn.H"
-            #include "EEqn.H"
+            #include "EEqn2.H"
 
             // --- Pressure corrector loop
             while (pimple.correct())

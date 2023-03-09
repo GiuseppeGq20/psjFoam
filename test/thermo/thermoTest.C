@@ -6,7 +6,7 @@
 
 using namespace Foam;
 
-const int N=100;
+const int N=994;
 const scalar R= 8314.0; //[J/Kmol/K]
 
 scalar T[N];
@@ -55,8 +55,8 @@ scalar getE(scalar T, scalar p){
 int main(){
 
     // initialize temperature array
-    scalar dT= 500.0;
-    T[0]=50.0;
+    scalar dT= 50.0;
+    T[0]=300.0;
     for (int i = 1; i < N; i++) {
         T[i]= T[i-1] + dT;
     }
@@ -188,14 +188,14 @@ int main(){
     
     // create Sigma file
     file.open("Sigma.dat",std::ios::out | std::ios::trunc);
-    /*scalar psigma,Tsigma;
+    scalar psigma,Tsigma;
     std::cout<<"enter psigma"<<std::endl;
     std::cin>>psigma;
     std::cout<<"enter Tsigma"<<std::endl;
     std::cin>>Tsigma;
-    std::cout<<"sigma [S/m] at T=300 K, p=1 atm\n"
+    std::cout<<"sigma [S/m] \n"
              <<getSigma(Tsigma,psigma)<<std::endl;
-    */
+    
     if (file.is_open()) {
 
         // calc sigma [S/m]
