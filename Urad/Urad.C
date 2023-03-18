@@ -138,7 +138,7 @@ const Foam::volScalarField& T
             mesh.time().timeName(),
             mesh,
             IOobject::NO_READ,
-            IOobject::AUTO_WRITE
+            IOobject::NO_WRITE
         ),
         mesh,
         dimensionedScalar(dimEnergy/dimTime/dimVolume,0.0) //initialize field to zero value
