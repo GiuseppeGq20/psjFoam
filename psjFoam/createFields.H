@@ -21,13 +21,7 @@ dimensionedScalar mu
     transportProperties
 );
 
-/*dimensionedScalar sigma
-(
-    "sigma",
-    dimensionSet(-1, -3, 3, 0, 0, 2, 0),
-    transportProperties
-);
-*/
+
 
 //electric potential
 volScalarField V

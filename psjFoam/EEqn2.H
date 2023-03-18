@@ -13,10 +13,10 @@
     uradC.update(thermo.T()); // update NEC term
     source=JouleHeating-urad;
     
-    forAll(source,id)
+    /*forAll(source,id)
     {
         source[id]=Foam::min(source[id],1.5e12);
-    }
+    }*/
 
     fvScalarMatrix EEqn
     (
