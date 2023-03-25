@@ -1,16 +1,4 @@
 
-/* NOTE
- * in the openfoam implementation of the D'angola model we left out the
- * seventh sigmoid function (sigma_7) for the following reasons:
- * - floating point exception in the definition of sigma, precisely at p=1atm:
- *   - c7=497945 
- *   - delta7=0.221389
- *   this lead at T=300K to q7 of orde -2e6, in turn this lead to an exponential of the 
- *   sigmod to give an overflow error
- * - on a physical stand point the sigma_7 is relevant for temperature of order
- *   5e5 K, and these temperature are outside the range of interest for the plasma
- *   in the psj actuator
- */
 //Specific entalpy [cal/g]
 // il codice vuole p in atm e T in K
 

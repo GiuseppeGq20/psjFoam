@@ -5,8 +5,8 @@
 
 using namespace Foam;
 
-const scalar T= 300;
-const scalar rho = 1.2;
+const scalar T= 7500;
+const scalar rho = 0.1;
 const scalar R= 8314.0;
 
 scalar getMM(scalar p)

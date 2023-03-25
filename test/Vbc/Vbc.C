@@ -38,7 +38,10 @@ scalar getVBot(const scalar t)
 
     //const scalar a= 1.7355e+08;
     //const scalar b=-867.7419;
-
+    /*if (t<1e-7) {
+        field =Foam::sin(t*1e7*3.14/2)*((p1*Foam::pow(t,5) + p2*Foam::pow(t,4) + p3*Foam::pow(t,3) + p4*Foam::pow(t,2) + p5*t + p6)/2);
+    }
+    else if (t>=1e-7 && t < 1.766e-06)*/
     if ( t < 1.766e-06)
     {
         field = (p1*Foam::pow(t,5) + p2*Foam::pow(t,4) + p3*Foam::pow(t,3) + p4*Foam::pow(t,2) + p5*t + p6)/2; 
@@ -114,7 +117,7 @@ scalar getVTop(const scalar t)
 int main()
 {
     
-    const scalar dt=1e-7;
+    const scalar dt=0.2e-7;
     scalar t=0.0;
     const scalar N = floor(3e-6/dt);
 
@@ -150,5 +153,19 @@ int main()
     }
     file.close();
 
+    t=0.0; //reinitialize t
+    file.open("Vsum.dat",std::ios::out | std::ios::trunc);
+
+    if (file.is_open()){
+        
+        file<<"# t[s] V[Volt]"<<std::endl;
+        for (int i=0;i<N;i++)
+        {   
+            file<<t<<" "<<getVTop(t)+getVBot(t)<<"\n";
+            t+=dt;
+        }
+        file<<std::endl;
+    }
+    file.close();
     return 0;
 }
