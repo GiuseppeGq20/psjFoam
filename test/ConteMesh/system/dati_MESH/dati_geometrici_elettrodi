@@ -1,0 +1,23 @@
+//scale 0.001;
+
+
+Helec 4.5; //posizone elettrodi
+delec 1.0; //diametro elettrodi
+
+xcelec		#eval "$delec/2*cos($theta_45)";
+ycelec		#eval "$delec/2*sin($theta_45)";		
+
+
+//z2  #eval "$Helec-$delec";  //altezza primo piano
+
+//piano elettrodi
+
+z3 $Helec;
+z2  #eval "$z3-$qq";  //altezza primo piano
+z4  #eval "$z3+$qq"; 
+//TRA ELETTRODI 
+R_oe            #eval "$delec/3";
+x_otte		#eval "$R_oe*cos($theta_45)";
+y_otte		#eval "$R_oe*sin($theta_45)";	
+
+

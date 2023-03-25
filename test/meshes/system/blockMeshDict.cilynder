@@ -1,0 +1,129 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1912                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+    R   1;
+    L   4;
+
+    // point on the cilynder surface at 45 [deg]
+    xp #eval"$:R*cos(45.0)";
+    yp #eval"$:R*sin(45.0)";
+    mxp #eval"-$:xp";
+    myp #eval"-$:yp";
+    
+    //n Cells
+    RCells 10;
+    LCells 20;
+
+
+
+vertices
+(   
+    // x y z
+//centre points
+            (0 0 0)
+            (0 0 $:L)
+
+//bottom circle
+name c0     ($:R 0 0)
+name c1     (0 $:R 0)
+name c2     (#eval"-$R" 0 0)
+name c3     (0 #eval"-$R" 0)
+//top circle
+name c4     ($:R 0 $:L)
+name c5     (0 $:R $:L)
+name c6     (#eval"-$:R" 0 $:L)
+name c7     (0 #eval"-$:R" $:L)
+
+);
+
+blocks
+(
+    hex (c1 0 0 c0 c5 1 1 c4)
+    ($:RCells $:RCells $:LCells)
+    simpleGrading (1 1 1)
+
+    hex (c2 0 0 c1 c6 1 1 c5)
+    ($:RCells $:RCells $:LCells)
+    simpleGrading (1 1 1)
+
+    hex (c3 0 0 c2 c7 1 1 c6)
+    ($:RCells $:RCells $:LCells)
+    simpleGrading (1 1 1)
+
+    hex (c0 0 0 c3 c4 1 1 c7)
+    ($:RCells $:RCells $:LCells)
+    simpleGrading (1 1 1)
+
+);
+
+
+edges
+(
+    arc c0 c1 ($:xp $:yp 0)
+    arc c1 c2 ($:mxp $:yp 0)
+    arc c2 c3 ($:mxp $:myp 0)
+    arc c3 c0 ($:xp $:myp 0)
+
+    arc c4 c5 ($:xp $:yp $:L)
+    arc c5 c6 ($:mxp $:yp $:L)
+    arc c6 c7 ($:mxp $:myp $:L)
+    arc c7 c4 ($:xp $:myp $:L)
+
+);
+
+
+boundary
+(
+    sides
+    {
+        type wall;
+        faces
+        (
+            (c5 c4 c0 c1)
+            (c6 c5 c1 c2)
+            (c7 c6 c2 c3)
+            (c4 c7 c3 c0)
+        );    
+    }
+
+
+    inlet
+    {
+        type patch;
+        faces
+        (
+            (c0 0 0 c1)
+            (c1 0 0 c2)
+            (c2 0 0 c3)
+            (c3 0 0 c0)
+        );
+    }
+
+    outlet
+    {
+        type patch;
+        faces
+        (
+            (c5 1 1 c4)
+            (c6 1 1 c5)
+            (c7 1 1 c6)
+            (c4 1 1 c7)
+        );
+    }
+    
+);
+
+// ************************************************************************* //

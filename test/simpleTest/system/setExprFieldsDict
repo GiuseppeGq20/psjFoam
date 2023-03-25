@@ -1,0 +1,189 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2206                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      setExprFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// Preload any required fields (optional)
+readFields      ( U );
+
+expressions
+(
+    T1
+    {
+        field       T;
+        dimensions  [0 0 0 1 0 0 0];
+
+        constants
+        {
+            centre (0 0 0);
+        }
+
+        variables
+        (
+            "radius=0.5e-3"
+            "Tcore=7500"
+            "Tout=6000"
+            "zT=0.85e-3"
+
+        );
+
+        fieldMask
+        #{
+            // Within the radius
+            ((pos()-$[(vector)constants.centre]).x() < radius)
+            &&
+            (mag(pos().z()) > zT) // near electrode
+    
+        #};
+
+        expression
+        #{
+            //if(pos().z() > 0 )
+            
+                Tout + (Tcore-Tout)*
+                sin(3.14/2/(1e-3-zT)*(1e-3 -mag(pos().z())))
+        #};
+    }
+   
+    /*T2
+    {
+        field       T;
+        dimensions  [0 0 0 1 0 0 0];
+
+        constants
+        {
+            centre (0 0 0);
+        }
+
+        variables
+        (   
+            "rin=1.13e-3"
+            "rout=3e-3"
+            "Tcore=7500"
+            "Tamb=298"
+        );
+
+        fieldMask
+        #{
+            // Within the radius
+            (mag(pos() - $[(vector)constants.centre]) < rout)
+            &&
+            (mag(pos() - $[(vector)constants.centre]) > rin)
+            // but only +ve y!
+          //&& pos((pos() - $[(vector)constants.centre]).y()) > 0
+        #};
+
+        expression
+        #{
+            Tcore
+          - (Tcore - Tamb)* ((mag(pos()-$[(vector)constants.centre])-rin)/(rout-rin))
+        #};
+    }*/
+   
+    /*P1
+    {
+        field       p;
+        dimensions   [1 -1 -2 0 0 0 0];
+
+        constants
+        {
+            centre (0 0 0);
+        }
+
+        variables
+        (
+            "radius=1.13e-3"
+            "Pcore=1.5e5"
+        );
+
+        fieldMask
+        #{
+            // Within the radius
+            (mag(pos() - $[(vector)constants.centre]) < radius)
+        #};
+
+        expression
+        #{
+            Pcore
+        #};
+    }*/  
+    /*T
+    {
+        field       T;
+        dimensions  [0 0 0 1 0 0 0];
+
+        constants
+        {
+            centre (5e-4 0 0);
+        }
+
+        variables
+        (
+            "radius=2e-3"
+            "Rin=5e-4"
+            "Tcore=7500"
+            "Tamb=298"
+        );
+
+        fieldMask
+        #{
+            // Within the radius
+            (mag(pos() - $[(vector)constants.centre]) < radius)
+            && pos().x() > Rin 
+            // but only +ve y!
+          //&& pos((pos() - $[(vector)constants.centre]).y()) > 0
+        #};
+
+        expression
+        #{
+            Tcore
+          - (Tcore - Tamb)* ((pos().x()-$[(vector)constants.centre].x())/radius)
+        #};
+    }*/
+
+    /*V
+    {
+        field       V;
+        dimensions      [1 2 -3 0 0 -1 0];
+
+        constants
+        {
+            bot (0 0 -1e-3);
+        }
+
+        variables
+        (
+            "Rin=5e-4"
+            "Helec=1e-3"
+            "Velec=5e3"
+        );
+
+        fieldMask
+        #{
+            //x <=eletrod radius
+            (pos().x() <= Rin) &&
+            // -Helec <= y <= +Helec
+            (pos().z() <=Helec) &&
+            (pos().z() >= -Helec)
+        #};
+
+        expression
+        #{
+            Velec - (Velec/2)*(pos().z() - $[(vector)constants.bot].z())/Helec
+        #};
+    }*/
+);
+
+
+// ************************************************************************* //

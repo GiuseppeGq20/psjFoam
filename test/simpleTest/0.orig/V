@@ -1,0 +1,92 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2206                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      V;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [1 2 -3 0 0 -1 0];
+
+internalField   uniform 0;
+
+boundaryField
+{
+    "outlet.*"
+    //"outletSides.*"
+    {
+        type            zeroGradient;
+        //value   uniform 1e-16;
+    }
+    
+    
+   
+    "electrodFaceTop"
+    {
+        type        fixedValue;
+        value       uniform 1e-16;
+        //type        fixedGradient;
+        //gradient    uniform -10;
+    }
+    
+    "electrodFaceBot"
+    {
+        type		 codedFixedValue;
+	    value		 uniform 0 ;
+	
+	    name 		 expVBot;
+
+        code
+        #{
+            scalarField& field = *this; 
+		    scalar t = this->db().time().value()*1e6; // time in microsec
+            
+            scalar value=0.0;
+            if(t<8)
+            {
+                //value=1100*Foam::exp(-1.52*t)*Foam::cos(7*3.14*t/6);
+
+                //Dufour signal
+                value=-2700*Foam::exp(-0.33*t)*Foam::cos(3.7*t);
+            }else
+            {
+                value=1e-16;
+            }
+            forAll(field, faceI)
+            {   
+
+                field[faceI]=value*0.0375;
+            }
+            Info<<"t: "<<t<<"\n";
+            Info<<"FIELD V BOT: "<<field<<endl;
+
+        #};
+
+    }
+
+    "electrodSides.*"
+    {
+        type            zeroGradient;
+    }
+
+    "(front|back)"
+    {
+        type            wedge;
+    }
+
+    axis
+    {
+        type empty;
+    }
+}
+
+
+// ************************************************************************* //

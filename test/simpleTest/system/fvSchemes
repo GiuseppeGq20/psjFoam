@@ -1,0 +1,81 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1912                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+ddtSchemes
+{
+    default         backward;//Euler;
+}
+
+gradSchemes
+{
+    //default         cellLimited Gauss linear 1;
+    default         Gauss linear 1;
+
+    limited         cellLimited Gauss linear 1;
+    grad(V)	        $limited;
+    grad(U)         $limited;
+    grad(k)         $limited;
+    grad(omega)     $limited;
+}
+
+divSchemes
+{
+    //default         Gauss upwind;
+    default         none;
+    div(phi,U)      Gauss limitedLinearV 1;//upwind;//MUSCL;
+
+    turbulence      Gauss MUSCL;
+    //energy          Gauss MUSCL;
+    energy          Gauss limitedLinear 1;//upwind;//limitedLinear 1;
+    
+    div(phi,k)      $turbulence;
+    div(phi,omega)  $turbulence;
+    div(phi,nuTilda) $turbulence;
+    div(phi,e)      $energy;
+    div(phi,h)      $energy;
+    div(phi,K)      $energy;
+    div(phi,Ekp)    $energy;
+    div(phid,p)     Gauss limitedLinear 1;//upwind;//limitedLinear 1;//Gauss MUSCL;
+    div(phiv,p)     Gauss limitedLinear 1;//updwind;//limitedLinear 1;//Gauss MUSCL;
+    //div((phi|interpolate(rho)),p) Gauss linear;
+    
+    div(((rho*nuEff)*dev2(T(grad(U)))))    Gauss linear;
+}
+
+laplacianSchemes
+{
+    default         Gauss linear limited 1;//0.5;
+}
+
+interpolationSchemes
+{
+    default         linear;
+    reconstruct(rho) vanLeer;
+    reconstruct(U) vanLeerV;
+    reconstruct(T) vanLeer;
+}
+
+snGradSchemes
+{
+    default         limited 1;
+}
+
+wallDist
+{
+    method meshWave;
+}
+
+// ************************************************************************* //

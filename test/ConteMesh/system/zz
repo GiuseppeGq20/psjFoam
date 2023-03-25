@@ -1,0 +1,986 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  7
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+convertToMeters 0.001;
+
+//Varibili
+
+//  	******Ugello******
+
+Lu      2.0;			//Lunghezza uguello
+du 	2.0;			//diametro ugello
+
+
+//dati per la H-grid in 1.10, 1.9, 1.8
+lq      #calc "$du/4";    	//lato quadrato 
+teta    #calc "degToRad(45.0)";
+
+//Punti su circonferenza dell'ugello per O-grid
+xq1     #calc "$du/2.0*cos($teta)";
+yq1     #calc "$du/2.0*sin($teta)"; 
+
+
+
+//Quadrato interno allragato 
+qq2     #calc "1*($lq)";
+
+//Circonferenza allargata (RAGGIO)
+cc2     #calc "1*($du/2)";
+
+//Punti su circonferenza dell'ugello per O-grid allargata
+xq2     #calc "$cc2*cos($teta)";
+yq2     #calc "$cc2*sin($teta)"; 
+
+
+
+
+
+//  	******ESTERNO******
+
+//Circonferenza intermedia (ESTERNO)
+di 	#calc"2.8*$du";
+xqi     #calc "$di/2.0*cos($teta)";
+yqi     #calc "$di/2.0*sin($teta)"; 
+
+//Circonferenza esterna (ESTERNO)
+de 	#calc "36*$du";
+xqe     #calc "$de/2.0*cos($teta)";
+yqe     #calc "$de/2.0*sin($teta)"; 
+
+
+//Primo piano altezza
+h1      #calc "$du";  //altezza primo piano
+Le1     #calc "$Lu+$h1";  //Altezza secondo piano 
+
+//Secondo piano altezza
+h2      #calc "40*$du";  //altezza primo piano
+Le2     #calc "$Lu+$h2";  //Altezza secondo piano 
+
+
+//	******INTERNO CAVITA'******
+
+Lc      6.0;		//Diametro cavità
+H 	6.0;		//Profondità cavità
+
+
+
+//Punti su circonferenza della cavità per O-grid
+
+xqc     #calc "$Lc/2.0*cos($teta)";
+yqc     #calc "$Lc/2.0*sin($teta)";
+
+teta2    #calc "degToRad(30.0)";
+xqca     #calc "$Lc/2.0*cos($teta2)";
+yqca     #calc "$Lc/2.0*sin($teta2)"; 
+
+
+
+//Elettrodi
+delec 	1.0;		//Diametro elettrodi
+delec_h #calc"$delec/2";
+Helec   4.5; 		//Profondità elettrodi
+
+//Circonf elettrodi
+
+//ELETTRODI
+yqelec     #calc "$delec/2.0*cos($teta)";
+yqelec_h   #calc "$delec_h/2.0*cos($teta)";
+
+zqelec     #calc "$delec/2.0*sin($teta)";
+zqelec_h     #calc "$delec_h/2.0*sin($teta)";
+
+z1   $du; //primo blocco interno (altezza)
+z2   #calc "$Helec-1.8*$delec"; //secondo blocco interno (altezza)
+z3   #calc "$Helec-$delec/2.0-$delec/2.2"; //terzo blocco interno (altezza)
+//z3bis    #calc "$Helec-0.5*$delec"; //inizio elettrodi interno (altezza)  
+
+
+
+z5      #calc "$Helec+$delec/2.0+$delec/2.2"; //inizio elettrodi interno (altezza)
+
+
+
+
+//Quadrato interno elettrodi
+lii    #calc "$de/3.5";
+
+
+
+
+geometry
+  {
+
+     //Cilindro interno cavità allargato
+      cylinder1
+      {
+          type searchableCylinder;
+          point1 (0 0 -100 );
+          point2 (0 0 100 );
+          radius #calc "$cc2";
+      }
+
+     //Cilindro elettrodi
+      cylinder2
+      {
+          type searchableCylinder;
+          point1 (-100 0 #calc "-$Helec" );
+          point2 (100  0 #calc "-$Helec" );
+          radius #calc "$delec/2";
+      }
+
+      cylinder2_h
+      {
+          type searchableCylinder;
+          point1 (-100 0 #calc "-$Helec" );
+          point2 (100  0 #calc "-$Helec" );
+          radius #calc "$delec_h/2";
+      }
+
+ //Cilindro interno cavità allargato
+      cylinder3
+      {
+          type searchableCylinder;
+          point1 (0 0 -100 );
+          point2 (0 0 100 );
+          radius #calc "$Lc/2.0";
+      }
+
+
+
+
+  };
+
+
+
+
+vertices
+(
+
+// ********************************* UGELLO ******************************
+
+//inlet Cilindro 1.8 (orifizio)
+      
+        //Quadrato
+	(0			0			0		)	//0
+	($lq			0			0		)	//1
+	($lq			$lq			0		)	//2
+	(0			$lq			0		)	//3	
+
+
+        //Cerchio
+    	(#calc "$du/2.0" 	0	     		0 		)      	//4
+    	($xq1			$yq1	     		0 		)      	//5
+    	(0 		  	#calc "$du/2.0" 	0		)	//6
+
+
+// ********************************* ESTERNO ******************************
+//outlet Cilindro 1.8  (inizio primo piano)
+       
+        //Quadrato
+	(0			0			$Lu		)	//7
+	($lq			0			$Lu		)	//8
+	($lq			$lq			$Lu		)	//9
+	(0			$lq			$Lu		)	//10	
+
+
+        //Cerchio
+    	(#calc "$du/2.0" 	0	     		$Lu 		)      	//11
+    	($xq1			$yq1	     		$Lu		)      	//12
+    	(0 		  	#calc "$du/2.0" 	$Lu		)	//13
+
+	//Cerchio intermedio
+    	(#calc "$di/2.0" 	0	     		$Lu 		)      	//14
+    	($xqi			$yqi	     		$Lu		)      	//15
+    	(0 		  	#calc "$di/2.0" 	$Lu		)	//16
+
+
+	//Cerchio esterno
+    	(#calc "$de/2.0" 	0	     		$Lu 		)      	//17
+    	($xqe			$yqe	     		$Lu		)      	//18
+    	(0 		  	#calc "$de/2.0" 	$Lu		)	//19
+
+
+
+//outlet Cilindro 1.9  (outlet primo piano)
+       
+        //Quadrato
+	(0			0			$Le1		)	//20
+	($lq			0			$Le1		)	//21
+	($lq			$lq			$Le1		)	//22
+	(0			$lq			$Le1		)	//23	
+
+
+        //Cerchio
+    	(#calc "$du/2.0" 	0	     		$Le1 		)      	//24
+    	($xq1			$yq1	     		$Le1		)      	//25
+    	(0 		  	#calc "$du/2.0" 	$Le1		)	//26
+
+	//Cerchio intermedio
+    	(#calc "$di/2.0" 	0	     		$Le1 		)      	//27
+    	($xqi			$yqi	     		$Le1		)      	//28
+    	(0 		  	#calc "$di/2.0" 	$Le1		)	//29
+
+
+	//Cerchio esterno
+    	(#calc "$de/2.0" 	0	     		$Le1 		)      	//30
+    	($xqe			$yqe	     		$Le1		)      	//31
+    	(0 		  	#calc "$de/2.0" 	$Le1		)	//32
+
+
+//outlet Cilindro 1.10  (outlet secondo piano)
+       
+        //Quadrato
+	(0			0			$Le2		)	//33
+	($lq			0			$Le2		)	//34
+	($lq			$lq			$Le2		)	//35
+	(0			$lq			$Le2		)	//36	
+
+
+        //Cerchio
+    	(#calc "$du/2.0" 	0	     		$Le2 		)      	//37
+    	($xq1			$yq1	     		$Le2		)      	//38
+    	(0 		  	#calc "$du/2.0" 	$Le2		)	//39
+
+	//Cerchio intermedio
+    	(#calc "$di/2.0" 	0	     		$Le2		)      	//40
+    	($xqi			$yqi	     		$Le2		)      	//41
+    	(0 		  	#calc "$di/2.0" 	$Le2		)	//42
+
+
+	//Cerchio esterno
+    	(#calc "$de/2.0" 	0	     		$Le2 		)      	//43
+    	($xqe			$yqe	     		$Le2		)      	//44
+    	(0 		  	#calc "$de/2.0" 	$Le2		)	//45
+
+
+
+//************************INTERNO*******************
+
+
+//inlet orifizio
+        //Cerchio cavità
+    	(#calc "$Lc/2.0" 	0	     		0 		)      	//46
+    	($xqc			$yqc	     		0 		)      	//47
+    	(0 		  	#calc "$Lc/2.0" 	0		)	//48	
+
+
+//blocco 1.7 Primo blocco interno inlet
+        //Qaudrato
+	(0			0			#calc "-$z1"		)	//49
+	($lq			0			#calc "-$z1"		)	//50
+	($lq			$lq			#calc "-$z1"		)	//51
+	(0			$lq			#calc "-$z1"		)	//52
+   
+        //Cerchio orifizio
+    	(#calc "$du/2.0" 	0	     		#calc "-$z1" 		)      	//53
+    	($xq1			$yq1	     		#calc "-$z1" 		)      	//54
+    	(0 		  	#calc "$du/2.0" 	#calc "-$z1"		)	//55
+
+        //Cerchio cavità
+    	(#calc "$Lc/2.0" 	0	     		#calc "-$z1" 		)      	//56
+    	($xqc			$yqc	     		#calc "-$z1" 		)      	//57
+    	(0 		  	#calc "$Lc/2.0" 	#calc "-$z1"		)	//58	
+
+//blocco 1.6 secondo blocco interno inlet
+        //Qaudrato
+	(0			0			#calc "-$z2"		)	//59
+	($lq			0			#calc "-$z2"		)	//60
+	($lq			$lq			#calc "-$z2"		)	//61
+	(0			$lq			#calc "-$z2"		)	//62
+   
+        //Cerchio orifizio
+    	(#calc "$du/2.0" 	0	     		#calc "-$z2" 		)      	//63
+    	($xq1			$yq1	     		#calc "-$z2" 		)      	//64
+    	(0 		  	#calc "$du/2.0" 	#calc "-$z2"		)	//65
+
+        //Cerchio cavità
+    	(#calc "$Lc/2.0" 	0	     		#calc "-$z2" 		)      	//66
+    	($xqc			$yqc	     		#calc "-$z2" 		)      	//67
+    	(0 		  	#calc "$Lc/2.0" 	#calc "-$z2"		)	//68		
+
+//blocco 1.5 terzo blocco interno inlet
+        //Qaudrato
+	(0			0			#calc "-$z3"		)	//69
+	(#calc "$qq2"		0			#calc "-$z3"		)	//70
+	(#calc "$qq2"		#calc "$qq2"		#calc "-$z3"		)	//71
+	(0			#calc "$qq2"		#calc "-$z3"		)	//72
+   
+        //Cerchio orifizio
+    	(#calc "$cc2"	 	0	     		#calc "-$z3" 		)      	//73
+    	($xq2			$yq2	     		#calc "-$z3" 		)      	//74
+    	(0 		  	#calc "$cc2"	 	#calc "-$z3"		)	//75
+
+        //Cerchio cavità
+    	(#calc "$Lc/2.0" 	0	     		#calc "-$z3" 		)      	//76
+    	($xqca			$yqca	     		#calc "-$z3" 		)      	//77
+    	(0 		  	#calc "$Lc/2.0" 	#calc "-$z3"		)	//78	
+
+
+
+//blocco 1.4 terzo blocco interno inlet
+       //Qaudrato
+	(0			0			#calc "-$Helec"		)	//79
+	(#calc "$qq2"		0			#calc "-$Helec"		)	//80
+	(#calc "$qq2"		#calc "$qq2"		#calc "-$Helec"		)	//81
+	(0			#calc "$qq2"		#calc "-$Helec"		)	//82
+   
+        //Cerchio orifizio
+    	(#calc "$cc2"	 	0	     		#calc "-$Helec" 	)      	//83
+    	($xq2			$yq2	     		#calc "-$Helec" 	)      	//84
+    	(0 		  	#calc "$cc2"	 	#calc "-$Helec"		)	//85
+
+        //Cerchio cavità
+    	(#calc "$Lc/2.0" 	0	     		#calc "-$Helec" 	)      	//86
+    	($xqca			$yqca	     		#calc "-$Helec" 	)      	//87
+    	(0 		  	#calc "$Lc/2.0" 	#calc "-$Helec"		)	//88
+
+//blocco 1.3 terzo blocco interno inlet
+        //Qaudrato
+	(0			0			#calc "-$z5"		)	//89
+	(#calc "$qq2"		0			#calc "-$z5"		)	//90
+	(#calc "$qq2"		#calc "$qq2"		#calc "-$z5"		)	//91
+	(0			#calc "$qq2"		#calc "-$z5"		)	//92
+   
+        //Cerchio orifizio
+    	(#calc "$cc2"	 	0	     		#calc "-$z5" 		)      	//93
+    	($xq2			$yq2	     		#calc "-$z5" 		)      	//94
+    	(0 		  	#calc "$cc2"	 	#calc "-$z5"		)	//95
+
+        //Cerchio cavità
+    	(#calc "$Lc/2.0" 	0	     		#calc "-$z5" 		)      	//96
+    	($xqca			$yqca	     		#calc "-$z5" 		)      	//97
+    	(0 		  	#calc "$Lc/2.0" 	#calc "-$z5"		)	//98
+
+
+//blocco 1.2 terzo blocco interno inlet
+        //Qaudrato
+	(0			0			#calc "-$H"		)	//99
+	(#calc "$qq2"		0			#calc "-$H"		)	//90
+	(#calc "$qq2"		#calc "$qq2"		#calc "-$H"		)	//101
+	(0			#calc "$qq2"		#calc "-$H"		)	//102
+   
+        //Cerchio orifizio
+    	(#calc "$cc2"	 	0	     		#calc "-$H" 		)      	//103
+    	($xq2			$yq2	     		#calc "-$H" 		)      	//104
+    	(0 		  	#calc "$cc2"	 	#calc "-$H"		)	//105
+
+        //Cerchio cavità
+    	(#calc "$Lc/2.0" 	0	     		#calc "-$H" 		)      	//106
+    	($xqca			$yqca	     		#calc "-$H" 		)      	//107
+    	(0 		  	#calc "$Lc/2.0" 	#calc "-$H"		)	//108
+
+       
+
+//ELETTRODI
+
+//CERCHIO x=0
+
+    	(0 		0		     			#calc "-$Helec+$delec_h/2.0")       	//109
+    	(0 		#calc "$yqelec_h"     			#calc "-$Helec+$zqelec_h")                //110
+    	(0 		#calc "$delec_h/2.0"	     		#calc "-$Helec")        		//111
+    	(0 		#calc "$yqelec_h"	     			#calc "-$Helec-$zqelec_h")                //112
+    	(0 		0		     			#calc "-$Helec-$delec_h/2.0")       	//113
+
+//QAUDRATO x=0
+    	(0 		0		     			#calc "-$Helec+$delec_h/4.0")       	//114
+    	(0 		#calc "$delec_h/4.0"	     		#calc "-$Helec+$delec_h/4.0" )       	//115
+
+    	(0 		#calc "$delec_h/4.0"	     		#calc "-$Helec")        		//116
+
+    	(0 		#calc "$delec_h/4.0"	     		#calc "-$Helec-$delec_h/4.0")       	//117
+    	(0 		0		     			#calc "-$Helec-$delec_h/4.0")       	//118
+
+    	(0 		0	     				#calc "-$Helec")        		//119
+
+
+
+//CERCHIO x=qq2
+
+    	(#calc "$qq2" 		0		     			#calc "-$Helec+$delec_h/2.0")       	//120
+    	(#calc "$qq2" 		#calc "$yqelec_h"	     			#calc "-$Helec+$zqelec_h")        	//121
+    	(#calc "$qq2" 		#calc "$delec_h/2.0"	     		#calc "-$Helec")        		//122
+    	(#calc "$qq2" 		#calc "$yqelec_h"	     			#calc "-$Helec-$zqelec_h")        	//123
+    	(#calc "$qq2"		0		     			#calc "-$Helec-$delec_h/2.0")       	//124
+
+//QAUDRATO x=qq2
+    	(#calc "$qq2" 		0		     			#calc "-$Helec+$delec_h/4.0")       	//125
+    	(#calc "$qq2" 		#calc "$delec_h/4.0"	     		#calc "-$Helec+$delec_h/4.0" )       	//126
+
+    	(#calc "$qq2"		#calc "$delec_h/4.0"	     		#calc "-$Helec")        		//127
+
+    	(#calc "$qq2" 		#calc "$delec_h/4.0"	     		#calc "-$Helec-$delec_h/4.0")       	//128
+    	(#calc "$qq2" 		0		     			#calc "-$Helec-$delec_h/4.0")       	//129
+
+    	(#calc "$qq2" 		0	     				#calc "-$Helec")        		//130
+
+
+
+//CERCHIO x=cc2
+
+   	(#calc "$cc2" 		0		     			#calc "-$Helec+$delec/2.0")      	   		//131
+    	(#calc "$cc2" 		#calc "$yqelec"	     			#calc "-$Helec+$zqelec"	  )                  	//132
+     	(#calc "$cc2" 		#calc "$delec/2.0"	     		#calc "-$Helec"		  )            		//133
+    	(#calc "$cc2" 		#calc "$yqelec"	     			#calc "-$Helec-$zqelec"	  )                   	//134
+    	(#calc "$cc2"		0		     			#calc "-$Helec-$delec/2.0")              	        //135
+
+
+//CERCHIO x=Lc/2
+
+project   	(#calc "$Lc/2.0" 		0		     			#calc "-$Helec+$delec/2.0")     	(cylinder3 cylinder2)  	   	//136
+project    	(#calc "$Lc/2.0" 		#calc "$yqelec"	     			#calc "-$Helec+$zqelec"	  )           	(cylinder3 cylinder2)       	//137
+project     	(#calc "$Lc/2.0" 		#calc "$delec/2.0"	     		#calc "-$Helec"		  )            	(cylinder3 cylinder2)		//138
+project    	(#calc "$Lc/2.0" 		#calc "$yqelec"	     			#calc "-$Helec-$zqelec"	  )             (cylinder3 cylinder2)      	//139
+project    	(#calc "$Lc/2.0"		0		     			#calc "-$Helec-$delec/2.0")             (cylinder3 cylinder2) 	        //140
+
+
+//QAUDRATO x=cc2
+    	(#calc "$cc2" 		0		     			#calc "-$Helec+$delec/4.0")       	//141
+    	(#calc "$cc2" 		#calc "$delec/4.0"	     		#calc "-$Helec+$delec/4.0" )       	//142
+
+    	(#calc "$cc2"		#calc "$delec/4.0"	     		#calc "-$Helec")        		//143
+
+    	(#calc "$cc2" 		#calc "$delec/4.0"	     		#calc "-$Helec-$delec/4.0")       	//144
+    	(#calc "$cc2" 		0		     			#calc "-$Helec-$delec/4.0")       	//145
+
+    	(#calc "$cc2" 		0	     				#calc "-$Helec")        		//146
+
+
+
+
+
+
+);
+
+
+Lx   	 7;
+Ly   	 7;
+
+Lz2     6;   //base
+
+Lz3     10;   //parte inferiore elelttrodo
+Lz4     10;   //parte superiore elelttrodo
+
+Lz5     11;   //interno terzo livello (DIVERG)
+Lz6 	11;   //interno secondo livello
+Lz7 	31;   //interno primo livello
+
+
+Lz8 	32;   //ugello
+Lz9 	28;   //primo piano
+Lz10 	270;  //secondo piano
+
+
+N1      8;  //circonf ugello
+N2      30;  //circonf ugello
+
+Ni      30;  //circonf  intermedia
+Ne      60;  //circonf  esterna
+
+k  6;
+l 12;
+
+// *******GRADING********
+
+zz2     1.0;
+zz3     1.0;
+zz4     1.0;
+zz5     0.7;
+zz6     1.0;		//interno secondo livello
+zz7     1.0;		//interno primo livello
+
+zz8     0.9;		//ugello
+zz9     1.4;     	//primo piano
+zz10    8;   		//secondo piano
+
+
+N1g      0.75;  //circonf ugello
+N2g      1.5;  //circonf cavità
+
+Nig     1.2;    //circonf  intermedia
+Neg     30;    //circonf  esterna
+
+kk 1;
+kki 1;
+
+ll 4;  
+lli 0.25;
+
+
+//Elettrodi
+
+
+
+blocks
+(
+
+// ********************************* UGELLO ******************************
+
+//Cilindro 1 quadrato centrale 1.8 (orifizio)
+
+    hex (0 1 2 3 7 8 9 10) ($Lx $Ly $Lz8) simpleGrading (1 1 $zz8)    
+
+//Cilindro 1 spicchi 1.8 (orifizio)
+
+    hex (1 4 5 2 8 11 12 9)  ($N1  $Ly $Lz8) simpleGrading ($N1g 1 $zz8)    
+   hex (2 5 6 3 9 12 13 10) ($N1  $Ly $Lz8) simpleGrading ($N1g 1 $zz8)
+
+
+// ********************************* ESTERNO ******************************
+
+//Cilindro 1.9  (PRIMO PIANO)
+
+//quadrato centrale 1.9 (primo piano esterno)
+    hex (7 8 9 10 20 21 22 23) ($Lx $Ly $Lz9) simpleGrading (1 1 $zz9) 
+//Circonf nozzle
+   hex (8 11 12 9 21 24 25 22)  ($N1  $Ly $Lz9) simpleGrading ($N1g 1 $zz9)    
+   hex (9 12 13 10 22 25 26 23)   ($N1  $Ly $Lz9) simpleGrading ($N1g 1 $zz9)
+//Circonf intermedia
+   hex (11 14 15 12 24 27 28 25)  ($Ni  $Ly $Lz9) simpleGrading ($Nig 1 $zz9)    
+   hex (12 15 16 13 25 28 29 26)   ($Ni  $Ly $Lz9) simpleGrading ($Nig 1 $zz9)  
+//Circonf esterna
+   hex (14 17 18 15 27 30 31 28)  ($Ne  $Ly $Lz9) simpleGrading ($Neg 1 $zz9)    
+   hex (15 18 19 16 28 31 32 29)   ($Ne  $Ly $Lz9) simpleGrading ($Neg 1 $zz9)  
+
+
+//Cilindro 1.10  (SECONDO PIANO)
+
+//quadrato centrale 1.9 (primo piano esterno)
+    hex (20 21 22 23 33 34 35 36) ($Lx $Ly $Lz10) simpleGrading (1 1 $zz10) 
+//Circonf nozzle
+   hex (21 24 25 22 34 37 38 35)  ($N1  $Ly $Lz10) simpleGrading ($N1g 1 $zz10)    
+   hex (22 25 26 23 35 38 39 36)   ($N1  $Ly $Lz10) simpleGrading ($N1g 1 $zz10)
+//Circonf intermedia
+   hex (24 27 28 25 37 40 41 38)  ($Ni  $Ly $Lz10) simpleGrading ($Nig 1 $zz10)    
+   hex (25 28 29 26 38 41 42 39)   ($Ni  $Ly $Lz10) simpleGrading ($Nig 1 $zz10)  
+//Circonf esterna
+   hex (27 30 31 28 40 43 44 41)  ($Ne  $Ly $Lz10) simpleGrading ($Neg 1 $zz10)    
+   hex (28 31 32 29 41 44 45 42)   ($Ne  $Ly $Lz10) simpleGrading ($Neg 1 $zz10)  
+
+
+
+// ********************************* INTERNO ******************************
+
+//Cilindro 1 quadrato centrale 1.7 (primo piano interno)
+
+    hex (49 50 51 52 0 1 2 3) ($Lx $Ly $Lz7) simpleGrading (1 1 $zz7)    
+
+//Cilindro spicchi orifizio 1.7 (primo piano interno)
+
+    hex (50 53 54 51 1 4 5 2)  ($N1  $Ly $Lz7) simpleGrading ($N1g 1 $zz7)    
+    hex (51 54 55 52 2 5 6 3 ) ($N1  $Ly $Lz7) simpleGrading ($N1g 1 $zz7)
+
+//Cilindro spicchi cavità 1.7 (primo piano interno)
+
+    hex (53 56 57 54 4 46 47 5)  ($N2  $Ly $Lz7) simpleGrading ($N2g 1 $zz7)    
+    hex (54 57 58 55 5 47 48 6) ($N2  $Ly $Lz7) simpleGrading ($N2g 1 $zz7)
+
+
+
+
+
+//Cilindro 1 quadrato centrale 1.6 (secondo piano interno)
+
+    hex (59 60 61 62 49 50 51 52) ($Lx $Ly $Lz6) simpleGrading (1 1 $zz6)    
+
+//Cilindro spicchi orifizio 1.6(secondo piano interno)
+
+    hex (60 63 64 61 50 53 54 51)   ($N1  $Ly $Lz6) simpleGrading ($N1g 1 $zz6)    
+    hex (61 64 65 62 51 54 55 52  ) ($N1  $Ly $Lz6) simpleGrading ($N1g 1 $zz6)
+
+//Cilindro spicchi cavità 1.6 (secondopiano interno)
+
+    hex (63 66 67 64 53 56 57 54 )  ($N2  $Ly $Lz6) simpleGrading ($N2g 1 $zz6)    
+    hex (64 67 68 65 54 57 58 55 ) ($N2  $Ly $Lz6) simpleGrading ($N2g 1 $zz6)
+
+
+
+
+
+//Cilindro 1 quadrato centrale 1.5 (terzo piano interno divergente)
+
+    hex (69 70 71 72 59 60 61 62) ($Lx $Ly $Lz5) simpleGrading (1 1 $zz5)  
+
+//Cilindro spicchi orifizio 1.5 (terzo piano interno  divergente)
+
+    hex (70 73 74 71 60 63 64 61)   ($N1  $Ly $Lz5) simpleGrading ($N1g 1 $zz5)    
+    hex (71 74 75 72 61 64 65 62)   ($N1  $Ly $Lz5) simpleGrading ($N1g 1 $zz5)
+
+ //Cilindro spicchi cavità 1.5 (terzo piano interno  divergente)
+
+    hex (73 76 77 74 63 66 67 64  )  ($N2  $Ly $Lz5) simpleGrading ($N2g 1 $zz5)    
+    hex (74 77 78 75 64 67 68 65  ) ($N2  $Ly $Lz5) simpleGrading ($N2g 1 $zz5)
+
+
+
+//Cilindro 1 quadrato centrale 1.4 (parte superiore elettrodi)
+
+//   hex (79 80 81 82 69 70 71 72 ) ($Lx $Ly $Lz4) simpleGrading (1 1 $zz4)  
+
+//Cilindro spicchi orifizio 1.4 (parte superiore elettrodi)
+
+
+  hex (81 84 85 82 71 74 75 72 )   ($N1  $Ly $Lz4) simpleGrading ($N1g 1 $zz4)
+
+ //Cilindro spicchi cavità 1.4 (parte superiore elettrodi)
+   
+    hex (84 87 88 85 74 77 78 75  ) ($N2  $Ly $Lz4) simpleGrading ($N2g 1 $zz4)
+
+
+
+
+//Cilindro 1 quadrato centrale 1.3 (parte inferiore elettrodi)
+
+ //  hex (89 90 91 92 79 80 81 82 ) ($Lx $Ly $Lz3) simpleGrading (1 1 $zz3)  
+
+//Cilindro spicchi orifizio 1.3 (parte inferiore elettrodi)
+
+
+    hex (91 94 95 92 81 84 85 82  )   ($N1  $Ly $Lz3) simpleGrading ($N1g 1 $zz3)
+
+ //Cilindro spicchi cavità 1.3 (parte inferiore elettrodi)
+   
+    hex (94 97 98 95 84 87 88 85  ) ($N2  $Ly $Lz3) simpleGrading ($N2g 1 $zz3)
+
+
+
+//Cilindro 1 quadrato centrale 1.2 fondo
+
+    hex (99 100 101 102 89 90 91 92 ) ($Lx $Ly $Lz2) simpleGrading (1 1 $zz2)  
+
+//Cilindro spicchi orifizio 1.2 fondo
+
+    hex ( 100 103 104 101 90 93 94 91 )   ($N1  $Ly $Lz2) simpleGrading ($N1g 1 $zz2)
+    hex ( 101 104 105 102 91 94 95 92   )   ($N1  $Ly $Lz2) simpleGrading ($N1g 1 $zz2)
+
+ //Cilindro spicchi cavità 1.2 fondo
+ 
+    hex ( 103 106 107 104 93 96 97 94  )   ($N2  $Ly $Lz2) simpleGrading ($N2g 1 $zz2)  
+    hex ( 104 107 108 105 94 97 98 95  )   ($N2  $Ly $Lz2) simpleGrading ($N2g 1 $zz2)
+
+
+//Elettrodi
+
+//Zona interna
+
+//QUADRATO CERCHIO ESTERNO x=0 --> x=qq2  (UP)
+hex (119 116 115 114 130 127 126 125) ($Lx $Lz4 $Lx) simpleGrading (1 $zz4 1)  
+hex (114 115 110 109 125 126 121 120) ($Lx $k $Lx) simpleGrading (1 $kk 1) 
+hex (116 111 110 115 127 122 121 126) ($k $Lz4 $Lx) simpleGrading ( $kk $zz4 1) 
+
+
+hex (109 110 72 69 120 121 71 70) ($Lx $l  $Lx) simpleGrading (1 $ll 1) 
+
+hex (111 82 72 110 122 81 71 121) ($l $Lz4 $Lx) simpleGrading ($ll $zz4 1)  
+
+//QUADRATO CERCHIO ESTERNO x=0 --> x=qq2  (DOWN)
+hex (118 117 116 119 129 128 127 130) ($Lx $Lz3 $Lx) simpleGrading (1 $zz3 1)  
+hex (113 112 117 118 124 123 128 129) ($Lx $k $Lx) simpleGrading (1 $kki 1) 
+hex (117 112 111 116 128 123 122 127) ($k $Lz3 $Lx) simpleGrading ( $kk $zz3 1) 
+
+
+hex (89 92 112 113 90 91 123 124) ($Lx $l  $Lx) simpleGrading (1 $lli 1) 
+
+hex (112 92 82 111 123 91 81 122) ($l $Lz3 $Lx) simpleGrading ($ll $zz3 1)  
+
+
+//Prima parte esterna
+
+
+
+//QUADRATO CERCHIO ESTERNO x=qq2 --> x=cc2  (UP)
+hex (130 127 126 125 146 143 142 141) ($Lx $Lz4 $N1) simpleGrading (1 $zz4 $N1g)  
+hex (125 126 121 120 141 142 132 131) ($Lx $k $N1) simpleGrading (1 $kk $N1g) 
+hex (127 122 121 126 143 133 132 142) ($k $Lz4 $N1) simpleGrading ( $kk $zz4 $N1g) 
+
+
+hex (120 121 71 70 131 132 74 73) ($Lx $l  $N1) simpleGrading (1 $ll $N1g) 
+
+hex (122 81 71 121 133 84 74 132) ($l $Lz4 $N1) simpleGrading ($ll $zz4 $N1g)  
+
+//QUADRATO CERCHIO ESTERNO x=qq2 --> x=cc2  (DOWN)
+hex (129 128 127 130 145 144 143 146) ($Lx $Lz3 $N1) simpleGrading (1 $zz3 $N1g)  
+hex (124 123 128 129 135 134 144 145) ($Lx $k $N1) simpleGrading (1 $kki $N1g) 
+hex (128 123 122 127 144 134 133 143) ($k $Lz3 $N1) simpleGrading ( $kk $zz3 $N1g) 
+
+
+//hex (90 91 123 124) ($Lx $l  $N1) simpleGrading (1 $lli $N1g) 
+
+//hex (123 91 81 122) ($l $Lz3 $N1) simpleGrading ($ll $zz3 $N1g)  
+
+
+
+
+
+
+//UP
+//hex (120 121 71 70 131 132 74 73) ($Lx $l  $N1) simpleGrading (1 $ll $N1g) 
+//hex (122 81 71 121 133 84 74 132) ($l $Lz4 $N1) simpleGrading ($ll $zz4 $N1g) 
+
+
+//DOWN
+hex (90 91 123 124 93 94 134 135) ($Lx $l  $N1) simpleGrading (1 $lli $N1g) 
+hex (123 91 81 122 134 94 84 133) ($l $Lz3 $N1) simpleGrading ($ll $zz3 $N1g)  
+
+
+
+//Seconda parte esterna
+//UP
+hex (131 132 74 73 136 137 77 76) ($Lx $l   $N2) simpleGrading (1 $ll $N2g) 
+hex (133 84 74 132 138 87 77 137) ($l $Lz4  $N2) simpleGrading ($ll $zz4 $N2g) 
+
+//DOWN
+hex (93 94 134 135 96 97 139 140) ($Lx $l   $N2) simpleGrading (1 $lli $N2g) 
+hex ( 134 94 84 133 139 97 87 138) ($l $Lz3  $N2) simpleGrading ($ll $zz3 $N2g)  
+
+
+  
+
+
+);
+
+
+edges
+(
+
+// ********************ORIFIZIO************************************
+// archi inlet orifizio
+ arc  4 5  (#calc  "$du/2.0*cos($teta/2.0)"  		#calc  "$du/2.0*sin($teta/2.0)"  			0)
+ arc  5 6  (#calc  "$du/2.0*cos(degToRad(67.5000))"  	#calc  "$du/2.0*sin(degToRad(67.5000))"  		0)
+
+// archi outlet orifizio
+ arc  11 12  (#calc  "$du/2.0*cos($teta/2.0)"  		#calc  "$du/2.0*sin($teta/2.0)"  			$Lu)
+ arc  12 13  (#calc  "$du/2.0*cos(degToRad(67.5000))"  	#calc  "$du/2.0*sin(degToRad(67.5000))"  		$Lu)
+ //circ intermedia
+ arc  14 15  (#calc  "$di/2.0*cos($teta/2.0)"  		#calc  "$di/2.0*sin($teta/2.0)"  			$Lu)
+ arc  15 16  (#calc  "$di/2.0*cos(degToRad(67.5000))"  	#calc  "$di/2.0*sin(degToRad(67.5000))"  		$Lu)
+ //circ esterna
+ arc  17 18  (#calc  "$de/2.0*cos($teta/2.0)"  		#calc  "$de/2.0*sin($teta/2.0)"  			$Lu)
+ arc  18 19  (#calc  "$de/2.0*cos(degToRad(67.5000))"  	#calc  "$de/2.0*sin(degToRad(67.5000))"  		$Lu)
+
+
+//***********************ESTERNO****************************
+// archi primo piano
+ //circ ugello
+ arc  24 25  (#calc  "$du/2.0*cos($teta/2.0)"  		#calc  "$du/2.0*sin($teta/2.0)"  			$Le1)
+ arc  25 26  (#calc  "$du/2.0*cos(degToRad(67.5000))"  	#calc  "$du/2.0*sin(degToRad(67.5000))"  		$Le1)
+ //circ intermedia
+ arc  27 28  (#calc  "$di/2.0*cos($teta/2.0)"  		#calc  "$di/2.0*sin($teta/2.0)"  			$Le1)
+ arc  28 29  (#calc  "$di/2.0*cos(degToRad(67.5000))"  	#calc  "$di/2.0*sin(degToRad(67.5000))"  		$Le1)
+ //circ esterna
+ arc  30 31  (#calc  "$de/2.0*cos($teta/2.0)"  		#calc  "$de/2.0*sin($teta/2.0)"  			$Le1)
+ arc  31 32  (#calc  "$de/2.0*cos(degToRad(67.5000))"  	#calc  "$de/2.0*sin(degToRad(67.5000))"  		$Le1)
+
+
+// archi secondo piano
+ //circ ugello
+ arc  37 38  (#calc  "$du/2.0*cos($teta/2.0)"  		#calc  "$du/2.0*sin($teta/2.0)"  			$Le2)
+ arc  38 39  (#calc  "$du/2.0*cos(degToRad(67.5000))"  	#calc  "$du/2.0*sin(degToRad(67.5000))"  		$Le2)
+ //circ intermedia
+ arc  40 41  (#calc  "$di/2.0*cos($teta/2.0)"  		#calc  "$di/2.0*sin($teta/2.0)"  			$Le2)
+ arc  41 42  (#calc  "$di/2.0*cos(degToRad(67.5000))"  	#calc  "$di/2.0*sin(degToRad(67.5000))"  		$Le2)
+ //circ esterna
+ arc  43 44  (#calc  "$de/2.0*cos($teta/2.0)"  		#calc  "$de/2.0*sin($teta/2.0)"  			$Le2)
+ arc  44 45  (#calc  "$de/2.0*cos(degToRad(67.5000))"  	#calc  "$de/2.0*sin(degToRad(67.5000))"  		$Le2)
+
+
+
+//**************************INTERNO***********************
+
+//Tappo (cavità)
+ arc  46 47  (#calc  "$Lc/2.0*cos($teta/2.0)"  		#calc  "$Lc/2.0*sin($teta/2.0)"  			0 )
+ arc  47 48  (#calc  "$Lc/2.0*cos(degToRad(67.5000))"  	#calc  "$Lc/2.0*sin(degToRad(67.5000))"  		0 )
+
+
+//primo piano interno (inlet)
+//circ ugello
+ arc  53 54 (#calc  "$du/2.0*cos($teta/2.0)"  		#calc  "$du/2.0*sin($teta/2.0)"  			#calc "-$z1" )
+ arc  54 55  (#calc  "$du/2.0*cos(degToRad(67.5000))"  	#calc  "$du/2.0*sin(degToRad(67.5000))"  		#calc "-$z1" )
+
+//circ cavità  (inlet)
+ arc  56 57 (#calc  "$Lc/2.0*cos($teta/2.0)"  		#calc  "$Lc/2.0*sin($teta/2.0)"  			#calc "-$z1" )
+ arc  57 58  (#calc  "$Lc/2.0*cos(degToRad(67.5000))"  	#calc  "$Lc/2.0*sin(degToRad(67.5000))"  		#calc "-$z1" )
+
+
+//secondo piano interno (outlet)
+//circ ugello
+ arc  63 64 (#calc  "$du/2.0*cos($teta/2.0)"  		#calc  "$du/2.0*sin($teta/2.0)"  			#calc "-$z2" )
+ arc  64 65  (#calc  "$du/2.0*cos(degToRad(67.5000))"  	#calc  "$du/2.0*sin(degToRad(67.5000))"  		#calc "-$z2" )
+
+//circ cavità  (inlet)
+ arc  66 67 (#calc  "$Lc/2.0*cos($teta/2.0)"  		#calc  "$Lc/2.0*sin($teta/2.0)"  			#calc "-$z2" )
+ arc  67 68  (#calc  "$Lc/2.0*cos(degToRad(67.5000))"  	#calc  "$Lc/2.0*sin(degToRad(67.5000))"  		#calc "-$z2" )
+
+
+//terzo piano interno (inlet) zona allargata
+//circ ugello
+// arc  73 74 (#calc  "$cc2*cos($teta/2.0)"  		#calc  "$cc2*sin($teta/2.0)"  			#calc "-$z3" )
+ arc  74 75  (#calc  "$cc2*cos(degToRad(67.5000))"  	#calc  "$cc2*sin(degToRad(67.5000))"  		#calc "-$z3" )
+
+//circ cavità  (inlet)
+ arc  76 77 (#calc  "$Lc/2.0*cos($teta/2.0)"  		#calc  "$Lc/2.0*sin($teta/2.0)"  			#calc "-$z3" )
+ arc  77 78  (#calc  "$Lc/2.0*cos(degToRad(67.5000))"  	#calc  "$Lc/2.0*sin(degToRad(67.5000))"  		#calc "-$z3" )
+
+
+//inlet 1.4
+//circ ugello
+
+ arc  84 85  (#calc  "$cc2*cos(degToRad(67.5000))"  	#calc  "$cc2*sin(degToRad(67.5000))"  		#calc "-$Helec" )
+
+
+
+
+//circ cavità  (inlet)
+
+ arc  87 88  (#calc  "$Lc/2.0*cos(degToRad(67.5000))"  	#calc  "$Lc/2.0*sin(degToRad(67.5000))"  		#calc "-$Helec" )
+
+
+
+//inlet 1.3
+//circ ugello
+ arc  93 94 (#calc  "$cc2*cos($teta/2.0)"  		#calc  "$cc2*sin($teta/2.0)"  			#calc "-$z5" )
+ arc  94 95  (#calc  "$cc2*cos(degToRad(67.5000))"  	#calc  "$cc2*sin(degToRad(67.5000))"  		#calc "-$z5" )
+
+//circ cavità  (inlet)
+ arc  96 97 (#calc  "$Lc/2.0*cos($teta/2.0)"  		#calc  "$Lc/2.0*sin($teta/2.0)"  			#calc "-$z5" )
+ arc  97 98  (#calc  "$Lc/2.0*cos(degToRad(67.5000))"  	#calc  "$Lc/2.0*sin(degToRad(67.5000))"  		#calc "-$z5" )
+
+
+//inlet 1.2
+
+//circ ugello
+ arc  103 104 (#calc  "$cc2*cos($teta/2.0)"  		#calc  "$cc2*sin($teta/2.0)"  			#calc "-$H" )
+ arc  104 105  (#calc  "$cc2*cos(degToRad(67.5000))"  	#calc  "$cc2*sin(degToRad(67.5000))"  		#calc "-$H" )
+
+//circ cavità  (inlet)
+ arc  106 107 (#calc  "$Lc/2.0*cos($teta/2.0)"  		#calc  "$Lc/2.0*sin($teta/2.0)"  			#calc "-$H" )
+ arc  107 108  (#calc  "$Lc/2.0*cos(degToRad(67.5000))"  	#calc  "$Lc/2.0*sin(degToRad(67.5000))"  		#calc "-$H" )
+
+
+
+//ELETTRODI
+//ZONA CENTRALE
+//UP
+  project     111 110   (cylinder2_h ) 
+  project     110 109   (cylinder2_h ) 
+  project     122 121   (cylinder2_h ) 
+  project     121 120  (cylinder2_h ) 
+//DOWN
+  project     112 111        (cylinder2_h ) 
+  project     113 112   (cylinder2_h ) 
+  project     124 123   (cylinder2_h ) 
+ project     122 123  (cylinder2_h ) 
+
+//ZONA ESTERNA 1
+//UP
+  project     132 131   (cylinder2  ) 
+  project     133 132    (cylinder2  )     
+//DOWN
+  project     135 134   (cylinder2 ) 
+  project     134 133     (cylinder2 ) 
+
+
+//Zona Esterna 2
+  project   137 136   (cylinder2  cylinder3 )
+  project   138 137   (cylinder2  cylinder3 )
+
+
+//DOWN
+  project   140 139  ( cylinder2 cylinder3 )
+  project   139 138   (cylinder2  cylinder3 )
+
+
+
+//DIAGONALI
+project 137 77 (cylinder3)
+project 139 97 (cylinder3)
+project 138 87 (cylinder3)
+
+
+
+
+
+
+
+
+
+
+
+
+);
+
+
+faces
+(
+
+project (136 137 77 76) cylinder3
+project (138 87 77 137) cylinder3
+
+project (139 97 87 138) cylinder3
+project (96 97 139 140) cylinder3
+
+
+
+
+);
+
+
+boundary
+(
+
+ outlet
+    {
+        type patch;
+        faces
+        (
+          
+//TOP
+        (33 34 35 36)
+	(34 37 38 35)
+	(37 40 41 38)
+	(40 43 44 41)
+	(36 35 38 39)
+	(39 38 41 42)
+	(42 41 44 45)
+
+//SIDE
+
+//2° piano 
+	(45 44 32 31  )
+       (44 43 31 30)
+//1°Piano
+	( 32 31 18 19  )
+       ( 31 30 17 18)
+
+        );
+    }
+
+
+
+
+
+);
+
+defaultPatch
+{
+    name wall;
+    type wall;
+}
+
+
+
+mergePatchPairs
+(
+);

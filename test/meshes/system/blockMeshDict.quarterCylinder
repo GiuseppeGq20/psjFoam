@@ -1,0 +1,102 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1912                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+//geometry
+R   1;
+L   4;
+
+// point on the cilynder surface at 45 [deg]
+xp #eval "$R*cos(45.0)";
+yp #eval "$R*sin(45.0)";
+
+//n Cells
+RCells 10;
+LCells 20;
+
+
+vertices
+(   
+    // x y z
+//bottom arc
+    ($:R 0 0)
+    (0 $:R 0)
+//top arc    
+    ($:R 0 $:L)
+    (0 $:R $L)
+//centre points
+    (0 0 0)
+    (0 0 $:L)
+);
+
+blocks
+(
+    hex (0 1 4 4 2 3 5 5)
+    ($:RCells $:RCells $:LCells)
+    simpleGrading (1 1 1)
+);
+
+
+edges
+(
+    arc 0 1 ($:xp $:yp 0)
+    arc 2 3 ($:xp $:yp $:L)
+);
+
+
+boundary
+(
+    sides
+    {
+        type symmetry;
+        faces
+        (
+            (0 2 5 4)
+            (4 5 3 1)
+        );    
+    }
+
+    cylSurfaces
+    {
+        type patch;
+        faces
+        (
+            (1 3 2 0)
+        );
+    }
+
+    inlet
+    {
+        type patch;
+        faces
+        (
+            (1 0 4 4)
+        );
+    }
+
+    outlet
+    {
+        type patch;
+        faces
+        (
+            (5 2 3 5)
+    
+        );
+    }
+    
+);
+
+// ************************************************************************* //

@@ -1,0 +1,94 @@
+scale 0.001;
+
+
+//Varibili
+
+//  	******Ugello******
+
+Lu      2.0;			//Lunghezza uguello
+du 	2.0;			//diametro ugello
+
+
+
+
+theta_45 	#eval "degToRad(45.0)";
+
+xc		#eval "$du/2*cos($theta_45)";
+yc		#eval "$du/2*sin($theta_45)";		
+
+
+R_o             #eval "$du/3.5";
+x_ott		#eval "$R_o*cos($theta_45)";
+y_ott		#eval "$R_o*sin($theta_45)";	
+
+
+x_ottp		#eval "$y_ott*cos($theta_45)";
+y_ottp		#eval "$y_ott*sin($theta_45)";
+
+
+//  	******ESTERNO******
+
+//Circonferenza intermedia (ESTERNO)
+di 	#eval"2.8*$du";
+
+
+//Circonferenza esterna (ESTERNO)
+dee 	#eval "30.0*$du";
+
+de 	#eval "6.0*$du";
+
+xce1		#eval "$di/2*cos($theta_45)";
+yce1		#eval "$di/2*sin($theta_45)";		
+
+xce2		#eval "$de/2*cos($theta_45)";
+yce2		#eval "$de/2*sin($theta_45)";		
+
+
+	
+
+
+
+//Primo piano altezza
+h1      #eval "$du";  //altezza primo piano  Uscita nozzle
+Le1     #eval "$Lu+$h1";  //Altezza secondo piano 
+
+//Secondo piano altezza
+h2      #eval "40*$du";  //altezza primo piano   PAPER CAPUANO
+Le2     #eval "$Lu+$h2";  //Altezza secondo piano 
+
+
+
+
+//INTERNO
+
+z1  #eval "$du/4";  //altezza primo piano
+
+
+
+
+
+ 
+//SFERA
+RR2 #eval "($du/2)/(cos($theta_45))";
+
+Dint  #eval "2*$RR2";
+xcint1 		#eval "$Dint/2*cos($theta_45)";
+ycint1 		#eval "$Dint/2*sin($theta_45)";	
+
+
+xc2		#eval "$RR2*cos($theta_45)";
+yc2		#eval "$RR2*sin($theta_45)";
+
+
+
+
+//Capacità
+Lcav      6.0;			//Lunghezza cavità
+Dcav 	  6.0;			//diametro  cavità
+
+xcav		#eval "$Dcav/2*cos($theta_45)";
+ycav		#eval "$Dcav/2*sin($theta_45)";	
+
+
+//QUADRATO
+qq #eval "$du/2"; //lato quadrato

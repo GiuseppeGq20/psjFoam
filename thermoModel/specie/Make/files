@@ -1,0 +1,3 @@
+specie/specie.C
+
+LIB = $(FOAM_USER_LIBBIN)/libmyspecie

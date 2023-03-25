@@ -1,0 +1,83 @@
+geometry
+  {
+
+     //Cilindro interno nozzle
+      cilindro_INTERNO
+      {
+          type searchableCylinder;
+          point1 (0 0 -100 );
+          point2 (0 0 300 );
+          radius #eval "$du/2";
+      }
+
+
+     //Cilindro interno nozzle
+      cilindro_ESTERNO1
+      {
+          type searchableCylinder;
+          point1 (0 0 -100 );
+          point2 (0 0 300 );
+          radius #eval "$di/2";
+      }
+
+     //Cilindro interno nozzle
+      cilindro_ESTERNO2
+      {
+          type searchableCylinder;
+          point1 (0 0 -100 );
+          point2 (0 0 300 );
+          radius #eval "$de/2";
+      }
+
+
+
+     //Cilindro interno esterno1
+      cilindro_INTERNO1
+      {
+          type searchableCylinder;
+          point1 (0 0 -100 );
+          point2 (0 0 300 );
+          radius #eval "$Dint/2";
+      }
+
+
+//Cilindro interno nozzle
+      CAVITA
+      {
+          type searchableCylinder;
+          point1 (0 0 -100 );
+          point2 (0 0 300 );
+          radius #eval "$Dcav/2";
+      }
+
+    //SFERA
+    SFERA  
+    { 
+    type            searchableSphere;
+    centre          (0 0 #eval "-$z1");
+    radius          #eval "$du/2";
+    }
+
+
+    //SFERA2
+    SFERA2  
+    { 
+    type            searchableSphere;
+    centre          (0 0 #eval "-$z1");
+    radius          $RR2;
+    }
+
+
+
+
+
+//Cilindro interno nozzle
+      ELETTRODI
+      {
+          type searchableCylinder;
+          point1 (-100 0 -4.5 );
+          point2 (100 0 -4.5 );
+          radius #eval "$delec/2";
+      }
+
+  };

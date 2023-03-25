@@ -1,0 +1,61 @@
+//Blocco dominio Esterno + Ugello
+
+
+
+
+// ultimo piano esterno 
+
+//Ott
+hex (v4_9 v3_9 v2_9 v1_9 v4_10 v3_10 v2_10 v1_10) ($lo $lo $L10) simpleGrading ($log $log $L10g)    
+
+//Circ interna
+hex (v3_9 v7_9 v6_9 v2_9 v3_10 v7_10 v6_10 v2_10) ($N1 $lo $L10) simpleGrading ($N1g $log $L10g)     
+hex (v2_9 v6_9 v5_9 v1_9 v2_10 v6_10 v5_10 v1_10) ($N1 $lo $L10) simpleGrading ($N1g $log $L10g) 
+
+
+//Circ esterna1
+hex (v7_9 v10_9 v9_9 v6_9 v7_10 v10_10 v9_10 v6_10) ($Ni $lo $L10) simpleGrading ($Nig $log $L10g)     
+hex (v6_9 v9_9 v8_9 v5_9 v6_10 v9_10 v8_10 v5_10) ($Ni $lo $L10) simpleGrading ($Nig $log $L10g)     
+
+//Circ esterna2
+hex (v10_9 v13_9 v12_9 v9_9 v10_10 v13_10 v12_10 v9_10) ($Ne $lo $L10) simpleGrading ($Neg $log $L10g)     
+hex (v9_9 v12_9 v11_9 v8_9 v9_10 v12_10 v11_10 v8_10) ($Ne $lo $L10) simpleGrading ($Neg $log $L10g)     
+
+
+//ESTERNO ESTERNO
+hex (v13_9 v14_9 v15_9 v12_9 v13_10 v14_10 v15_10 v12_10) ($aa $lo $L10) simpleGrading ($aag $log $L10g)   
+hex (v12_9 v15_9 v16_9 v17_9 v12_10 v15_10 v16_10 v17_10) ($aa $bb $L10) simpleGrading ($aag $bbg $L10g)   
+hex (v11_9 v12_9 v17_9 v18_9 v11_10 v12_10 v17_10 v18_10) ($lo  $bb $L10) simpleGrading ($log $bbg $L10g)   
+
+
+//PRIMO PIANO ESTERNO
+//Ott
+hex (v4_8 v3_8 v2_8 v1_8 v4_9 v3_9 v2_9 v1_9) ($lo $lo $L9) simpleGrading ($log $log $L9g)    
+
+//Circ interna
+hex (v3_8 v7_8 v6_8 v2_8 v3_9 v7_9 v6_9 v2_9) ($N1 $lo $L9) simpleGrading ($N1g $log $L9g)     
+hex (v2_8 v6_8 v5_8 v1_8 v2_9 v6_9 v5_9 v1_9) ($N1 $lo $L9) simpleGrading ($N1g $log $L9g) 
+
+//Circ esterna1
+hex (v7_8 v10_8 v9_8 v6_8 v7_9 v10_9 v9_9 v6_9) ($Ni $lo $L9) simpleGrading ($Nig $log $L9g)     
+hex (v6_8 v9_8 v8_8 v5_8 v6_9 v9_9 v8_9 v5_9) ($Ni $lo $L9) simpleGrading ($Nig $log $L9g)     
+
+//Circ esterna2
+hex (v10_8 v13_8 v12_8 v9_8 v10_9 v13_9 v12_9 v9_9) ($Ne $lo $L9) simpleGrading ($Neg $log $L9g)     
+hex (v9_8 v12_8 v11_8 v8_8 v9_9 v12_9 v11_9 v8_9) ($Ne $lo $L9) simpleGrading ($Neg $log $L9g)
+   
+//ESTERNO ESTERNO
+hex (v13_8 v14_8 v15_8 v12_8 v13_9 v14_9 v15_9 v12_9) ($aa $lo $L9) simpleGrading ($aag $log $L9g)   
+hex (v12_8 v15_8 v16_8 v17_8 v12_9 v15_9 v16_9 v17_9) ($aa $bb $L9) simpleGrading ($aag $bbg $L9g)   
+hex (v11_8 v12_8 v17_8 v18_8 v11_9 v12_9 v17_9 v18_9) ($lo  $bb $L9) simpleGrading ($log $bbg $L9g) 
+
+//UGELLO
+//Ott
+hex (v4_7 v3_7 v2_7 v1_7 v4_8 v3_8 v2_8 v1_8) ($lo $lo $L8) simpleGrading ($log $log $L8g)     
+
+//Circ interna
+hex (v3_7 v7_7 v6_7 v2_7 v3_8 v7_8 v6_8 v2_8) ($N1 $lo $L8) simpleGrading ($N1g $log $L8g)     
+hex (v2_7 v6_7 v5_7 v1_7 v2_8 v6_8 v5_8 v1_8) ($N1 $lo $L8) simpleGrading ($N1g $log $L8g) 
+
+
+

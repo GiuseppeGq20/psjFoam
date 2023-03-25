@@ -1,0 +1,21 @@
+#!/bin/sh
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/wmake/scripts/AllwmakeParseArguments
+
+#------------------------------------------------------------------------------
+
+echo "run Allwmake ThermoModel"
+./thermoModel/Allwmake
+
+echo "clean build"
+wclean sigma
+wclean Urad
+wclean psjFoam
+
+echo "build targets"
+wmake sigma
+wmake Urad
+wmake psjFoam
+
+
+#-----------------------------------------------------------------------------

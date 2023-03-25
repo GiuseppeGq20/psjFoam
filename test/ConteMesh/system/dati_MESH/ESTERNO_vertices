@@ -1,0 +1,128 @@
+//Vertici dominio Esterno
+
+
+// ************** ULTIMO PIANO **************************
+// ultimo piano esterno outlet
+
+//OTTAGONO
+name v1_10 (0 			#eval "$R_o" 		$Le2)
+name v2_10 ($x_ott 		$y_ott			$Le2)
+name v3_10 (#eval "$R_o" 	0	 		$Le2)
+name v4_10 (0			0	 		$Le2)
+
+
+//CIRC NOZZLE
+name v5_10 (0 			#eval "$du/2" 		$Le2)
+name v6_10 ($xc 		$yc			$Le2)
+name v7_10 (#eval "$du/2"	0	 		$Le2)
+
+//CIRC ESTERNO 1
+name v8_10  (0 			#eval "$di/2" 		$Le2)
+name v9_10  ($xce1 		$yce1			$Le2)
+name v10_10 (#eval "$di/2"	0	 		$Le2)
+
+//CIRC ESTERNO 2
+name v11_10 (0 			#eval "$de/2" 		$Le2)
+name v12_10 (#eval "$de/2"		#eval "$de/2"			$Le2)
+name v13_10 (#eval "$de/2"	0	 		$Le2)
+
+//ESTERNO ESTERNO
+name v14_10 (#eval "$dee/2"	0	 		$Le2)
+name v15_10 (#eval "$dee/2"	#eval "$de/2" 		$Le2)
+name v16_10 (#eval "$dee/2"	#eval "$dee/2"		$Le2)
+name v17_10 (#eval "$de/2"	#eval "$dee/2" 		$Le2)
+name v18_10 (0 			#eval "$dee/2" 		$Le2)
+
+
+
+
+
+
+// ultimo piano esterno inlet
+
+//OTTAGONO
+name v1_9 (0 			#eval "$R_o" 		$Le1)
+name v2_9 ($x_ott 		$y_ott			$Le1)
+name v3_9 (#eval "$R_o" 	0	 		$Le1)
+name v4_9 (0			0	 		$Le1)
+
+
+//CIRC NOZZLE
+name v5_9 (0 			#eval "$du/2" 		$Le1)
+name v6_9 ($xc 			$yc			$Le1)
+name v7_9 (#eval "$du/2"	0	 		$Le1)
+
+
+//CIRC ESTERNO 1
+name v8_9  (0 			#eval "$di/2" 		$Le1)
+name v9_9  ($xce1 		$yce1			$Le1)
+name v10_9 (#eval "$di/2"	0	 		$Le1)
+
+//CIRC ESTERNO 2
+name v11_9 (0 			#eval "$de/2" 		$Le1)
+name v12_9 (#eval "$de/2"		#eval "$de/2"		$Le1)
+name v13_9 (#eval "$de/2"	0	 		$Le1)
+
+
+
+
+//ESTERNO ESTERNO
+name v14_9 (#eval "$dee/2"	0	 		$Le1)
+name v15_9 (#eval "$dee/2"	#eval "$de/2" 		$Le1)
+name v16_9 (#eval "$dee/2"	#eval "$dee/2"		$Le1)
+name v17_9 (#eval "$de/2"	#eval "$dee/2" 		$Le1)
+name v18_9 (0 			#eval "$dee/2" 		$Le1)
+
+
+
+
+// ************** PRIMO PIANO ESTERNO INLET (base dominio esterno) OUTLET NOZZLE**************************
+//OTTAGONO
+name v1_8 (0 			#eval "$R_o" 		$Lu)
+name v2_8 ($x_ott 		$y_ott			$Lu)
+name v3_8 (#eval "$R_o" 	0	 		$Lu)
+name v4_8 (0			0	 		$Lu)
+
+
+//CIRC NOZZLE
+name v5_8 (0 			#eval "$du/2" 		$Lu)
+name v6_8 ($xc 			$yc			$Lu)
+name v7_8 (#eval "$du/2"	0	 		$Lu)
+
+
+//CIRC ESTERNO 1
+name v8_8  (0 			#eval "$di/2" 		$Lu)
+name v9_8  ($xce1 		$yce1			$Lu)
+name v10_8 (#eval "$di/2"	0	 		$Lu)
+
+//CIRC ESTERNO 2
+name v11_8 (0 			#eval "$de/2" 		$Lu)
+name v12_8 (#eval "$de/2" 	#eval "$de/2"		$Lu)
+name v13_8 (#eval "$de/2"	0	 		$Lu)
+
+
+//ESTERNO ESTERNO
+name v14_8 (#eval "$dee/2"	0	 		$Lu)
+name v15_8 (#eval "$dee/2"	#eval "$de/2" 		$Lu)
+name v16_8 (#eval "$dee/2"	#eval "$dee/2"		$Lu)
+name v17_8 (#eval "$de/2"	#eval "$dee/2" 		$Lu)
+name v18_8 (0 			#eval "$dee/2" 		$Lu)
+
+
+// ************** INLET NOZZLE (base dominio esterno) **************************
+//OTTAGONO
+name v1_7 (0 			#eval "$R_o" 		0)
+name v2_7 ($x_ott 		$y_ott			0)
+name v3_7 (#eval "$R_o" 	0	 		0)
+name v4_7 (0			0	 		0)
+
+
+//CIRC NOZZLE
+name v5_7 (0 			#eval "$du/2" 		0)
+name v6_7 ($xc 			$yc			0)
+name v7_7 (#eval "$du/2"	0	 		0)
+
+
+
+
+

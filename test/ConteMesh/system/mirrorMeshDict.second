@@ -1,0 +1,35 @@
+
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      mirrorMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+//PER FARE DOPO il mirror della mesh in ubuntu devo dare la normale rispetto a cui voglio 
+//fare il mirror (normale e piano).. il mirror si fa generando prima la mesh a metà e poi su Ubuntu
+//mirrorMesh -overwrite. 
+
+planeType       pointAndNormal;
+
+pointAndNormalDict
+{
+    point   (0 0 0);
+    normal  (0 1 0);
+}
+
+planeTolerance  1e-09;
+
+
+// ************************************************************************* //
