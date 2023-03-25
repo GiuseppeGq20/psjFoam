@@ -22,21 +22,21 @@ domain
     Rout    #eval"10*$H";
     Dbot    #eval"-0.5*$H";
     Dup     #eval"0.5*$H";
-    Hbot    #eval"$Dbot -10*$H";
-    Hup     #eval"$Dbot +10*$H";
+    Hbot    #eval"$Dbot -6*$H";
+    Hup     #eval"$Dbot +6*$H";
 
     width   1e-3;
 
     // Number of cells
-    RinCells  9;//9; 
-    DCells    60;//30;
+    RinCells  32;//9; 
+    DCells    100;//30;
     HCells    200;//300; 
     RoutCells 180;//260; 
     
     //gradings
-    Dgrading    4;
-    RoutGrading 10;
-    Hgrading    10;
+    Dgrading    8;
+    RoutGrading 30;
+    Hgrading    20;
 }
 
 

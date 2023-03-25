@@ -31,23 +31,25 @@ expressions
 
         variables
         (
-            "radius=1.13e-3"
-            "Tcore=7500"
+            "radius=0.5e-3"
+            "Tcore=5000"
+            "Tout=4700"
         );
 
         fieldMask
         #{
             // Within the radius
-            (mag(pos() - $[(vector)constants.centre]) < radius)
+            ((pos()-$[(vector)constants.centre]).x() < radius)
         #};
 
         expression
         #{
-            Tcore
+             Tcore
+          - (Tcore - Tout )* (pos()-$[(vector)constants.centre]).x()/(radius)
         #};
     }
    
-    T2
+    /*T2
     {
         field       T;
         dimensions  [0 0 0 1 0 0 0];
@@ -80,9 +82,9 @@ expressions
             Tcore
           - (Tcore - Tamb)* ((mag(pos()-$[(vector)constants.centre])-rin)/(rout-rin))
         #};
-    }
+    }*/
    
-    P1
+    /*P1
     {
         field       p;
         dimensions   [1 -1 -2 0 0 0 0];
@@ -108,7 +110,7 @@ expressions
         #{
             Pcore
         #};
-    }  
+    }*/  
     /*T
     {
         field       T;

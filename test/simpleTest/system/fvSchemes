@@ -21,9 +21,11 @@ ddtSchemes
 
 gradSchemes
 {
-    default         cellLimited Gauss linear 1;
+    //default         cellLimited Gauss linear 1;
+    default         Gauss linear 1;
 
     limited         cellLimited Gauss linear 1;
+    grad(V)	    $limited;
     grad(U)         $limited;
     grad(k)         $limited;
     grad(omega)     $limited;
@@ -33,9 +35,9 @@ divSchemes
 {
     //default         Gauss upwind;
     default         none;
-    div(phi,U)      Gauss MUSCL;//upwind;//MUSCL;
+    div(phi,U)      Gauss upwind;//MUSCL;
 
-    turbulence      Gauss upwind;
+    turbulence      Gauss MUSCL;
     //energy          Gauss MUSCL;
     energy          Gauss upwind;//limitedLinear 1;
     
@@ -46,8 +48,8 @@ divSchemes
     div(phi,h)      $energy;
     div(phi,K)      $energy;
     div(phi,Ekp)    $energy;
-    div(phid,p)     Gauss limitedLinear 1;//Gauss MUSCL;
-    div(phiv,p)     Gauss limitedLinear 1;//Gauss MUSCL;
+    div(phid,p)     Gauss upwind;//limitedLinear 1;//Gauss MUSCL;
+    div(phiv,p)     Gauss updwind;//limitedLinear 1;//Gauss MUSCL;
     //div((phi|interpolate(rho)),p) Gauss linear;
     
     div(((rho*nuEff)*dev2(T(grad(U)))))    Gauss linear;

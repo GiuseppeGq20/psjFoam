@@ -32,15 +32,8 @@ boundaryField
         value           uniform 0;
     }
     
-    /*
-    electrodSidesBot
-    {
-        //type            zeroGradient;
-        type            fixedValue;
-        value   uniform 0;
-    }
-    */
     
+   
     electrodFaceTop
     {
         type        fixedValue;
@@ -48,13 +41,13 @@ boundaryField
         //type        fixedGradient;
         //gradient    uniform -10;
     }
-    /*electrodFaceTop
+    /*electrodFaceBot
     {        
-        type        fixedValue;
-        value       uniform 400;
+        //type        fixedValue;
+        //value       uniform 400;
 
-        //type        fixedGradient;
-        //gradient    uniform 10;
+        type        fixedGradient;
+        gradient    uniform 80;
     }*/
     
     electrodFaceBot
@@ -98,8 +91,10 @@ boundaryField
 
             //const scalar a= 1.7355e+08;
             //const scalar b=-867.7419;
-
-            if ( t < 1.766e-06)
+            if (t<1e-7) {
+                field =Foam::sin(t*1e7*3.14/2)*((p1*Foam::pow(t,5) + p2*Foam::pow(t,4) + p3*Foam::pow(t,3) + p4*Foam::pow(t,2) + p5*t + p6)/2);
+            }
+            else if (t>=1e-7 && t < 1.766e-06) //note in the real there is a if 
             {
                 value = (p1*Foam::pow(t,5) + p2*Foam::pow(t,4) + p3*Foam::pow(t,3) + p4*Foam::pow(t,2) + p5*t + p6)/2; 
             }else if ( t>=1.766e-06 && t<=1.9e-6)   

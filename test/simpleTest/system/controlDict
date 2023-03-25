@@ -25,17 +25,17 @@ stopAt          endTime;
 
 endTime         10e-6;
 
-deltaT          1e-9;
+deltaT          5e-9;
 
 writeControl    adjustable;
 
-writeInterval   1e-7;//$deltaT;
+writeInterval   $deltaT;//1e-7;//$deltaT;
 
 purgeWrite      0;
 
 writeFormat     binary;
 
-writePrecision   12;
+writePrecision   11;
 
 writeCompression off;
 
@@ -45,9 +45,9 @@ timePrecision   9;
 
 runTimeModifiable true;
 
-adjustTimeStep    yes;
+//adjustTimeStep    yes;
 
-maxCo           0.7;
+//maxCo           0.5;
 
 functions
 {
