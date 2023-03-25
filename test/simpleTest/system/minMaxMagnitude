@@ -1,19 +1,18 @@
 /*--------------------------------*- C++ -*----------------------------------*\
   =========                 |
   \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
-   \\    /   O peration     | Version:  v2112
+   \\    /   O peration     | Version:  v2212
     \\  /    A nd           | Website:  www.openfoam.com
      \\/     M anipulation  |
 -------------------------------------------------------------------------------
 Description
-    For specified fields, writes out the initial residuals for the first
-    solution of each time step; for non-scalar fields (e.g. vectors), writes
-    the largest of the residuals for each component (e.g. x, y, z).
+    Writes out the minimum and maximum values, by magnitude for non-scalar
+    fields, and the locations where they occur.
 
 \*---------------------------------------------------------------------------*/
 
-#includeEtc "caseDicts/postProcessing/numerical/solverInfo.cfg"
+#includeEtc "caseDicts/postProcessing/minMax/fieldMinMax.cfg"
 
-fields (p U V );
+fields ( T);
 
 // ************************************************************************* //

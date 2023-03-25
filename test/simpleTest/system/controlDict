@@ -23,13 +23,13 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         10e-6;
+endTime         50e-6;
 
 deltaT          5e-9;
 
 writeControl    adjustable;
 
-writeInterval   $deltaT;//1e-7;//$deltaT;
+writeInterval   2e-7;//$deltaT;
 
 purgeWrite      0;
 
@@ -45,14 +45,16 @@ timePrecision   9;
 
 runTimeModifiable true;
 
-//adjustTimeStep    yes;
+adjustTimeStep    yes;
 
-//maxCo           0.5;
+//maxDeltaT       2e-8;
+maxCo           0.3;
 
 functions
 {
     //#includeFunc MachNo
     #includeFunc solverInfo
+    #includeFunc probes
     //#includeFunc calcB
     //#includeFunc wallShearStress
   

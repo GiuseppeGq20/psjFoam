@@ -22,19 +22,19 @@ domain
     Rout    #eval"10*$H";
     Dbot    #eval"-0.5*$H";
     Dup     #eval"0.5*$H";
-    Hbot    #eval"$Dbot -6*$H";
-    Hup     #eval"$Dbot +6*$H";
+    Hbot    #eval"$Dbot -10*$H";
+    Hup     #eval"$Dbot +10*$H";
 
     width   1e-3;
 
     // Number of cells
-    RinCells  32;//9; 
-    DCells    100;//30;
-    HCells    200;//300; 
-    RoutCells 180;//260; 
+    RinCells  24;//9; 
+    DCells    120;//30;
+    HCells    240;//300; 
+    RoutCells 220;//260; 
     
     //gradings
-    Dgrading    8;
+    Dgrading    3;
     RoutGrading 30;
     Hgrading    20;
 }

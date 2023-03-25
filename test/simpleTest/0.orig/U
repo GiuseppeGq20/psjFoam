@@ -24,11 +24,10 @@ boundaryField
 {
     "outlet.*"
     {   
-        type            inletOutlet;
-        inletValue      uniform $Uinlet;
-        value           uniform $Uinlet;
-        //type            fixedValue;
-        //value uniform $Uinlet;
+        //type            inletOutlet;
+        //inletValue      uniform $Uinlet;
+        //value           uniform $Uinlet;
+        type            zeroGradient;
     }
 
     "electrod.*"

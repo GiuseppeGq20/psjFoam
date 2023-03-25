@@ -32,20 +32,27 @@ expressions
         variables
         (
             "radius=0.5e-3"
-            "Tcore=5000"
-            "Tout=4700"
+            "Tcore=7500"
+            "Tout=6000"
+            "zT=0.85e-3"
+
         );
 
         fieldMask
         #{
             // Within the radius
             ((pos()-$[(vector)constants.centre]).x() < radius)
+            &&
+            (mag(pos().z()) > zT) // near electrode
+    
         #};
 
         expression
         #{
-             Tcore
-          - (Tcore - Tout )* (pos()-$[(vector)constants.centre]).x()/(radius)
+            //if(pos().z() > 0 )
+            
+                Tout + (Tcore-Tout)*
+                sin(3.14/2/(1e-3-zT)*(1e-3 -mag(pos().z())))
         #};
     }
    

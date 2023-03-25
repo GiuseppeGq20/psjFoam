@@ -24,8 +24,13 @@ boundaryField
 {
     "outlet.*"
     {   
-        type            inletOutlet;
-        inletValue      uniform $pOut;
+        //type            inletOutlet;
+        //inletValue      uniform $pOut;
+        //value           uniform $pOut;
+        type            totalPressure;
+        psi             thermo:psi;
+        gamma           1.4;
+        p0              uniform $pOut;
         value           uniform $pOut;
     }
 
