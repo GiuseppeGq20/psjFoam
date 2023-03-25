@@ -167,13 +167,9 @@ int main(int argc, char *argv[])
                 #include "rhoEqn.H"
             }
            
-            // Maxwell eqns
-            //#include "VEqn.H"
-            //#include "AEqn.H"
-            // 
 
             #include "UEqn.H"
-            #include "EEqn2.H"
+            #include "EEqn.H"
 
             // --- Pressure corrector loop
             while (pimple.correct())
@@ -188,7 +184,6 @@ int main(int argc, char *argv[])
                 }
             }
 
-            //#include "EEqn.H"
 
             if (pimple.turbCorr())
             {

@@ -1,8 +1,22 @@
 
+
 {
     volScalarField& he = thermo.he();
     
     thermo.correct();
+    sigmaC.update(thermo.p(),thermo.T()); //update electric conductivity
+    // solve potential equation
+    {
+    #include "VEqn.H"
+    }
+    volScalarField JouleHeating= sigma*Foam::magSqr(fvc::grad(V)); //calc joule heating
+    uradC.update(thermo.T()); // update NEC term
+    source=JouleHeating-urad;
+    
+    /*forAll(source,id)
+    {
+        source[id]=Foam::min(source[id],1.5e12);
+    }*/
 
     fvScalarMatrix EEqn
     (
@@ -19,24 +33,15 @@
           : -dpdt
         )
     - fvm::laplacian(turbulence->alphaEff(), he) 
+    - source
     ==
         fvOptions(rho, he)
     );
     
-    EEqn.solve();
-
-    //--- correction with Joule Heating ---//
-    thermo.correct();
-    sigmaC.update(thermo.p(),thermo.T()); //update electric conductivity
-    // solve potential equation
+    /*if (pimple.firstIter() && (pimple.nCorrPIMPLE()>1) )
     {
-    #include "VEqn.H"
-    }
-    volScalarField JouleHeating= sigma*Foam::magSqr(fvc::grad(V)); //calc joule heating
-    uradC.update(thermo.T()); // update NEC term
-    source=JouleHeating-urad;
-    
-    EEqn-=source; //add source to LHS, at the end it leaves the right sign
+        EEqn+=source;
+    }*/
 
     EEqn.relax();
 
@@ -44,20 +49,10 @@
 
     EEqn.solve();
 
-    //sigmaC.update(thermo.p(),thermo.T()); //update electric conductivity
-    //uradC.update(thermo.T()); //update NEC term
+    fvOptions.correct(he);
 
-    //---------------//
-    // update V field and NEC
     thermo.correct();
-    sigmaC.update(thermo.p(),thermo.T()); //update electric conductivity
-    // solve potential equation
-    {    
-    #include "VEqn.H"
-    }
-    JouleHeating= sigma*Foam::magSqr(fvc::grad(V)); //calc joule heating
-    uradC.update(thermo.T()); // update NEC term
-    source=JouleHeating-urad;
+
 
 
     Info<<"after eq:\n"
@@ -65,8 +60,5 @@
         <<"\nmax Urad: "<<Foam::max(urad) 
         <<"\nmax dpdt: "<<Foam::max(dpdt)<<endl;
     
-    fvOptions.correct(he);
-    
-    thermo.correct();
 
 }
