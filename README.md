@@ -27,14 +27,7 @@ You have to cd in `test/simpleTest` and then you can run the Allrun script.
     cd test/simpleTest
     ./Allrun.sh
 
-## note
-remember to un-ignore each file file you want to track in the test directories
-
-- source terms with [fvOptions](https://www.openfoam.com/documentation/guides/latest/doc/guide-fvoptions-sources.html)
-- [mhdFoam](https://www.openfoam.com/documentation/tutorial-guide/2-incompressible-flow/2.3-magnetohydrodynamic-flow-of-a-liquid)
-- [IOobject wiki](https://openfoamwiki.net/index.php/OpenFOAM_guide/Input_and_Output_operations_using_dictionaries_and_the_IOobject_class)
-
-## generating compile_command.json for intellisense
+## generate compile_command.json for intellisense
 use bear with allwmake
     
     ./Allwmake -with-bear
