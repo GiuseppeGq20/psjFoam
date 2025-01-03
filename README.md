@@ -2,12 +2,11 @@
 Solver for PSj actuators
 
 ## compilation process
-The solver and library should succesfully compile with openfoam2206 and 2212 installed on your machine
+The solver and library should succesfully compile with OpenFoam-v2412 onwards.
 ([how to install openfoam](https://develop.openfoam.com/Development/openfoam/-/wikis/precompiled)).
 First of all clone this repo on your machine.
     git clone https://github.com/GiuseppeGq20/JetActuatorFoam.git
 
-then cd in it.
 To compile all the solvers and library run:
 
     ./Allwmake
